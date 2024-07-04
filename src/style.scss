@@ -1,0 +1,93 @@
+@import '@/styles/global.scss';
+* {
+	margin: 0px;
+	padding: 0px;
+	box-sizing: border-box;
+}
+[data-theme='light']:root {
+	--primary: 206, 239, 253;
+	--sub: 207, 149, 217;
+	--grey-0: 255, 255, 255;
+	--grey-1: 253, 253, 253;
+	--grey-2: 247, 247, 247;
+	--grey-3: 239, 242, 243;
+	--grey-5: 153, 153, 153;
+	--grey-6: 103, 110, 123;
+	--grey-7: 51, 51, 51;
+	--bg: var(--grey-2);
+	--box-bg: var(--grey-1);
+	--text-color: var(--grey-7);
+	--text-sub-color: var(--grey-5);
+	--shadow: var(--grey-7);
+}
+
+[data-theme='dark']:root {
+	--primary: 207, 149, 217;
+	--sub: 108, 86, 181;
+	--grey-0: 0, 0, 0;
+	--grey-1: 48, 49, 54;
+	--grey-2: 31, 32, 35;
+	--grey-3: 68, 68, 68;
+	--grey-5: 170, 170, 170;
+	--grey-7: 221, 221, 221;
+	--bg: var(--grey-2);
+	--box-bg: var(--grey-1);
+	--text-color: var(--grey-7);
+	--text-sub-color: var(--grey-5);
+	--shadow: var(--grey-7);
+}
+input:-webkit-autofill {
+	box-shadow: 0 0 0 1000px transparent inset;
+	// -webkit-text-fill-color: @text-color-base;
+}
+
+:-webkit-autofill {
+	transition: background-color 5000s ease-in-out 0s !important;
+}
+
+html {
+	overflow: hidden;
+	text-size-adjust: 100%;
+}
+html {
+	@include media_slot('phone') {
+		font-size: rootVw(10);
+	}
+	@include media_slot('pad') {
+		font-size: rootVw(11);
+	}
+	@include media_slot('command') {
+		font-size: rootVw(12);
+	}
+	@include media_slot('notebook') {
+		font-size: rootVw(14);
+	}
+	@include media_slot('desktop') {
+		font-size: rootVw(16);
+	}
+	@include media_slot('tv') {
+		font-size: rootVw(18);
+	}
+}
+html,
+body,
+#app {
+	position: relative;
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+}
+
+a:focus,
+a:active,
+button,
+div,
+svg,
+span {
+	outline: none;
+}
+ul {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}

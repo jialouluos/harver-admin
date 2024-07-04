@@ -1,0 +1,11 @@
+{
+	"name": "@jialouluo/configs",
+	"version": "1.0.0",
+	"description": "",
+	"main": "./src/index.ts",
+	"type": "module",
+	"types": "./src/index.d.ts",
+	"keywords": [],
+	"author": "",
+	"license": "ISC"
+}

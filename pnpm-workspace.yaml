@@ -1,0 +1,4 @@
+packages:
+  - 'packages/*'## 不同project
+  - 'shared/*'## 公共组件
+  - '.'## root
