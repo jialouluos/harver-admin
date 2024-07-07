@@ -5,12 +5,15 @@ import LayoutAside from './layout-aside.vue';
 import { Layout } from 'ant-design-vue';
 import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons-vue';
 import { ref } from 'vue';
+import { useGo } from '@/hooks/usePage';
 
 const collapsed = ref(false);
 
 const AMenuFoldOutlined = MenuFoldOutlined;
 
 const AMenuUnfoldOutlined = MenuUnfoldOutlined;
+
+useGo();
 </script>
 
 <template>
@@ -33,12 +36,11 @@ const AMenuUnfoldOutlined = MenuUnfoldOutlined;
 </template>
 
 <style lang="scss">
-@import '@/styles/global.scss';
+@import '@/styles/global';
 
 .layout {
 	width: 100%;
 	height: 100%;
-
 	flex-direction: row;
 }
 </style>

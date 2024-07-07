@@ -1,5 +1,6 @@
 export enum PageEnum {
-    BASE_PAGE = '/login',
-    BASE_HOME = '/home',
-    DEMO = '/demo'
+	BASE_PAGE = '/',
+	LOGIN_PAGE = '/login',
+	EXCEPTION_PAGE = '/exception',
+	DEMO = '/demo',
 }

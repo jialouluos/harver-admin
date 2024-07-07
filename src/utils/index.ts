@@ -28,9 +28,6 @@ export const withInstall = <T extends CustomComponent>(component: T, alias?: str
 	return component as WithInstall<T>;
 };
 
-
-
-
 export const mediaWidthStringTransform = (mediaList: Record<MediaEnum, [number, number] | number>) => {
 	return Object.keys(mediaList).reduce((pre, cur) => {
 		const value = mediaList[cur as MediaEnum];

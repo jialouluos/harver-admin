@@ -7,6 +7,7 @@ export interface RouteMeta {
 	title: string;
 	icon?: string;
 	isMenu: boolean;
+	inMicro: boolean;
 }
 export interface IMenuConfig {
 	meta: RouteMeta;

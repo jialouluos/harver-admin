@@ -1,9 +1,11 @@
-@import '@/styles/global.scss';
+@import '@/styles/global';
+
 * {
-	margin: 0px;
-	padding: 0px;
+	padding: 0;
+	margin: 0;
 	box-sizing: border-box;
 }
+
 [data-theme='light']:root {
 	--primary: 206, 239, 253;
 	--sub: 207, 149, 217;
@@ -36,8 +38,10 @@
 	--text-sub-color: var(--grey-5);
 	--shadow: var(--grey-7);
 }
+
 input:-webkit-autofill {
 	box-shadow: 0 0 0 1000px transparent inset;
+
 	// -webkit-text-fill-color: @text-color-base;
 }
 
@@ -48,34 +52,39 @@ input:-webkit-autofill {
 html {
 	overflow: hidden;
 	text-size-adjust: 100%;
-}
-html {
+
 	@include media_slot('phone') {
 		font-size: rootVw(10);
 	}
+
 	@include media_slot('pad') {
 		font-size: rootVw(11);
 	}
+
 	@include media_slot('command') {
 		font-size: rootVw(12);
 	}
+
 	@include media_slot('notebook') {
 		font-size: rootVw(14);
 	}
+
 	@include media_slot('desktop') {
 		font-size: rootVw(16);
 	}
+
 	@include media_slot('tv') {
 		font-size: rootVw(18);
 	}
 }
+
 html,
 body,
 #app {
 	position: relative;
+	overflow: hidden;
 	width: 100%;
 	height: 100%;
-	overflow: hidden;
 }
 
 a:focus,
@@ -86,8 +95,9 @@ svg,
 span {
 	outline: none;
 }
+
 ul {
-	margin: 0;
 	padding: 0;
+	margin: 0;
 	list-style: none;
 }

@@ -64,10 +64,11 @@ const handleMenuClick = (menu: { key: string; keyPath: string[] }) => {
 </template>
 
 <style lang="scss">
-@import '@/styles/global.scss';
+@import '@/styles/global';
 
 .layout_aside {
 	width: max-content;
+
 	@include supper_box(0.5) {
 		& > * {
 			padding: rem(0.5);
@@ -79,9 +80,9 @@ const handleMenuClick = (menu: { key: string; keyPath: string[] }) => {
 	@include supper_box(0.125) {
 		& > * {
 			padding: 0;
-			box-shadow: none;
-			border: none;
 			background-color: initial;
+			border: none;
+			box-shadow: none;
 		}
 	}
 }

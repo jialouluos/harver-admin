@@ -1,8 +1,11 @@
 import { RouteMeta } from '@jialouluo/configs/src/configs/packages';
+import { defineComponent } from 'vue';
 import { RouteRecordRaw } from 'vue-router';
-
+// export type Component<T = any> =
+// 	| ReturnType<typeof defineComponent>
+// 	| (() => Promise<typeof import('*.vue')>)
+// 	| (() => Promise<T>);
 export interface AppRouteModule extends Omit<RouteRecordRaw, 'meta' | 'children'> {
-	component?: () => Promise<typeof import('*.vue')>;
 	meta: RouteMeta;
 	children?: AppRouteModule[];
 }

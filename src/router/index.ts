@@ -50,9 +50,13 @@ export const rawMenus = moduleRouteList
 	.filter(item => item.meta.isMenu)
 	.map(item => {
 		return deepHandleObjectFn(item, 'children', {
-			breakFn: obj => {
+			dropFn: obj => {
 				return !obj.meta.isMenu;
 			},
+			handleFn: obj => ({
+				...obj,
+				children: undefined,
+			}),
 		});
 	});
 

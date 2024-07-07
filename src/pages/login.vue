@@ -53,38 +53,47 @@ const onFinishFailed = () => {};
 </template>
 
 <style lang="scss">
-@import '@/styles/global.scss';
+@import '@/styles/global';
+
 #login-wrapper {
 	width: 100%;
 	height: 100%;
-	@include flex_center();
+
+	@include flex_center;
+
 	background-image: radial-gradient(circle at 10% 20%, col(grey-2) 0%, col(primary) 90%);
+
 	.shell {
-		@include flex_center() {
+		@include flex_center {
 			align-items: flex-start;
 			flex-wrap: wrap;
 		}
+
+		padding: 0 rem(6);
 		width: rem(32);
 		height: auto;
-		@include border_radius();
-		@include grass();
-		@include shadow('box');
-		background-color: #00000000;
-		border: 1px solid rgba(209, 213, 219, 0.3);
-		padding: 0 rem(6);
+		background-color: #0000;
+		border: 1px solid rgb(209 213 219 / 30%);
 		gap: rem(1);
+
+		@include border_radius;
+		@include grass;
+		@include shadow('box');
+
 		& > div {
-			width: 100%;
-			margin: 0px;
-		}
-		.title {
-			font-size: rem(2.5);
 			margin: 0;
+			width: 100%;
+		}
+
+		.title {
+			margin: 0;
+			font-size: rem(2.5);
 			color: col(grey-6, 1);
 		}
+
 		.submit {
-			text-align: center;
 			margin-bottom: rem(1);
+			text-align: center;
 		}
 	}
 }

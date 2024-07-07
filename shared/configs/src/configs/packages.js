@@ -19,7 +19,7 @@ export const packagesConfig = {
 			name: '@jialouluo/demo',
 			entry: '//localhost:5174',
 			activeRule: `/${PACKAGE_ENUM.DEMO}`,
-			container: '#micro_container',
+			container: '#micro-container',
 			props: {},
 		},
 		menuConfig: {
@@ -28,18 +28,20 @@ export const packagesConfig = {
 				title: '案例',
 				icon: '',
 				isMenu: true,
+				inMicro: true,
 			},
 			name: PACKAGE_ENUM.DEMO,
 			path: `/${PACKAGE_ENUM.DEMO}`,
 			children: [
 				{
-					name: `${PACKAGE_ENUM.DEMO}-SHOW`,
-					path: `/:path(.*)*`,
+					name: PACKAGE_ENUM.DEMO,
+					path: `:path(.*)*`,
 					meta: {
 						order: 0,
 						title: '',
 						icon: '',
 						isMenu: false,
+						inMicro: true,
 					},
 				},
 			],

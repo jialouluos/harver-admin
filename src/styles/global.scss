@@ -4,13 +4,15 @@
 	align-items: center;
 	@content;
 }
+
 @mixin border_radius($rad: 1) {
 	border-radius: rem($rad);
 }
+
 @mixin grass() {
 	backdrop-filter: blur(16px);
-	-webkit-backdrop-filter: blur(16px);
 }
+
 @mixin shadow($type) {
 	@if $type == 'box' {
 		box-shadow: 0 rem(0.1) rem(0.4) rem(0) col(shadow, 0.2);
@@ -18,55 +20,64 @@
 		text-shadow: 0 0 rem(1) col(primary, 0.6);
 	}
 }
+
 @mixin supper_box($radiusValue: 0.5, $borderRadius: 0.5) {
-	$halfRadius: calc($radiusValue/2);
-	$hhRadius: calc($radiusValue/4);
+	$halfRadius: calc($radiusValue / 2);
+	$hhRadius: calc($radiusValue / 4);
+
 	@include shadow('box');
 	@include border_radius($borderRadius);
-	padding: rem($radiusValue);
-	border: 1px solid col(#cde3ff, 0.9);
-	background: radial-gradient(col(#3cddff, 0.4) 0%, col(#d5c9ff, 0.4) 90%);
+
 	position: relative;
-	@include grass();
 	z-index: 0;
+	padding: rem($radius-Value);
+	background: radial-gradient(col(#3cddff, 0.4) 0%, col(#d5c9ff, 0.4) 90%);
+	border: 1px solid col(#cde3ff, 0.9);
+
+	@include grass;
+
 	&::after {
-		content: '';
-		@include border_radius($borderRadius);
 		position: absolute;
 		top: rem($hhRadius);
 		left: rem($hhRadius);
 		z-index: 0;
 		width: calc(100% - rem($halfRadius));
-		@include grass();
-		background: radial-gradient(circle at 50% 50%, col(#fff, 0.4) 0%, col(#3cddff, 0.1) 90%);
-		pointer-events: none;
 		height: calc(100% - rem($halfRadius));
-	}
-	&::before {
+		background: radial-gradient(circle at 50% 50%, col(#fff, 0.4) 0%, col(#3cddff, 0.1) 90%);
 		content: '';
+		pointer-events: none;
+
 		@include border_radius($borderRadius);
+		@include grass;
+	}
+
+	&::before {
 		position: absolute;
 		top: rem($halfRadius);
 		left: rem($halfRadius);
 		z-index: 1;
 		width: calc(100% - rem($radiusValue));
-		background-color: initial;
-		pointer-events: none;
 		height: calc(100% - rem($radiusValue));
+		background-color: initial;
+		content: '';
+		pointer-events: none;
+
+		@include border_radius($borderRadius);
 	}
+
 	& > * {
-		z-index: 9;
 		position: relative;
+		z-index: 9;
+		padding: rem(1);
 		background-color: #fff;
+
 		@include border_radius($borderRadius);
 		@include shadow('box');
-
-		padding: rem(1);
 	}
 	@content;
 }
-//媒体查询
-$break_points: (
+
+$breakPoints: (
 	'phone': (
 		20px,
 		481px,
@@ -89,13 +100,16 @@ $break_points: (
 	),
 	'tv': 1600px,
 );
+
 @mixin media_slot($break_name) {
 	@if type-of($break_name) == 'list' {
 		@each $item in $break_name {
-			$bp: map-get($break_points, $item);
+			$bp: map-get($breakPoints, $item);
+
 			@if type-of($bp) == 'list' {
 				$min: nth($bp, 1);
 				$max: nth($bp, 2);
+
 				@media (min-width: $min) and (max-width: $max) {
 					@content;
 				}
@@ -106,10 +120,12 @@ $break_points: (
 			}
 		}
 	} @else {
-		$bp: map-get($break_points, $break_name);
+		$bp: map-get($breakPoints, $break_name);
+
 		@if type-of($bp) == 'list' {
 			$min: nth($bp, 1);
 			$max: nth($bp, 2);
+
 			@media (min-width: $min) and (max-width: $max) {
 				@content;
 			}
@@ -128,9 +144,11 @@ $break_points: (
 		@return rgba(var(--#{$name}), $a);
 	}
 }
+
 @function rem($val) {
 	@return ($val) * 1rem;
 }
+
 @function rootVw($rootSize) {
 	@return $rootSize * 1px;
 }

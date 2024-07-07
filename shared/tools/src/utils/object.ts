@@ -33,13 +33,11 @@ export const deepHandleObjectFn = <
 	prop: K,
 	options: {
 		handleFn?: (obj: T) => _R | T;
-		breakFn?: (obj: T) => boolean;
+		dropFn?: (obj: T) => boolean;
 	}
 ): R => {
-	const { handleFn = obj => obj, breakFn = () => false } = options;
+	const { handleFn = obj => obj, dropFn = () => false } = options;
 	const newObject = handleFn(target) as unknown as R;
-
-	if (breakFn(target)) return newObject;
 
 	if (prop in target) {
 		if (isFalse(target[prop])) return newObject;
@@ -47,9 +45,15 @@ export const deepHandleObjectFn = <
 		const _children = target[prop];
 
 		if (isArray<T>(_children)) {
-			newObject[prop] = _children.map(item => {
-				return deepHandleObjectFn(item, prop, options);
-			}) as R[K];
+			const newValue = _children
+				.filter(item => !dropFn(item))
+				.map(item => {
+					return deepHandleObjectFn(item, prop, options);
+				}) as R[K];
+
+			if (newValue.length) {
+				newObject[prop] = newValue;
+			}
 		}
 	}
 

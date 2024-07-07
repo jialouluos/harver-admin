@@ -1,5 +1,4 @@
 {
-  
   "compilerOptions": {
     "target": "ESNext",
     "useDefineForClassFields": true,
@@ -32,12 +31,14 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
     "allowSyntheticDefaultImports": true,
+
   },
   "include": [
     "src/**/*.ts",
     "src/**/*.tsx",
-    "src/**/*.vue"
-, "shared/tools/src/utils/object.ts"  ],
+    "src/**/*.vue",
+    "shared/tools/src/utils/object.ts"
+  ],
   "references": [
     {
       "path": "./tsconfig.node.json"

@@ -7,5 +7,3 @@ import { AppProvider } from '@/components/Application';
 		<RouterView />
 	</AppProvider>
 </template>
-
-<style scoped></style>

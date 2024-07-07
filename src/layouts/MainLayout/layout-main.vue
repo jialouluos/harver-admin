@@ -1,33 +1,43 @@
 <script lang="ts" setup>
 import { start } from '@/microApp';
 import { onMounted } from 'vue';
+import { useRoute } from 'vue-router';
 onMounted(() => {
 	start();
 });
+const route = useRoute();
 </script>
 <template>
 	<a-layout-content class="content">
 		<div>
-			<!-- <RouterView /> -->
-			<div id="micro_container"></div>
+			<div
+				id="micro-container"
+				v-if="route.meta.inMicro"></div>
+			<RouterView v-else />
 		</div>
 	</a-layout-content>
 </template>
 
 <style lang="scss">
-@import '@/styles/global.scss';
+@import url('@/styles/global');
+
+.ee {
+	padding: 321;
+}
 
 .content {
 	@include supper_box(0.5) {
 		& > * {
-			width: 100%;
-			height: 100%;
 			overflow: auto;
 			padding: rem(0.5);
+			width: 100%;
+			height: 100%;
 		}
 	}
-	#micro_container {
+
+	#micro-container {
 		height: 100%;
+
 		& > div {
 			width: 100%;
 			height: 100%;
