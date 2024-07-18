@@ -51,4 +51,29 @@ export const exceptionRoute: AppRouteModule = {
 		},
 	],
 };
-export const basicRoutes = <AppRouteModule[]>[LoginRoute, RootRoute, exceptionRoute];
+
+export const TestRoute: AppRouteModule = {
+	path: PageEnum.TEST_PAGE,
+	name: 'Test',
+	component: DEFAULT_LAYOUT,
+	meta: {
+		title: '测试',
+		order: 1,
+		isMenu: true,
+		inMicro: false,
+	},
+	children: [
+		{
+			path: 'test_1',
+			name: 'Test_1',
+			component: () => import('@/test/test_1/index.vue'),
+			meta: {
+				title: '表单扫盲',
+				order: 1,
+				isMenu: true,
+				inMicro: false,
+			},
+		},
+	],
+};
+export const basicRoutes = <AppRouteModule[]>[LoginRoute, RootRoute, exceptionRoute, TestRoute];

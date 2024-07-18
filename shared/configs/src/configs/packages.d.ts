@@ -1,6 +1,7 @@
 export declare enum PACKAGE_ENUM {
 	BASE = 'base',
 	DEMO = 'demo',
+	ADMIN = 'admin',
 }
 export interface RouteMeta {
 	order: number;

@@ -19,11 +19,7 @@ const route = useRoute();
 </template>
 
 <style lang="scss">
-@import url('@/styles/global');
-
-.ee {
-	padding: 321;
-}
+@import '@/styles/global';
 
 .content {
 	@include supper_box(0.5) {

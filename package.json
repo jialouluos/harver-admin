@@ -28,6 +28,9 @@
 		"@vitejs/plugin-vue": "^5.0.4",
 		"ant-design-vue": "^4.2.3",
 		"chalk": "^5.3.0",
+		"commitizen": "^4.3.0",
+		"cz-conventional-changelog": "^3.3.0",
+		"cz-customizable": "^7.2.1",
 		"detect-port": "^1.6.1",
 		"enquirer": "^2.4.1",
 		"execa": "^9.3.0",
@@ -50,5 +53,10 @@
 		"vue-router": "^4.3.3",
 		"vue-tsc": "^2.0.6"
 	},
-	"packageManager": "pnpm@8.3.1+sha1.75c6e8a4075abfc494770f998bf37b9ada110f51"
+	"packageManager": "pnpm@8.3.1+sha1.75c6e8a4075abfc494770f998bf37b9ada110f51",
+	"config": {
+		"commitizen": {
+		  "path": "node_modules/cz-customizable"
+		}
+	  }
 }
