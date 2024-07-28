@@ -74,6 +74,17 @@ export const TestRoute: AppRouteModule = {
 				inMicro: false,
 			},
 		},
+		{
+			path: 'test_2',
+			name: 'Test_2',
+			component: () => import('@/test/test_2/index.vue'),
+			meta: {
+				title: '油猴脚本',
+				order: 1,
+				isMenu: true,
+				inMicro: false,
+			},
+		},
 	],
 };
 export const basicRoutes = <AppRouteModule[]>[LoginRoute, RootRoute, exceptionRoute, TestRoute];

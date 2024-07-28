@@ -45,7 +45,7 @@ module.exports = {
 		'scss/at-mixin-pattern': /^[a-z]+(_[a-z0-9]+)*$/, //mixin变量名规范
 		'scss/operator-no-unspaced': true, //  /前的空格校验
 		'block-no-empty': true, // 禁止空块
-
+		'at-rule-empty-line-before': 'never',//在 @ 之前必须始终有一个空行。
 		'selector-class-pattern': '.', // 类选择器的命名规则
 		'scss/no-global-function-names': null, //禁止scss全局函数直接使用
 		'scss/at-function-pattern': /^[a-z][a-zA-Z]+$/, //@function命名规则

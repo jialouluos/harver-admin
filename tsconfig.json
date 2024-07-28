@@ -31,13 +31,13 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
     "allowSyntheticDefaultImports": true,
-
   },
   "include": [
     "src/**/*.ts",
     "src/**/*.tsx",
     "src/**/*.vue",
-    "shared/tools/src/utils/object.ts"
+    "shared/tools/src/utils/object.ts",
+    "src/hooks/tamperMonkey/usePictureInPicture.js"
   ],
   "references": [
     {

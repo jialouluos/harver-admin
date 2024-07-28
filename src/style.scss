@@ -52,27 +52,21 @@ input:-webkit-autofill {
 html {
 	overflow: hidden;
 	text-size-adjust: 100%;
-
 	@include media_slot('phone') {
 		font-size: rootVw(10);
 	}
-
 	@include media_slot('pad') {
 		font-size: rootVw(11);
 	}
-
 	@include media_slot('command') {
 		font-size: rootVw(12);
 	}
-
 	@include media_slot('notebook') {
 		font-size: rootVw(14);
 	}
-
 	@include media_slot('desktop') {
 		font-size: rootVw(16);
 	}
-
 	@include media_slot('tv') {
 		font-size: rootVw(18);
 	}

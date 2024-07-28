@@ -4,15 +4,38 @@
 	align-items: center;
 	@content;
 }
-
 @mixin border_radius($rad: 1) {
 	border-radius: rem($rad);
 }
-
 @mixin grass() {
 	backdrop-filter: blur(16px);
 }
+@mixin border() {
+	border: 1px solid col(#cde3ff, 0.9);
+}
+@mixin pointer() {
+	cursor: pointer;
+}
+@mixin text_hover {
+	transition: color 0.3s;
 
+	&:hover {
+		color: col(sub);
+	}
+}
+@mixin button() {
+	@include flex_center;
+	@include border_radius(1);
+	@include shadow('box');
+	@include pointer;
+	@include border;
+	@include text_hover;
+
+	margin: 0 0.3rem;
+	width: 5rem;
+	height: 2rem;
+	background-color: col(primary);
+}
 @mixin shadow($type) {
 	@if $type == 'box' {
 		box-shadow: 0 rem(0.1) rem(0.4) rem(0) col(shadow, 0.2);
@@ -20,11 +43,9 @@
 		text-shadow: 0 0 rem(1) col(primary, 0.6);
 	}
 }
-
 @mixin supper_box($radiusValue: 0.5, $borderRadius: 0.5) {
 	$halfRadius: calc($radiusValue / 2);
 	$hhRadius: calc($radiusValue / 4);
-
 	@include shadow('box');
 	@include border_radius($borderRadius);
 
@@ -33,7 +54,6 @@
 	padding: rem($radiusValue);
 	background: radial-gradient(col(#3cddff, 0.4) 0%, col(#d5c9ff, 0.4) 90%);
 	border: 1px solid col(#cde3ff, 0.9);
-
 	@include grass;
 
 	&::after {
@@ -46,7 +66,6 @@
 		background: radial-gradient(circle at 50% 50%, col(#fff, 0.4) 0%, col(#3cddff, 0.1) 90%);
 		content: '';
 		pointer-events: none;
-
 		@include border_radius($borderRadius);
 		@include grass;
 	}
@@ -61,7 +80,6 @@
 		background-color: initial;
 		content: '';
 		pointer-events: none;
-
 		@include border_radius($borderRadius);
 	}
 
@@ -70,7 +88,6 @@
 		z-index: 9;
 		padding: rem(1);
 		background-color: #fff;
-
 		@include border_radius($borderRadius);
 		@include shadow('box');
 	}
@@ -100,16 +117,13 @@ $breakPoints: (
 	),
 	'tv': 1600px,
 );
-
 @mixin media_slot($break_name) {
 	@if type-of($break_name) == 'list' {
 		@each $item in $break_name {
 			$bp: map-get($breakPoints, $item);
-
 			@if type-of($bp) == 'list' {
 				$min: nth($bp, 1);
 				$max: nth($bp, 2);
-
 				@media (min-width: $min) and (max-width: $max) {
 					@content;
 				}
@@ -121,11 +135,9 @@ $breakPoints: (
 		}
 	} @else {
 		$bp: map-get($breakPoints, $break_name);
-
 		@if type-of($bp) == 'list' {
 			$min: nth($bp, 1);
 			$max: nth($bp, 2);
-
 			@media (min-width: $min) and (max-width: $max) {
 				@content;
 			}
@@ -136,7 +148,6 @@ $breakPoints: (
 		}
 	}
 }
-
 @function col($name, $a: 1) {
 	@if type-of($name) == 'color' {
 		@return rgba($name, $a);
@@ -144,11 +155,9 @@ $breakPoints: (
 		@return rgba(var(--#{$name}), $a);
 	}
 }
-
 @function rem($val) {
 	@return ($val) * 1rem;
 }
-
 @function rootVw($rootSize) {
 	@return $rootSize * 1px;
 }

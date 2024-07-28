@@ -4,13 +4,12 @@
 	"version": "0.0.0",
 	"type": "module",
 	"scripts": {
-		"all-dev-vite-node": "vite-node ./scripts/dev.ts ",
-		"all-dev-tsx": "tsx ./scripts/dev.ts ",
-		"all-dev-ts-node": "ts-node ./scripts/dev.ts ",
+		"all-run": "vite-node ./scripts/dev.ts ",
+		"user-script": "vite-node ./src/hooks/tamperMonkey/tools/utils/compiler/index.ts",
 		"dev": "vite",
 		"build": "vue-tsc && vite build",
-		"preview": "vite preview",
-		"preinstall": "npx only-allow pnpm"
+		"preinstall": "npx only-allow pnpm",
+		"preview": "vite preview"
 	},
 	"dependencies": {
 		"qiankun": "^2.10.16",
@@ -33,6 +32,8 @@
 		"cz-customizable": "^7.2.1",
 		"detect-port": "^1.6.1",
 		"enquirer": "^2.4.1",
+		"esbuild": "^0.23.0",
+		"esbuild-plugin-external-global": "^1.0.1",
 		"execa": "^9.3.0",
 		"postcss-html": "^1.7.0",
 		"postcss-scss": "^4.0.9",
