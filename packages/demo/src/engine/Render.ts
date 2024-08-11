@@ -12,7 +12,7 @@ import GUI from 'three/examples/jsm/libs/lil-gui.module.min.js';
 import gsap from 'gsap';
 import { _Math } from './Math';
 import GCPool from './GCPool';
-import { qiankunPublicPath } from '@jialouluo/tools/src/utils/qiankun';
+import { qiankunPublicPath } from '@jialouluo/tools';
 
 interface I_Event {
 	pointerUp: (mouseUp: THREE.Vector2, mousePos: THREE.Vector2) => void;

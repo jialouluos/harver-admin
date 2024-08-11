@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "composite": true,
+    "skipLibCheck": true,
+    "module": "ESNext",
+    "moduleResolution": "Node",
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "noImplicitAny": true, // 不允许隐式的any类型,
+  },
+  "include": [
+    "webpack.config.ts",
+    "typing.d.ts"
+  ]
+}

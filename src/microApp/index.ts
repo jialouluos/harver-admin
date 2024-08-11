@@ -1,5 +1,5 @@
 import { registerMicroApps, addGlobalUncaughtErrorHandler, FrameworkLifeCycles, RegistrableApp } from 'qiankun';
-import { packagesConfig, PACKAGE_ENUM } from '@jialouluo/configs/src/configs/packages';
+import packagesConfig, { PACKAGE_ENUM } from '@jialouluo/configs';
 
 const microApps = Object.values(packagesConfig)
 	.filter(item => item.name !== PACKAGE_ENUM.BASE)

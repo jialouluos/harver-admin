@@ -1,0 +1,57 @@
+{
+  "compilerOptions": {
+    "outDir": "./dist",
+    "noImplicitAny": true,
+    "noEmit": false,
+    "allowJs": true,
+    "target": "ESNext", //指定编译的目标 JavaScript 版本
+    "useDefineForClassFields": true,
+    "module": "ESNext", //指定模块的生成方式为
+    "lib": [
+      "ESNext",
+      "DOM",
+      "DOM.Iterable"
+    ],
+    "skipLibCheck": true,
+    /* Bundler mode */
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "preserve",
+    "rootDir": ".",
+    "baseUrl": "./", // 这里需要配置
+    "paths": {
+      "@/*": [
+        "./src/*"
+      ] // 这里需要配置
+    },
+    /* Linting */
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "esModuleInterop": true,
+    "noFallthroughCasesInSwitch": true,
+    "allowSyntheticDefaultImports": true,
+  },
+  "ts-node": {
+    "esm": true,
+    "compilerOptions": {
+      "module": "CommonJS",
+    },
+    "transpileOnly": true,
+    "moduleTypes": {
+      "webpack.config.ts": "cjs",
+      "./src/common/webpack.umd.config.ts": "cjs",
+      "./src/node/webpack.umd.config.ts": "cjs",
+    }
+  },
+  "include": [
+    "src/**/*.ts",
+    "typing.d.ts"
+  ],
+  "references": [
+    {
+      "path": "./tsconfig.node.json"
+    },
+  ]
+}

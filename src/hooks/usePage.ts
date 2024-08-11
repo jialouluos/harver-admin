@@ -1,6 +1,5 @@
 import { useRouter, type RouteLocationRaw, type Router } from 'vue-router';
-import { mergeRoutePath } from '@jialouluo/tools/src/utils/string';
-import { openWindow } from '@jialouluo/tools/src/utils/feat';
+import { mergeRoutePath, openWindow } from '@jialouluo/tools';
 
 function handleError(e: Error) {
 	console.error(e);

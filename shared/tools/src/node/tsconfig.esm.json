@@ -1,0 +1,20 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "module": "ESNext",
+    "target": "ESNext",
+    "lib": [
+      "ESNext",
+      "DOM"
+    ],
+    "outDir": "../../dist/lib-esm/node",
+    "sourceMap": true,
+    "declaration": true,
+    "skipLibCheck": true,
+  },
+  "include": [
+    "./index.ts",
+    "../types/index.ts",
+    "../../typing.d.ts"
+  ],
+}

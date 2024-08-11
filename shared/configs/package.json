@@ -2,10 +2,42 @@
 	"name": "@jialouluo/configs",
 	"version": "1.0.0",
 	"description": "",
-	"main": "./src/index.ts",
+	"main": "./dist/lib/index.cjs",
 	"type": "module",
-	"types": "./src/index.d.ts",
+	"types": "./dist/lib-esm/index.d.ts",
+	"module": "./dist/lib-esm/index.js",
+	"unpkg": "./dist/umd/index.js",
+	"jsdelivr": "./dist/umd/index.js",
+	"exports": {
+		".": {
+			"types": "./dist/lib-esm/index.d.ts",
+			"import": "./dist/lib-esm/index.js",
+			"require": "./dist/lib/index.cjs"
+		}
+	},
+	"scripts": {
+		"build-package": " pnpm run build-esm && pnpm run build-cjs && pnpm run build-umd  ",
+		"build-package-tsup": " pnpm run build-esm-tsup && pnpm run build-cjs-tsup && pnpm run build-umd  ",
+		"build-base": "webpack",
+		"build-esm-tsup": "tsup --config ./tsup.config.esm.ts",
+		"build-esm": "webpack --config webpack.esm.config.ts && tsc -p ./tsconfig.esm.json",
+		"build-cjs": "tsc -p ./tsconfig.cjs.json",
+		"build-cjs-tsup": "tsup --config ./tsup.config.cjs.ts",
+		"build-umd": "webpack --config webpack.umd.config.ts"
+	},
 	"keywords": [],
 	"author": "",
-	"license": "ISC"
+	"license": "ISC",
+	"dependencies": {
+		"awesome-typescript-loader": "^5.2.1",
+		"cross-env": "^7.0.3",
+		"ts-loader": "^9.5.1",
+		"tsc-alias": "^1.8.10",
+		"tsup": "^8.2.4",
+		"types-webpack-bundler": "^1.0.2",
+		"typescript": "5.5.4",
+		"webpack": "^5.93.0",
+		"webpack-cli": "^5.1.4",
+		"webpack-parallel-uglify-plugin": "^2.0.0"
+	}
 }

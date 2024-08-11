@@ -2,11 +2,62 @@
 	"name": "@jialouluo/tools",
 	"version": "1.0.0",
 	"description": "",
-	"main": "./src/index.ts",
+	"main": "./dist/lib/common/index.cjs",
+	"type": "module",
+	"types": "./dist/lib-esm/common/index.d.ts",
+	"module": "./dist/lib-esm/common/index.js",
+	"unpkg": "./dist/umd/common/index.js",
+	"jsdelivr": "./dist/umd/common/index.js",
+	"exports": {
+		".": {
+			"types": "./dist/lib-esm/common/index.d.ts",
+			"import": "./dist/lib-esm/common/index.js",
+			"require": "./dist/lib/common/index.cjs"
+		},
+		"./node": {
+			"types": "./dist/lib-esm/node/index.d.ts",
+			"import": "./dist/lib-esm/node/index.js",
+			"require": "./dist/lib/node/index.cjs"
+		}
+	},
+	"typesVersions": {
+		"*": {
+			"node": [
+				"./dist/lib-esm/node/index.d.ts"
+			]
+		}
+	},
 	"scripts": {
-		"test": "echo \"Error: no test specified\" && exit 1"
+		"build-node-package": "pnpm run build-node-esm && pnpm run build-node-cjs && pnpm run build-node-umd",
+		"build-common-package": "pnpm run build-common-esm && pnpm run build-common-cjs && pnpm run build-common-umd",
+		"build-node-tsup-package": "pnpm run build-node-esm-tsup && pnpm run build-node-cjs-tsup && pnpm run build-node-umd",
+		"build-common-tsup-package": "pnpm run build-common-esm-tsup && pnpm run build-common-cjs-tsup && pnpm run build-common-umd",
+		"build-base": "webpack",
+		"build-common-esm": "tsc -p ./src/common/tsconfig.esm.json",
+		"build-common-cjs": "tsc -p ./src/common/tsconfig.cjs.json",
+		"build-common-esm-tsup": "tsup  --config ./src/common/tsup.config.esm.ts",
+		"build-common-cjs-tsup": "tsup  --config ./src/common/tsup.config.cjs.ts",
+		"build-common-umd": "webpack --config ./src/common/webpack.umd.config.ts",
+		"build-node-esm": "tsc -p ./src/node/tsconfig.esm.json",
+		"build-node-cjs": "tsc -p ./src/node/tsconfig.cjs.json",
+		"build-node-esm-tsup": "tsup  --config ./src/node/tsup.config.esm.ts",
+		"build-node-cjs-tsup": "tsup  --config ./src/node/tsup.config.cjs.ts",
+		"build-node-umd": "webpack --config ./src/node/webpack.umd.config.ts"
+	},
+	"browser": {
+		"fs": false,
+		"path": false,
+		"os": false
 	},
 	"keywords": [],
 	"author": "",
-	"license": "ISC"
+	"license": "ISC",
+	"dependencies": {
+		"awesome-typescript-loader": "^5.2.1",
+		"tsup": "^8.2.4",
+		"typescript": "5.5.4",
+		"webpack": "^5.93.0",
+		"webpack-cli": "^5.1.4",
+		"webpack-parallel-uglify-plugin": "^2.0.0"
+	}
 }

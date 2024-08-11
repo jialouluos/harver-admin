@@ -1,4 +1,4 @@
-import { RouteMeta } from '@jialouluo/configs/src/configs/packages';
+import { RouteMeta } from '@jialouluo/configs';
 import { defineComponent } from 'vue';
 import { RouteRecordRaw } from 'vue-router';
 // export type Component<T = any> =

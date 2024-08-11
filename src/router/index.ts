@@ -2,7 +2,7 @@ import { RouteRecordRaw, createRouter, createWebHistory } from 'vue-router';
 import { basicRoutes } from './routes/basic';
 import { App } from 'vue';
 import { AppRouteModule } from '@/types/Route';
-import { deepHandleObjectFn } from '@jialouluo/tools/src/utils/object';
+import { deepHandleObjectFn } from '@jialouluo/tools';
 
 const modulesGlob = import.meta.glob('./modules/**/*.ts', { eager: true }); // import.meta.glob() 直接引入所有的模块 Vite 独有的功能
 
@@ -12,7 +12,7 @@ const moduleRouteList: AppRouteModule[] = [...basicRoutes];
 
 // 加入到路由集合中
 Object.keys(modulesGlob).forEach(key => {
-	console.log((modulesGlob as Record<string, { default: AppRouteModule }>)[key]);
+	console.log(key, (modulesGlob as Record<string, { default: AppRouteModule }>)[key]);
 	const module = (modulesGlob as Record<string, { default: AppRouteModule }>)[key].default || {};
 	const modules = Array.isArray(module) ? [...module] : [module];
 	moduleRouteList.push(...modules);
@@ -50,16 +50,15 @@ export const rawMenus = moduleRouteList
 	.filter(item => item.meta.isMenu)
 	.map(item => {
 		return deepHandleObjectFn(item, 'children', {
-			dropFn: obj => {
-				return !obj.meta.isMenu;
+			filterFn: obj => {
+				return obj.meta.isMenu;
 			},
 			handleFn: obj => ({
 				...obj,
-				children: undefined,
 			}),
 		});
 	});
-
+console.log(rawMenus, 'rawMenus');
 export const setupRoute = (app: App<Element>) => {
 	initWhiteList(basicRoutes);
 	app.use(router);

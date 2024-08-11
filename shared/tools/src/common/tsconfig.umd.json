@@ -1,0 +1,14 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "outDir": "../../dist/umd/common",
+    "skipLibCheck": true,
+    "sourceMap": true,
+    "declaration": true,
+  },
+  "include": [
+    "./index.ts",
+    "../types/index.ts",
+    "../../typing.d.ts"
+  ],
+}

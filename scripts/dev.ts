@@ -4,8 +4,7 @@ import enquirer from 'enquirer';
 import { execa } from 'execa';
 
 import detect from 'detect-port';
-
-import { PACKAGE_ENUM, packagesConfig } from '@jialouluo/configs/src/configs/packages.js';
+import packagesConfig, { PACKAGE_ENUM, PORT_ENUM } from '@jialouluo/configs';
 
 // 已占用端口列表
 type PortInfo = {
@@ -17,7 +16,7 @@ const portMap = new Map<PACKAGE_ENUM, boolean>(); //<packageName,isRun>
 const checkPorts = (Object.keys(packagesConfig) as PACKAGE_ENUM[]).map(
 	key =>
 		new Promise<PortInfo>(resolve => {
-			(detect(packagesConfig[key].port) as Promise<number>).then(port => {
+			(detect(packagesConfig[key].port) as Promise<PORT_ENUM>).then(port => {
 				resolve({
 					package: key,
 					isOccupied: port !== packagesConfig[key].port,

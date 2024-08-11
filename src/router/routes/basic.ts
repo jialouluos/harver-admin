@@ -52,32 +52,32 @@ export const exceptionRoute: AppRouteModule = {
 	],
 };
 
-export const TestRoute: AppRouteModule = {
-	path: PageEnum.TEST_PAGE,
-	name: 'Test',
+export const ExperimentRoute: AppRouteModule = {
+	path: PageEnum.EXPERIMENT,
+	name: 'ExperimentRoute',
 	component: DEFAULT_LAYOUT,
 	meta: {
-		title: '测试',
+		title: '实验室',
 		order: 1,
 		isMenu: true,
 		inMicro: false,
 	},
 	children: [
 		{
-			path: 'test_1',
-			name: 'Test_1',
-			component: () => import('@/test/test_1/index.vue'),
+			path: 'upload-file',
+			name: 'upload-file',
+			component: () => import('@/experiment/upload-file/index.vue'),
 			meta: {
-				title: '表单扫盲',
+				title: '文件上传',
 				order: 1,
 				isMenu: true,
 				inMicro: false,
 			},
 		},
 		{
-			path: 'test_2',
-			name: 'Test_2',
-			component: () => import('@/test/test_2/index.vue'),
+			path: 'monkey',
+			name: 'monkey',
+			component: () => import('@/experiment/user-script/index.vue'),
 			meta: {
 				title: '油猴脚本',
 				order: 1,
@@ -87,4 +87,4 @@ export const TestRoute: AppRouteModule = {
 		},
 	],
 };
-export const basicRoutes = <AppRouteModule[]>[LoginRoute, RootRoute, exceptionRoute, TestRoute];
+export const basicRoutes = <AppRouteModule[]>[LoginRoute, RootRoute, exceptionRoute, ExperimentRoute];

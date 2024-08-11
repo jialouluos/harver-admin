@@ -3,7 +3,8 @@ import { lazy, Suspense } from 'react';
 import { Routes, Route, BrowserRouter as Router, Navigate } from 'react-router-dom';
 import { DEMO } from '@/types';
 import { qiankunWindow } from 'vite-plugin-qiankun/dist/helper';
-import { PACKAGE_ENUM, packagesConfig } from '@jialouluo/configs/src/configs/packages';
+import packagesConfig, { PACKAGE_ENUM } from '@jialouluo/configs';
+
 const VFXImageShader = lazy(() => import('@/pages/VFXImageShader'));
 const FuzzyTransitionShader = lazy(() => import('@/pages/FuzzyTransitionShader'));
 const WaveImageShader = lazy(() => import('@/pages/WaveImage'));

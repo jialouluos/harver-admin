@@ -4,7 +4,7 @@ import { rawMenus } from '@/router';
 
 import { useRouter } from 'vue-router';
 import { LayoutSider } from 'ant-design-vue';
-import { deepHandleObjectFn } from '@jialouluo/tools/src/utils/object';
+import { deepHandleObjectFn } from '@jialouluo/tools';
 const props = defineProps<{ collapsed: boolean }>();
 // defineProps({
 // 	collapsed: {
@@ -33,7 +33,7 @@ const menus = computed(() => {
 		});
 	});
 });
-
+console.log(menus);
 watch(
 	() => state.openKeys,
 	(_val, oldVal) => {
@@ -68,7 +68,6 @@ const handleMenuClick = (menu: { key: string; keyPath: string[] }) => {
 
 .layout_aside {
 	width: max-content;
-
 	@include supper_box(0.5) {
 		& > * {
 			padding: rem(0.5);

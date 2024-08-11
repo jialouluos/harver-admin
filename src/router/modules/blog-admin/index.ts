@@ -1,9 +1,9 @@
-import { deepHandleObjectFn } from '@jialouluo/tools/src/utils/object';
-import { packagesConfig, PACKAGE_ENUM } from '@jialouluo/configs/src/configs/packages';
+import { deepHandleObjectFn } from '@jialouluo/tools';
+import packagesConfig, { PACKAGE_ENUM } from '@jialouluo/configs';
 import { AppRouteModule } from '@/types/Route';
 import { DEFAULT_LAYOUT } from '@/router/constant';
 
-const demoRouteConfig = packagesConfig[PACKAGE_ENUM.ADMIN].menuConfig;
+const demoRouteConfig = packagesConfig[PACKAGE_ENUM.ADMIN].menuConfig!;
 
 export default deepHandleObjectFn(demoRouteConfig!, 'children', {
 	handleFn: item => {
