@@ -19,10 +19,10 @@ const route = useRoute();
 </template>
 
 <style lang="scss">
-@import '@/styles/global';
+@import '@jialouluo/tools/src/components/styles/global';
 
 .content {
-	@include supper_box(0.5) {
+	@include card(0.5) {
 		& > * {
 			overflow: auto;
 			padding: rem(0.5);

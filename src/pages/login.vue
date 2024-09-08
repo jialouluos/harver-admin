@@ -53,12 +53,11 @@ const onFinishFailed = () => {};
 </template>
 
 <style lang="scss">
-@import '@/styles/global';
+@import '@jialouluo/tools/src/components/styles/global';
 
 #login-wrapper {
 	width: 100%;
 	height: 100%;
-
 	@include flex_center;
 
 	background-image: radial-gradient(circle at 10% 20%, col(grey-2) 0%, col(primary) 90%);
@@ -75,7 +74,6 @@ const onFinishFailed = () => {};
 		background-color: #0000;
 		border: 1px solid rgb(209 213 219 / 30%);
 		gap: rem(1);
-
 		@include border_radius;
 		@include grass;
 		@include shadow('box');

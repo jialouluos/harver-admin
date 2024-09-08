@@ -21,7 +21,7 @@ useGo();
 		class="layout"
 		:hasSider="true">
 		<LayoutAside :collapsed="collapsed" />
-		<Layout>
+		<Layout class="body-layout">
 			<LayoutHeader>
 				<template #feat>
 					<a-button @click="() => (collapsed = !collapsed)">
@@ -36,11 +36,16 @@ useGo();
 </template>
 
 <style lang="scss">
-@import '@/styles/global';
+@import '@jialouluo/tools/src/components/styles/global';
 
 .layout {
 	width: 100%;
 	height: 100%;
 	flex-direction: row;
+	gap: rem(1);
+
+	.body-layout {
+		gap: rem(1);
+	}
 }
 </style>

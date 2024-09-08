@@ -39,10 +39,10 @@ export default defineComponent({
 	</div>
 </template>
 <style lang="scss" scoped>
-@import '@/styles/global';
+@import '@jialouluo/tools/src/components/styles/global';
 
 .modal {
-	@include supper_box {
+	@include supper_round_border {
 		position: absolute;
 		z-index: 9999;
 		width: 60vw;

@@ -3,6 +3,7 @@ import { basicRoutes } from './routes/basic';
 import { App } from 'vue';
 import { AppRouteModule } from '@/types/Route';
 import { deepHandleObjectFn } from '@jialouluo/tools';
+import { importFileRouteSystem } from '../utils/index';
 
 const modulesGlob = import.meta.glob('./modules/**/*.ts', { eager: true }); // import.meta.glob() 直接引入所有的模块 Vite 独有的功能
 
@@ -11,13 +12,13 @@ const ROUTE_WHITE_LIST: (string | symbol)[] = []; //路由白名单
 const moduleRouteList: AppRouteModule[] = [...basicRoutes];
 
 // 加入到路由集合中
-Object.keys(modulesGlob).forEach(key => {
-	console.log(key, (modulesGlob as Record<string, { default: AppRouteModule }>)[key]);
-	const module = (modulesGlob as Record<string, { default: AppRouteModule }>)[key].default || {};
-	const modules = Array.isArray(module) ? [...module] : [module];
-	moduleRouteList.push(...modules);
-});
-
+moduleRouteList.push(
+	...importFileRouteSystem(modulesGlob, {
+		ignorePath: './modules/',
+		exc: 'index.ts',
+	})
+);
+console.log(moduleRouteList);
 export const router = createRouter({
 	// 创建一个 hash 历史记录。
 	history: createWebHistory(import.meta.env.VITE_PUBLIC_PATH),
@@ -58,7 +59,7 @@ export const rawMenus = moduleRouteList
 			}),
 		});
 	});
-console.log(rawMenus, 'rawMenus');
+
 export const setupRoute = (app: App<Element>) => {
 	initWhiteList(basicRoutes);
 	app.use(router);

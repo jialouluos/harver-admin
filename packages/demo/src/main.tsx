@@ -20,6 +20,7 @@ const renderMicro = (render: (container?: HTMLElement) => ReactDOM.Root) => {
 			mount(props) {
 				const { container } = props;
 				app = render(container);
+				window.demoWindow = new Function('return this')();
 			},
 
 			update() {},

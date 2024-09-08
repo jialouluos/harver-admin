@@ -1,0 +1,361 @@
+$prefixCls: 'harver';
+@mixin flex_center() {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	@content;
+}
+@mixin border_radius($rad: 1) {
+	border-radius: rem($rad);
+}
+@mixin grass() {
+	backdrop-filter: blur(16px);
+}
+@mixin border() {
+	border: 1px solid col(#cde3ff, 0.9);
+}
+@mixin pointer() {
+	cursor: pointer;
+}
+@mixin text_hover {
+	transition: color 0.3s;
+
+	&:hover {
+		color: col(sub) !important;
+	}
+}
+@mixin arrow($dir: 'left', $padding: 1.5) {
+	&::before {
+		@include shadow('box', true);
+
+		position: absolute;
+		z-index: 3;
+		background: radial-gradient(col(primary, 1) 30%, col(sub, 0.3) 90%); // 底色
+		transform-origin: 50% 50%;
+		content: '';
+	}
+	@if $dir == 'left' {
+		&::before {
+			top: calc(50% - rem(calc($padding / 2)));
+			right: rem(calc($padding / -2));
+			width: rem(calc($padding / 2));
+			height: rem($padding);
+			clip-path: polygon(0 0, 0% 100%, 100% 50%);
+			transform: rotate(0deg);
+		}
+	} @else if $dir == 'top' {
+		&::before {
+			bottom: rem(calc($padding / -2));
+			left: calc(50% - rem(calc($padding / 2)));
+			width: rem($padding);
+			height: rem(calc($padding / 2));
+			clip-path: polygon(0% 0%, 100% 0%, 50% 100%);
+		}
+	} @else if $dir == 'right' {
+		&::before {
+			top: calc(50% - rem(calc($padding / 2)));
+			left: rem(calc($padding / -2));
+			width: rem(calc($padding / 2));
+			height: rem($padding);
+			transform: rotate(180deg);
+			clip-path: polygon(0 0, 0% 100%, 100% 50%);
+		}
+	} @else if $dir == 'bottom' {
+		&::before {
+			top: rem(calc($padding / -2));
+			left: calc(50% - rem(calc($padding / 2)));
+			width: rem($padding);
+			height: rem(calc($padding / 2));
+			transform: rotate(180deg);
+			clip-path: polygon(0% 0%, 100% 0%, 50% 100%);
+		}
+	}
+
+	// &::after {
+	// 	position: absolute;
+	// 	bottom: 0;
+	// 	z-index: 0;
+	// 	margin: auto;
+
+	// 	// width: var(--ant-tooltip-arrow-shadow-width);
+	// 	// height: var(--ant-tooltip-arrow-shadow-width);
+	// 	background: transparent;
+
+	// 	// border-radius: 0 0 var(--ant-border-radius-xs) 0;
+	// 	// box-shadow: var(--ant-box-shadow-popover-arrow);
+	// 	content: '';
+	// 	inset-inline: 0;
+	// 	transform: translateY(50%) rotate(-135deg);
+	// }
+}
+@mixin bg_hover($type: primary, $alpha: 0.5) {
+	transition: background-color 0.3s;
+
+	&:hover {
+		background-color: col($type, $alpha) !important;
+	}
+}
+@mixin card($padding: 0.5, $borderRadius: 0.25) {
+	@include supper_rect_border($padding, $borderRadius) {
+		@content;
+	}
+	@include bg_hover;
+	@include shadow('box', true);
+}
+@mixin item($padding: 0.5, $borderRadius: 0.25) {
+	@include supper_round_border($padding, $borderRadius) {
+		@content;
+	}
+	@include bg_hover;
+	@include shadow('box', true);
+}
+@mixin button($type: 'round') {
+	@if $type == 'round' {
+		@include supper_round_border(0.5, 0.125, 0.25) {
+			& > * {
+				@include flex_center;
+			}
+		}
+	} @else if $type == 'rect' {
+		@include supper_rect_border(0.5, 0.125, 0.25) {
+			& > * {
+				@include flex_center;
+			}
+		}
+	}
+	@include flex_center;
+	@include border_radius(0.5);
+	@include shadow('box');
+	@include pointer;
+	@include border;
+	@include text_hover;
+
+	margin: 0 0.3rem;
+	font-size: rem(0.8);
+}
+@mixin divide($type: 'bottom') {
+	@include shadow('box');
+	@if $type == 'bottom' {
+		border-bottom: 1px solid col(primary);
+	}
+	@if $type == 'top' {
+		border-top: 1px solid col(primary);
+	}
+}
+@mixin title() {
+	@include flex_center;
+	@include ellipsis(1);
+
+	font-size: rem(1.2);
+	color: col(primary, 1);
+	border-bottom: 1px solid col(sub);
+}
+@mixin ellipsis($line: 2) {
+	@if $line == 1 {
+		/* 2.溢出的部分隐藏起来 */
+		overflow: hidden;
+
+		/* 3.文字溢出的时候用省略号来显示 */
+		text-overflow: ellipsis;
+
+		/* 1.先强制一行显示 */
+		white-space: nowrap;
+	} @else {
+		/* 弹性伸缩盒子模型显示 */
+		display: -webkit-box;
+		overflow: hidden;
+		text-overflow: ellipsis;
+
+		/* 限制在一个块元素显示的文本的行数 */
+		-webkit-line-clamp: $line;
+	}
+
+	/* 设置或检索伸缩盒对象的子元素的排列方式 */
+	-webkit-box-orient: vertical; // 1行显示
+}
+@mixin shadow($type, $shadowFlag: false) {
+	@if $type == 'box' {
+		box-shadow: 0 rem(0.1) rem(0.4) rem(0) col(shadow, 0.2);
+	} @else if $type == 'text' {
+		text-shadow: 0 0 rem(1) col(primary, 0.6);
+	}
+	@if $shadowFlag {
+		@include shadow_hover;
+	}
+}
+@mixin shadow_hover() {
+	transition: box-shadow 0.3s;
+
+	&:hover {
+		box-shadow: 0 rem(0.1) rem(0.6) rem(0.2) col(shadow, 0.2);
+	}
+}
+@mixin supper_round_border($padding: 0.5, $borderRadius: 0.5, $borderWidth: $padding) {
+	@include shadow('box');
+	@include border_radius($borderRadius);
+	@include bg_hover;
+
+	position: relative;
+	z-index: 10;
+	overflow: hidden;
+	padding: rem($borderWidth);
+	background: radial-gradient(col(primary, 1) 30%, col(sub, 0.3) 90%); // 底色
+	border: 1px solid col(primary, 0.9); // 最外层颜色
+	@include grass;
+
+	&::after {
+		position: absolute;
+		top: 0;
+		left: 0;
+		z-index: 1;
+		width: calc(100%);
+		height: calc(100%);
+		background: radial-gradient(circle at 50% 50%, col(grey-0, 0.4) 0%, col(vivi, 0.1) 90%);
+		transition: background-color 0.3s;
+		content: '';
+		pointer-events: none;
+		@include border_radius($borderRadius);
+		@include grass;
+	}
+
+	&::before {
+		position: absolute;
+		top: rem($borderWidth);
+		left: rem($borderWidth);
+		z-index: 2;
+		width: calc(100% - rem($borderWidth * 2));
+		height: calc(100% - rem($borderWidth * 2));
+		background-color: col(grey-0, 1);
+		content: '';
+		pointer-events: none;
+		@include border_radius($borderRadius);
+		@include grass;
+	}
+
+	& > * {
+		position: relative;
+		z-index: 9;
+		padding: rem($padding);
+		width: 100%;
+		height: 100%;
+		@include border_radius($borderRadius);
+		@include shadow('box');
+		@include flex_center {
+			justify-content: flex-start;
+		}
+	}
+	@content;
+}
+@mixin supper_rect_border($padding: 1, $borderRadius: 0.5, $borderWidth: $padding) {
+	@include border_radius($borderRadius);
+	@include shadow('box');
+	@include grass;
+
+	position: relative;
+	z-index: 2;
+	overflow: hidden;
+	padding: rem($borderWidth);
+	background-color: col(grey-0, 1);
+
+	&::before {
+		content: '';
+		position: absolute;
+		top: rem(0);
+		left: rem(0);
+		z-index: 2;
+		width: 100%;
+		height: 100%;
+		border: rem($borderWidth) solid;
+		border-image: radial-gradient(col(primary, 1) 0%, col(sub-2, 0.4) 90%) 30%;
+		pointer-events: none;
+	}
+
+	&::after {
+		content: '';
+		position: absolute;
+		top: rem(0);
+		left: rem(0);
+		z-index: 2;
+		width: 100%;
+		height: 100%;
+		border: rem($borderWidth) solid;
+		border-image: radial-gradient(col(sub-2, 1) 0%, col(primary, 0.4) 90%) 10%;
+		pointer-events: none;
+	}
+
+	& > * {
+		position: relative;
+		z-index: 9;
+		padding: rem($padding);
+		background-color: col(grey-0, 1);
+	}
+	@content;
+}
+
+$breakPoints: (
+	'phone': (
+		20px,
+		481px,
+	),
+	'pad': (
+		481px,
+		795px,
+	),
+	'command': (
+		795px,
+		946px,
+	),
+	'notebook': (
+		946px,
+		1201px,
+	),
+	'desktop': (
+		1201px,
+		1600px,
+	),
+	'tv': 1600px,
+);
+@mixin media_slot($break_name) {
+	@if type-of($break_name) == 'list' {
+		@each $item in $break_name {
+			$bp: map-get($breakPoints, $item);
+			@if type-of($bp) == 'list' {
+				$min: nth($bp, 1);
+				$max: nth($bp, 2);
+				@media (min-width: $min) and (max-width: $max) {
+					@content;
+				}
+			} @else {
+				@media (min-width: $bp) {
+					@content;
+				}
+			}
+		}
+	} @else {
+		$bp: map-get($breakPoints, $break_name);
+		@if type-of($bp) == 'list' {
+			$min: nth($bp, 1);
+			$max: nth($bp, 2);
+			@media (min-width: $min) and (max-width: $max) {
+				@content;
+			}
+		} @else {
+			@media (min-width: $bp) {
+				@content;
+			}
+		}
+	}
+}
+@function col($name, $a: 1) {
+	@if type-of($name) == 'color' {
+		@return rgba($name, $a);
+	} @else {
+		@return rgba(var(--#{$name}), $a);
+	}
+}
+@function rem($val) {
+	@return ($val) * 1rem;
+}
+@function rootVw($rootSize) {
+	@return $rootSize * 1px;
+}

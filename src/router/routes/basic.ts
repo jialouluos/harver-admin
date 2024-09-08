@@ -52,39 +52,4 @@ export const exceptionRoute: AppRouteModule = {
 	],
 };
 
-export const ExperimentRoute: AppRouteModule = {
-	path: PageEnum.EXPERIMENT,
-	name: 'ExperimentRoute',
-	component: DEFAULT_LAYOUT,
-	meta: {
-		title: '实验室',
-		order: 1,
-		isMenu: true,
-		inMicro: false,
-	},
-	children: [
-		{
-			path: 'upload-file',
-			name: 'upload-file',
-			component: () => import('@/experiment/upload-file/index.vue'),
-			meta: {
-				title: '文件上传',
-				order: 1,
-				isMenu: true,
-				inMicro: false,
-			},
-		},
-		{
-			path: 'monkey',
-			name: 'monkey',
-			component: () => import('@/experiment/user-script/index.vue'),
-			meta: {
-				title: '油猴脚本',
-				order: 1,
-				isMenu: true,
-				inMicro: false,
-			},
-		},
-	],
-};
-export const basicRoutes = <AppRouteModule[]>[LoginRoute, RootRoute, exceptionRoute, ExperimentRoute];
+export const basicRoutes = <AppRouteModule[]>[LoginRoute, RootRoute, exceptionRoute];

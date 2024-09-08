@@ -1,5 +1,6 @@
 import type { App, Component } from 'vue';
 import { MediaEnum } from '@/enums/MediaEnum';
+import { AppRouteModule } from '@/types/Route';
 
 type EventShim = {
 	new (...args: any[]): {
@@ -49,3 +50,72 @@ export const mediaWidthStringTransform = (mediaList: Record<MediaEnum, [number, 
 		}
 	}, <Record<MediaEnum, string>>{});
 };
+export function importFileRouteSystem(
+	modules: Record<string, unknown>,
+	options: {
+		ignorePath?: string;
+		exc?: string;
+		rootNode?: undefined;
+	}
+): AppRouteModule[];
+export function importFileRouteSystem(
+	modules: Record<string, unknown>,
+	options: {
+		ignorePath?: string;
+		exc?: string;
+		rootNode?: AppRouteModule;
+	}
+): AppRouteModule;
+export function importFileRouteSystem(
+	modules: Record<string, unknown>,
+	options: {
+		ignorePath?: string;
+		exc?: string;
+		rootNode?: AppRouteModule;
+	} = {}
+): AppRouteModule[] | AppRouteModule {
+	const { ignorePath = '', exc = 'route.config.ts', rootNode } = options;
+	if (rootNode) {
+		rootNode.children ??= [];
+	}
+
+	const map = new Map();
+	const appModules: AppRouteModule[] = rootNode?.children ?? [];
+	const buildModuleTree = (path: string) => {
+		const findIndex = path.indexOf(ignorePath);
+		const startIndex = findIndex + ignorePath.length;
+		let tempPath = '';
+
+		const paths = path
+			.slice(findIndex === -1 ? 0 : startIndex)
+			.split('/')
+			.slice(0, -1)
+			.map(item => {
+				const parentPath = tempPath;
+				tempPath += item + '/';
+				return {
+					parentPath,
+					currentPath: tempPath,
+				};
+			});
+
+		for (const { parentPath, currentPath } of paths) {
+			const module = (modules as Record<string, { default: AppRouteModule }>)[ignorePath + currentPath + exc]?.default;
+			if (map.get(parentPath) && !map.has(currentPath)) {
+				const parentNode = map.get(parentPath);
+				parentNode && (parentNode.children ??= []);
+				module && parentNode.children.push(module);
+				map.set(currentPath, module);
+			} else if (!map.has(currentPath)) {
+				module && appModules.push(module);
+				map.set(currentPath, module);
+			}
+		}
+	};
+
+	for (const moduleKey of Object.keys(modules)) {
+		buildModuleTree(moduleKey);
+	}
+
+	return rootNode ? rootNode : appModules;
+}

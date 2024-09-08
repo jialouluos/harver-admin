@@ -48,6 +48,7 @@ const handleMenuClick = (menu: { key: string; keyPath: string[] }) => {
 </script>
 <template>
 	<LayoutSider
+		class="layout_aside"
 		theme="light"
 		v-model:collapsed="props.collapsed"
 		:trigger="null"
@@ -64,25 +65,31 @@ const handleMenuClick = (menu: { key: string; keyPath: string[] }) => {
 </template>
 
 <style lang="scss">
-@import '@/styles/global';
+@import '@jialouluo/tools/src/components/styles/global';
 
 .layout_aside {
 	width: max-content;
-	@include supper_box(0.5) {
+	@include card(0.5) {
 		& > * {
 			padding: rem(0.5);
 		}
 	}
-}
 
-.ant-menu-item-selected {
-	@include supper_box(0.125) {
-		& > * {
-			padding: 0;
-			background-color: initial;
-			border: none;
-			box-shadow: none;
+	.ant-menu-item-selected {
+		@include item(0.125) {
+			& > * {
+				padding: 0;
+				background-color: initial;
+				border: none;
+				box-shadow: none;
+				@include text_hover;
+			}
 		}
+	}
+
+	.ant-menu-item-active {
+		@include bg_hover;
+		@include text_hover;
 	}
 }
 </style>

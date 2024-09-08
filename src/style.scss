@@ -1,4 +1,4 @@
-@import '@/styles/global';
+@import '@jialouluo/tools/src/components/styles/global';
 
 * {
 	padding: 0;
@@ -9,6 +9,8 @@
 [data-theme='light']:root {
 	--primary: 206, 239, 253;
 	--sub: 207, 149, 217;
+	--sub-2: 213, 201, 255;
+	--vivi: 60, 252, 255;
 	--grey-0: 255, 255, 255;
 	--grey-1: 253, 253, 253;
 	--grey-2: 247, 247, 247;
@@ -26,6 +28,8 @@
 [data-theme='dark']:root {
 	--primary: 207, 149, 217;
 	--sub: 108, 86, 181;
+	--sub-2: 213, 201, 255;
+	--vivi: 60, 252, 255;
 	--grey-0: 0, 0, 0;
 	--grey-1: 48, 49, 54;
 	--grey-2: 31, 32, 35;

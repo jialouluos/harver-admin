@@ -18,12 +18,16 @@
 			"types": "./dist/lib-esm/node/index.d.ts",
 			"import": "./dist/lib-esm/node/index.js",
 			"require": "./dist/lib/node/index.cjs"
-		}
+		},
+		"./src/*": "./src/*"
 	},
 	"typesVersions": {
 		"*": {
 			"node": [
 				"./dist/lib-esm/node/index.d.ts"
+			],
+			"./src/*": [
+				"./src/*"
 			]
 		}
 	},

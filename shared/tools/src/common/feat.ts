@@ -117,7 +117,14 @@ const parseFileInfo = (
 	fileInfo: FileInfo
 ): {
 	context: string;
-	meta: Record<string, any>;
+	meta: {
+		updateTime: number;
+		parentDir: string;
+		name: string;
+		ext: string;
+		type: NAME_INFO_ENUM;
+		[ket: string]: string | number;
+	};
 } => {
 	const nameInfo = handleFileName(fileInfo.name);
 	if (!nameInfo) throw Error('存在未支持后缀文件！');
@@ -126,6 +133,7 @@ const parseFileInfo = (
 		context: contextInfo.context,
 		meta: {
 			...contextInfo.meta,
+			...nameInfo,
 			updateTime: fileInfo.lastModified,
 			parentDir: fileInfo.parentDir,
 		},
@@ -163,6 +171,13 @@ const handleContext = (
 		if (/(?<content>.*)##.*Meta.*```json(?<meta>.*)```/s.test(context)) {
 			try {
 				return { meta: JSON.parse(RegExp.$2.trim()), context: RegExp.$1 };
+			} catch {
+				console.log('meta信息格式异常');
+				return { meta: {}, context };
+			}
+		} else if (/(?<content>.*)##.*Meta.*```(ts|js)(?<meta>.*)```/s.test(context)) {
+			try {
+				return { meta: eval(RegExp.$2.trim()), context: RegExp.$1 };
 			} catch {
 				console.log('meta信息格式异常');
 				return { meta: {}, context };
