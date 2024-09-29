@@ -6,7 +6,7 @@ import { DEFAULT_LAYOUT, EXCEPTION_PAGE, LOGIN_PAGE } from '@/router/constant';
 export const RootRoute: AppRouteModule = {
 	path: PageEnum.BASE_PAGE,
 	name: 'Root',
-	redirect: PageEnum.DEMO,
+	redirect: PageEnum.EXPERIMENT,
 	meta: {
 		title: 'Root',
 		order: 1,

@@ -25,68 +25,58 @@ $prefixCls: 'harver';
 	}
 }
 @mixin arrow($dir: 'left', $padding: 1.5) {
+	$borderWidth: 0.1;
+	$size: calc($padding + $borderWidth);
+
 	&::before {
 		@include shadow('box', true);
 
+		box-sizing: border-box;
 		position: absolute;
 		z-index: 3;
-		background: radial-gradient(col(primary, 1) 30%, col(sub, 0.3) 90%); // 底色
-		transform-origin: 50% 50%;
+		display: block;
+		background: inherit; // 底色
+		border: rem($borderWidth) solid; // 最外层颜色
+		border-image: radial-gradient(col(primary, 1) 0%, col(sub-2, 0.4) 90%) 30%;
 		content: '';
 	}
 	@if $dir == 'left' {
 		&::before {
-			top: calc(50% - rem(calc($padding / 2)));
-			right: rem(calc($padding / -2));
-			width: rem(calc($padding / 2));
-			height: rem($padding);
-			clip-path: polygon(0 0, 0% 100%, 100% 50%);
-			transform: rotate(0deg);
+			top: calc(50% - rem(calc($size / 2)));
+			right: rem(calc($size / -2));
+			width: rem(calc($size));
+			height: rem($size);
+			clip-path: polygon(0% 0%, 0% 100%, 100% 100%);
+			transform: rotate(-135deg);
 		}
 	} @else if $dir == 'top' {
 		&::before {
-			bottom: rem(calc($padding / -2));
-			left: calc(50% - rem(calc($padding / 2)));
-			width: rem($padding);
-			height: rem(calc($padding / 2));
-			clip-path: polygon(0% 0%, 100% 0%, 50% 100%);
+			bottom: rem(calc($size / -2));
+			left: calc(50% - rem(calc($size / 2)));
+			width: rem($size);
+			height: rem(calc($size));
+			clip-path: polygon(0% 0%, 0% 100%, 100% 100%);
+			transform: rotate(-45deg);
 		}
 	} @else if $dir == 'right' {
 		&::before {
-			top: calc(50% - rem(calc($padding / 2)));
-			left: rem(calc($padding / -2));
-			width: rem(calc($padding / 2));
-			height: rem($padding);
-			transform: rotate(180deg);
-			clip-path: polygon(0 0, 0% 100%, 100% 50%);
+			top: calc(50% - rem(calc($size / 2)));
+			left: rem(calc($size / -2));
+			width: rem(calc($size));
+			height: rem($size);
+			transform: rotate(45deg);
+			clip-path: polygon(0% 0%, 0% 100%, 100% 100%);
 		}
 	} @else if $dir == 'bottom' {
 		&::before {
-			top: rem(calc($padding / -2));
-			left: calc(50% - rem(calc($padding / 2)));
-			width: rem($padding);
-			height: rem(calc($padding / 2));
-			transform: rotate(180deg);
-			clip-path: polygon(0% 0%, 100% 0%, 50% 100%);
+			top: rem(calc($size / -2));
+			left: calc(50% - rem(calc($size / 2)));
+			width: rem($size);
+			height: rem(calc($size));
+			transform: rotate(135deg);
+			clip-path: polygon(0% 0%, 0% 100%, 100% 100%);
 		}
 	}
-
-	// &::after {
-	// 	position: absolute;
-	// 	bottom: 0;
-	// 	z-index: 0;
-	// 	margin: auto;
-
-	// 	// width: var(--ant-tooltip-arrow-shadow-width);
-	// 	// height: var(--ant-tooltip-arrow-shadow-width);
-	// 	background: transparent;
-
-	// 	// border-radius: 0 0 var(--ant-border-radius-xs) 0;
-	// 	// box-shadow: var(--ant-box-shadow-popover-arrow);
-	// 	content: '';
-	// 	inset-inline: 0;
-	// 	transform: translateY(50%) rotate(-135deg);
-	// }
 }
 @mixin bg_hover($type: primary, $alpha: 0.5) {
 	transition: background-color 0.3s;
@@ -147,8 +137,9 @@ $prefixCls: 'harver';
 	@include ellipsis(1);
 
 	font-size: rem(1.2);
-	color: col(primary, 1);
+	color: col(strong-primary, 1);
 	border-bottom: 1px solid col(sub);
+	@content;
 }
 @mixin ellipsis($line: 2) {
 	@if $line == 1 {
@@ -173,9 +164,44 @@ $prefixCls: 'harver';
 	/* 设置或检索伸缩盒对象的子元素的排列方式 */
 	-webkit-box-orient: vertical; // 1行显示
 }
+@mixin trunk() {
+	--trunk: false;
+
+	display: -webkit-box;
+	overflow: hidden;
+	animation: trunk-check 0.01s;
+	animation-timeline: scroll(self);
+	-webkit-box-orient: vertical;
+
+	/* -webkit-line-clamp: 1; */ // 通过props
+}
+@keyframes trunk-check {
+	0%,
+	100% {
+		--trunk: true;
+	}
+}
+@mixin scrollbar() {
+	&::-webkit-scrollbar {
+		width: rem(0.2);
+		height: rem(0.2);
+	}
+
+	&::-webkit-scrollbar-thumb {
+		background-color: col(sub, 0.4);
+		border-radius: rem(0.2);
+	}
+
+	&::-webkit-scrollbar-track {
+		background-color: col(grey-5, 0.4);
+		border-radius: rem(0.2);
+	}
+}
 @mixin shadow($type, $shadowFlag: false) {
 	@if $type == 'box' {
 		box-shadow: 0 rem(0.1) rem(0.4) rem(0) col(shadow, 0.2);
+	} @else if $type == 'tag' {
+		box-shadow: 0 rem(0.1) rem(0.2) rem(0) col(shadow, 0.1);
 	} @else if $type == 'text' {
 		text-shadow: 0 0 rem(1) col(primary, 0.6);
 	}

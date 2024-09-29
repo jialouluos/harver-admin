@@ -6,5 +6,5 @@ const handleClick = () => {
 </script>
 
 <template>
-	<img @click="handleClick" style="cursor: pointer;"/>
+	h21321321h
 </template>

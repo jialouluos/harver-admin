@@ -93,6 +93,7 @@ const handleOk = () => {
 			<div class="harver-modal-footer">
 				<slot name="footer">
 					<button
+				
 						:disabled="loading"
 						@click="handleOk">
 						<span>确定</span>
@@ -108,7 +109,7 @@ const handleOk = () => {
 	</Teleport>
 </template>
 <style lang="scss" scoped>
-@import '../../../styles/global';
+@import '@jialouluo/tools/src/components/styles/global';
 
 .harver {
 	&-modal {

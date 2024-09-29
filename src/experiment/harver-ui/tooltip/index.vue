@@ -3,22 +3,23 @@ import tooltip from '@jialouluo/tools/src/components/vue/harver-ui/tooltip/index
 </script>
 <template>
 	<div class="example_display">
-		<div>
-			<tooltip :trigger="'click'">
-				click触发
-				<template #content>
-					<div>click xxxxxx</div>
-				</template>
-			</tooltip>
-		</div>
-		<div>
-			<tooltip :trigger="'hover'">
-				hover触发
-				<template #content>
-					<div>hover xxxxxx</div>
-				</template>
-			</tooltip>
-		</div>
+		<tooltip :trigger="'click'">
+			<div>
+				<span>click触发</span>
+			</div>
+			<template #content>
+				<div>click触发</div>
+			</template>
+		</tooltip>
+
+		<tooltip :trigger="'hover'">
+			<div>
+				<span>hover触发</span>
+			</div>
+			<template #content>
+				<div>hover xxxxxx</div>
+			</template>
+		</tooltip>
 	</div>
 </template>
 <style lang="scss" scoped>
@@ -28,11 +29,13 @@ import tooltip from '@jialouluo/tools/src/components/vue/harver-ui/tooltip/index
 	display: flex;
 	align-items: flex-start;
 	width: 100%;
-	height: 100%;
+
+	/* height: 100%; */
 	gap: rem(1);
 	flex-wrap: wrap;
+	align-content: flex-start;
 
-	& > div {
+	& > span {
 		@include button;
 	}
 }

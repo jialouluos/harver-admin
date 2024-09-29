@@ -28,6 +28,7 @@ const route = useRoute();
 			padding: rem(0.5);
 			width: 100%;
 			height: 100%;
+			@include scrollbar;
 		}
 	}
 

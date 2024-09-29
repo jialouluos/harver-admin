@@ -49,14 +49,18 @@ export function resetRouter() {
 }
 export const rawMenus = moduleRouteList
 	.filter(item => item.meta.isMenu)
+	.sort((a, b) => b.meta.order - a.meta.order)
 	.map(item => {
 		return deepHandleObjectFn(item, 'children', {
 			filterFn: obj => {
 				return obj.meta.isMenu;
 			},
-			handleFn: obj => ({
-				...obj,
-			}),
+			handleFn: obj => {
+				return obj;
+			},
+			handleNextNodes: obj => {
+				return obj.sort((a, b) => b.meta.order - a.meta.order);
+			},
 		});
 	});
 

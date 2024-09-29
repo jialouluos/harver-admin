@@ -1,10 +1,16 @@
 import { DeepArrayTreeRequired, DeepType, TreeNodeType } from '../types';
 
-export const isFalse = (target: any) => {
+export const isFalsy = (target: any) => {
 	if (!target) return true;
 	if (isArray(target)) return !target.length;
 	if (typeof target === 'object') return !Object.keys(target).length;
 	return false;
+};
+export const isNoZeroFalsy = (target: any) => {
+	return !Number.isFinite(target) && isFalsy(target);
+};
+export const isPositiveInit = (target: any): target is number => {
+	return Number.isFinite(target) && target > 0;
 };
 export const isArray = <T>(target: unknown): target is T[] => {
 	return Array.isArray(target);
@@ -31,13 +37,14 @@ export const deepHandleObjectFn = <
 	options: {
 		handleFn?: (obj: T) => _R;
 		filterFn?: (obj: T) => boolean;
+		handleNextNodes?: (obj: R[K]) => R[K];
 	}
 ): R => {
-	const { handleFn = obj => obj, filterFn = () => true } = options;
+	const { handleFn = obj => obj, filterFn = () => true, handleNextNodes = obj => obj } = options;
 	const newObject = handleFn(target) as R;
 
 	if (prop in target) {
-		if (isFalse(target[prop])) return newObject;
+		if (isFalsy(target[prop])) return newObject;
 
 		const _children = target[prop];
 
@@ -48,7 +55,7 @@ export const deepHandleObjectFn = <
 					return deepHandleObjectFn(item, prop, options);
 				}) as R[K];
 
-			newObject[prop] = newValue;
+			newObject[prop] = handleNextNodes(newValue);
 		}
 	}
 
