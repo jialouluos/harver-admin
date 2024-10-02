@@ -42,7 +42,7 @@ export default defineComponent({
 @import '@jialouluo/tools/src/components/styles/global';
 
 .modal {
-	@include supper_round_border {
+	@include card {
 		position: absolute;
 		z-index: 9999;
 		width: 60vw;

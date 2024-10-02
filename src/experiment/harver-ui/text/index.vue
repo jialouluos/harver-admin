@@ -47,12 +47,12 @@ const handleChangeTextPerformance = async (type: 'low' | 'high' | '') => {
 				<h2>(单行省略 | 多行省略) + tooltip</h2>
 				<Divider></Divider>
 				<Text
-					:ellipsis="{ rows: 3, }"
+					:ellipsis="{ rows: 3 }"
 					:content="'测试文本-|'.repeat(50)">
 				</Text>
 				<Divider></Divider>
 				<Text
-					:ellipsis="{ rows: 1, }"
+					:ellipsis="{ rows: 1 }"
 					:content="'测试文本-|'.repeat(18)">
 				</Text>
 			</div>

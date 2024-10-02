@@ -7,9 +7,13 @@ const handleUpload = async (type: 'single' | 'multiple' | 'dir') => {
 </script>
 <template>
 	<div class="example_display">
-		<div @click="() => handleUpload('single')"><span>上传单文件</span></div>
-		<div @click="() => handleUpload('multiple')"><span>上传多文件</span></div>
-		<div @click="() => handleUpload('dir')"><span>上传目录</span></div>
+		<harver-button
+			:shape="'round'"
+			@click="() => handleUpload('single')"
+			>上传单文件</harver-button
+		>
+		<harver-button @click="() => handleUpload('multiple')">上传多文件</harver-button>
+		<harver-button @click="() => handleUpload('dir')">上传目录</harver-button>
 	</div>
 </template>
 <style lang="scss" scoped>

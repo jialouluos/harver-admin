@@ -8,12 +8,9 @@ import ImgLazy from '@jialouluo/tools/src/components/vue/harver-ui/img-preview/i
 			<div class="card-header-title">卡片标题</div>
 			<div class="card-header-meta">
 				<div class="card-header-meta-img">
-					<!-- <img
-						src="https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg"
-						alt="" /> -->
-					<ImgLazy
+					<img
 						v-lazy
-						src="/imgs/test.png"
+						src="https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg"
 						alt="" />
 				</div>
 				<div class="card-header-meta-info">zuo</div>

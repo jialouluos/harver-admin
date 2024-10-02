@@ -1,0 +1,258 @@
+@import './basic';
+@mixin arrow($dir: 'left', $padding: 1.5) {
+	$borderWidth: 0.1;
+	$size: calc($padding + $borderWidth);
+
+	&::before {
+		@include shadow('box', true);
+
+		box-sizing: border-box;
+		position: absolute;
+		z-index: 3;
+		display: block;
+		background: inherit; // 底色
+		border: rem($borderWidth) solid; // 最外层颜色
+		border-image: radial-gradient(col(primary, 1) 0%, col(sub-2, 0.4) 90%) 30%;
+		content: '';
+	}
+	@if $dir == 'left' {
+		&::before {
+			top: calc(50% - rem(calc($size / 2)));
+			right: rem(calc($size / -2));
+			width: rem(calc($size));
+			height: rem($size);
+			clip-path: polygon(0% 0%, 0% 100%, 100% 100%);
+			transform: rotate(-135deg);
+		}
+	} @else if $dir == 'top' {
+		&::before {
+			bottom: rem(calc($size / -2));
+			left: calc(50% - rem(calc($size / 2)));
+			width: rem($size);
+			height: rem(calc($size));
+			clip-path: polygon(0% 0%, 0% 100%, 100% 100%);
+			transform: rotate(-45deg);
+		}
+	} @else if $dir == 'right' {
+		&::before {
+			top: calc(50% - rem(calc($size / 2)));
+			left: rem(calc($size / -2));
+			width: rem(calc($size));
+			height: rem($size);
+			transform: rotate(45deg);
+			clip-path: polygon(0% 0%, 0% 100%, 100% 100%);
+		}
+	} @else if $dir == 'bottom' {
+		&::before {
+			top: rem(calc($size / -2));
+			left: calc(50% - rem(calc($size / 2)));
+			width: rem($size);
+			height: rem(calc($size));
+			transform: rotate(135deg);
+			clip-path: polygon(0% 0%, 0% 100%, 100% 100%);
+		}
+	}
+}
+@mixin card($padding: 0.5, $borderWidth: 0.25, $borderType: 'rect', $borderColor: 'sub') {
+	@include supper_border($borderType, $borderColor, $padding, $borderWidth) {
+		@content;
+	}
+	@include after_bg_hover('sub', 0.3);
+	@include shadow('box', true);
+
+	transition: all 0.3s;
+}
+@mixin button(
+	$padding: 0.5,
+	$borderWidth: 0.25,
+	$type: 'round',
+	$borderColor: 'vivi',
+	$borderRadius: $borderWidth * 2
+) {
+	@include supper_border($type, $borderColor, $padding, $borderWidth, $borderRadius);
+	@include flex_center;
+	@include shadow('box');
+	@include pointer;
+	@include text_hover;
+
+	margin: 0 0.3rem;
+	font-size: rem(0.8);
+	background-color: col(grey-1);
+	border: none;
+	transition: all 0.3s;
+	line-height: initial;
+	@content;
+}
+@mixin divide($type: 'bottom') {
+	@if $type == 'bottom' {
+		border-bottom: 1px solid col(primary);
+	}
+	@if $type == 'top' {
+		border-top: 1px solid col(primary);
+	}
+}
+@mixin title() {
+	@include flex_center;
+	@include ellipsis(1);
+
+	font-size: rem(1.2);
+	color: col(strong-primary, 1);
+	@include divide;
+	@content;
+}
+@mixin supper_border(
+	$borderType: 'round',
+	$colorType: 'sub',
+	$padding: 1,
+	$borderWidth: 0.5,
+	$borderRadius: $borderWidth * 2
+) {
+	position: relative;
+	z-index: 10;
+	overflow: hidden;
+	padding: rem($padding);
+	@if $borderType == 'round' {
+		border-radius: rem($borderRadius);
+
+		&::after {
+			border-radius: rem($borderRadius);
+		}
+	} @else if $borderType == 'rect' {
+		border-radius: rem($borderWidth);
+
+		&::after {
+			border-radius: rem($borderWidth);
+		}
+	}
+	@if $colorType == 'vivi' {
+		&::after {
+			background: radial-gradient(circle at 50% 50%, col(grey-0, 0.4) 0%, col(vivi, 0.1) 90%);
+		}
+	} @else {
+		&::after {
+			background: radial-gradient(col(primary, 1) 30%, col(sub, 0.3) 90%); // 底色
+		}
+	}
+
+	&::after {
+		position: absolute;
+		top: 0;
+		left: 0;
+		padding: rem($borderWidth);
+		width: 100%;
+		height: 100%;
+		pointer-events: none;
+		border: 1px solid col(primary);
+		transition: all 0.3s;
+		mask: linear-gradient(#fff 0 100%) content-box, linear-gradient(#fff 0 100%);
+		mask-composite: exclude;
+		content: '';
+	}
+
+	@content;
+}
+
+// @deprecated
+@mixin deprecated_supper_rect_border($padding: 1, $borderRadius: 0.5, $borderWidth: $padding) {
+	@include border_radius($borderRadius);
+	@include shadow('box');
+	@include grass;
+
+	position: relative;
+	z-index: 2;
+	overflow: hidden;
+	padding: rem($borderWidth);
+	background-color: col(grey-0, 1);
+
+	&::before {
+		content: '';
+		position: absolute;
+		top: rem(0);
+		left: rem(0);
+		z-index: 2;
+		width: 100%;
+		height: 100%;
+		border: rem($borderWidth) solid;
+		border-image: radial-gradient(col(primary, 1) 0%, col(sub-2, 0.4) 90%) 30%;
+		pointer-events: none;
+	}
+
+	&::after {
+		content: '';
+		position: absolute;
+		top: rem(0);
+		left: rem(0);
+		z-index: 2;
+		width: 100%;
+		height: 100%;
+		border: rem($borderWidth) solid;
+		border-image: radial-gradient(col(sub-2, 1) 0%, col(primary, 0.4) 90%) 10%;
+		pointer-events: none;
+	}
+
+	& > * {
+		position: relative;
+		z-index: 9;
+		padding: rem($padding);
+		background-color: col(grey-0, 1);
+	}
+	@content;
+}
+
+// @deprecated
+@mixin deprecated_supper_round_border($padding: 0.5, $borderRadius: 0.5, $borderWidth: $padding) {
+	@include shadow('box');
+	@include border_radius($borderRadius);
+	@include bg_hover;
+
+	position: relative;
+	z-index: 10;
+	overflow: hidden;
+	padding: rem($borderWidth);
+	background: radial-gradient(col(primary, 1) 30%, col(sub, 0.3) 90%); // 底色
+	border: 1px solid col(primary, 0.9); // 最外层颜色
+	@include grass;
+
+	&::after {
+		position: absolute;
+		top: 0;
+		left: 0;
+		z-index: 1;
+		width: calc(100%);
+		height: calc(100%);
+		background: radial-gradient(circle at 50% 50%, col(grey-0, 0.4) 0%, col(vivi, 0.1) 90%);
+		transition: background-color 0.3s;
+		content: '';
+		pointer-events: none;
+		@include border_radius($borderRadius);
+		@include grass;
+	}
+
+	&::before {
+		position: absolute;
+		top: rem($borderWidth);
+		left: rem($borderWidth);
+		z-index: 2;
+		width: calc(100% - rem($borderWidth * 2));
+		height: calc(100% - rem($borderWidth * 2));
+		background-color: col(grey-0, 1);
+		content: '';
+		pointer-events: none;
+		@include border_radius($borderRadius);
+		@include grass;
+	}
+
+	& > * {
+		position: relative;
+		z-index: 9;
+		padding: rem($padding);
+		width: 100%;
+		height: 100%;
+		@include border_radius($borderRadius);
+		@include shadow('box');
+		@include flex_center {
+			justify-content: flex-start;
+		}
+	}
+	@content;
+}

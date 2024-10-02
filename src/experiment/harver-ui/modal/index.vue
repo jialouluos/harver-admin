@@ -8,9 +8,7 @@ const handleClick = () => {
 </script>
 <template>
 	<div class="example_display">
-		<div @click="handleClick">
-			<span>打开弹窗</span>
-		</div>
+		<harver-button @click="handleClick"> 打开弹窗 </harver-button>
 	</div>
 	<modal v-model:open="open">
 		click触发

@@ -1,6 +1,8 @@
 <script lang="ts" setup>
 import { reactive, ref, toRefs, watch, nextTick } from 'vue';
-import { on } from '../../hooks/useEventListener';
+import { on, useSharedGlobalEvent } from '../../hooks/useEventListener';
+import { useClassName, usePrefixCls } from '../../hooks';
+
 const open = defineModel<boolean, string>('open', { required: true });
 const props = withDefaults(
 	defineProps<{
@@ -16,96 +18,82 @@ const props = withDefaults(
 		loading: false,
 	}
 );
+const eventId = Symbol('modal-event');
+const eventEngine = useSharedGlobalEvent();
+const eventPool = eventEngine.value!.useScopedEventPool(eventId)!;
+const canClose = ref(false);
+const CNGenerator = useClassName({
+	split: '-',
+	prefixClassName: usePrefixCls,
+});
+const CN = CNGenerator(Symbol('modal'));
 const { onCancel, onOk } = toRefs(props);
-const _open = ref(false);
+
 const modalRef = ref();
-
-watch(
-	() => {
-		return [open.value, props.loading];
-	},
-	() => {
-		if (props.loading) return;
-		nextTick(() => {
-			on(
-				modalRef.value,
-				'animationend',
-				() => {
-					_open.value = open.value;
-				},
-				{
-					once: true,
-				}
-			);
-		});
-
-		if (!open.value) return;
+const addClickCloseEvent = () => {
+	if (!open.value) return;
+	nextTick(() => {
+		console.log(eventEngine);
 		setTimeout(() => {
-			const clear = on(document, 'click', e => {
-				if (!open.value) return;
-				if (!modalRef.value) return;
-				if (!modalRef.value.contains(e.target)) {
+			const clearDocClick = on(document, 'click', e => {
+				if (!modalRef.value?.contains(e.target)) {
 					open.value = false;
-					clear();
+					eventPool.clear('clearDocClick');
+					e.stopPropagation();
 				}
 			});
-		}, 300);
+			eventPool.mark('clearDocClick', clearDocClick);
+		});
+	});
+};
+watch(
+	() => open.value,
+	() => {
+		console.log(open.value);
+		addClickCloseEvent();
 	}
 );
 
 const handleCancel = () => {
-	if (onCancel.value) {
-		return onCancel.value();
-	} else {
-		open.value = false;
-	}
+	onCancel.value && onCancel.value();
+	open.value = false;
 };
 const handleOk = () => {
-	if (onOk.value) {
-		return onOk.value();
-	} else {
-		open.value = false;
-	}
+	onOk.value && onOk.value();
+	open.value = false;
 };
 </script>
 <template>
 	<Teleport to="body">
-		<div
-			v-if="open || _open"
-			:class="['harver-modal', open ? 'show' : 'hidden']"
-			ref="modalRef">
-			<div class="harver-modal-header">
-				<div class="harver-modal-header-content">
-					<slot name="header">
-						{{ title }}
+		<Transition :name="CN.R('modal', 0)">
+			<div
+				v-if="open"
+				:class="[CN.R('modal', 0)]"
+				ref="modalRef">
+				<div :class="CN.R('header', 1)">
+					<div :class="CN.R('content', 2)">
+						<slot name="header">
+							{{ title }}
+						</slot>
+					</div>
+					<span
+						v-if="showCloseIcon"
+						:class="CN.R('close-icon', 2)"
+						@click="handleCancel()"
+						>✕</span
+					>
+				</div>
+				<div :class="CN.R('content', 1)">
+					<slot name="content">content</slot>
+				</div>
+				<div :class="CN.R('footer', 1)">
+					<slot name="footer">
+						<harver-button @click="handleOk"> 确定 </harver-button>
+						<harver-button @click="handleCancel"> 取消 </harver-button>
 					</slot>
 				</div>
-				<span
-					v-if="showCloseIcon"
-					class="harver-modal-header-close-icon"
-					@click="!loading && handleCancel()"
-					>✕</span
-				>
 			</div>
-			<div class="harver-modal-content">
-				<slot name="content">content</slot>
-			</div>
-			<div class="harver-modal-footer">
-				<slot name="footer">
-					<button
-				
-						:disabled="loading"
-						@click="handleOk">
-						<span>确定</span>
-					</button>
-					<button
-						:disabled="loading"
-						@click="!loading && handleCancel()">
-						<span> 取消</span>
-					</button>
-				</slot>
-			</div>
-		</div>
+		</Transition>
 	</Teleport>
 </template>
 <style lang="scss" scoped>
@@ -115,13 +103,9 @@ const handleOk = () => {
 	&-modal {
 		width: 60vw;
 		height: 60vh;
-		@include border_radius;
-		@include supper_rect_border(0.25, 0.125) {
-			& > * {
-				padding: rem(0.25);
-			}
-
-			position: fixed;
+		background-color: col(grey-1);
+		@include card(0.5, 0.25, 'round') {
+			position: fixed; // 单独形成一个合成层
 			inset: 0;
 			z-index: 999;
 			margin: auto;
@@ -166,49 +150,31 @@ const handleOk = () => {
 		&-footer {
 			z-index: 10;
 			display: flex;
-			justify-content: flex-end;
+			align-items: center;
 			width: 100%;
 			height: rem(3);
+			place-content: center flex-end;
+			flex-wrap: wrap;
 			@include divide('top');
-
-			button {
-				@include button;
-
-				width: rem(4);
-			}
 		}
-	}
-}
 
-.show {
-	@keyframes expand {
-		from {
-			transform: scale(0, 0);
+		&-enter-active,
+		&-leave-active {
+			transition: all 0.3s ease-out;
+			transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+		}
+
+		&-enter-from,
+		&-leave-to {
+			transform: translate(0, -20px);
 			opacity: 0;
 		}
 
-		to {
-			transform: scale(1, 1);
+		&-leave-from,
+		&-enter-to {
+			transform: scale(1, 1) translate(0, 0);
 			opacity: 1;
 		}
 	}
-
-	animation: expand 0.2s;
-}
-
-.hidden {
-	@keyframes hidden {
-		from {
-			transform: scale(1, 1);
-			opacity: 1;
-		}
-
-		to {
-			transform: scale(0, 0);
-			opacity: 0;
-		}
-	}
-
-	animation: hidden 0.2s;
 }
 </style>

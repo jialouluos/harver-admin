@@ -12,13 +12,15 @@
 
 .layout_header {
 	height: rem(6);
-	@include card(0.5) {
+	@include card {
+		background-color: col(grey-1);
+		transform: translateZ(0); // 单独给一个合成层
 		& > * {
 			padding: rem(0.5) rem(1);
 			width: 100%;
 			height: 100%;
 			@include flex_center {
-				justify-content: flex-start;
+				place-content: flex-start flex-start;
 			}
 		}
 	}

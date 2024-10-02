@@ -64,32 +64,25 @@ const handleMenuClick = (menu: { key: string; keyPath: string[] }) => {
 	></LayoutSider>
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @import '@jialouluo/tools/src/components/styles/global';
 
 .layout_aside {
 	width: max-content;
-	@include card(0.5) {
-		& > * {
-			padding: rem(0.5);
-		}
+	@include card;
+
+	background-color: col(grey-1);
+	transform: translateZ(0); // 单独给一个合成层
+
+	:deep(.ant-menu-item-selected) {
+		@include card(0.125, 0.125, 'round');
 	}
 
-	.ant-menu-item-selected {
-		@include item(0.125) {
-			& > * {
-				padding: 0;
-				background-color: initial;
-				border: none;
-				box-shadow: none;
-				@include text_hover;
-			}
-		}
-	}
-
-	.ant-menu-item-active {
+	:deep(.ant-menu-item-active) {
 		@include bg_hover;
 		@include text_hover;
+
+		transition: all 0.3s;
 	}
 }
 </style>

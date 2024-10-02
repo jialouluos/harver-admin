@@ -1,0 +1,96 @@
+@import './basic';
+@mixin ellipsis($line: 2) {
+	@if $line == 1 {
+		/* 2.溢出的部分隐藏起来 */
+		overflow: hidden;
+
+		/* 3.文字溢出的时候用省略号来显示 */
+		text-overflow: ellipsis;
+
+		/* 1.先强制一行显示 */
+		white-space: nowrap;
+	} @else {
+		/* 弹性伸缩盒子模型显示 */
+		display: -webkit-box;
+		overflow: hidden;
+		text-overflow: ellipsis;
+
+		/* 限制在一个块元素显示的文本的行数 */
+		-webkit-line-clamp: $line;
+	}
+
+	/* 设置或检索伸缩盒对象的子元素的排列方式 */
+	-webkit-box-orient: vertical; // 1行显示
+}
+@mixin trunk() {
+	--trunk: false;
+
+	display: -webkit-box;
+	overflow: hidden;
+	animation: trunk-check 0.01s;
+	animation-timeline: scroll(self);
+	-webkit-box-orient: vertical;
+
+	/* -webkit-line-clamp: 1; */ // 通过props
+}
+@keyframes trunk-check {
+	0%,
+	100% {
+		--trunk: true;
+	}
+}
+
+$breakPoints: (
+	'phone': (
+		20px,
+		481px,
+	),
+	'pad': (
+		481px,
+		795px,
+	),
+	'command': (
+		795px,
+		946px,
+	),
+	'notebook': (
+		946px,
+		1201px,
+	),
+	'desktop': (
+		1201px,
+		1600px,
+	),
+	'tv': 1600px,
+);
+@mixin media_slot($break_name) {
+	@if type-of($break_name) == 'list' {
+		@each $item in $break_name {
+			$bp: map-get($breakPoints, $item);
+			@if type-of($bp) == 'list' {
+				$min: nth($bp, 1);
+				$max: nth($bp, 2);
+				@media (min-width: $min) and (max-width: $max) {
+					@content;
+				}
+			} @else {
+				@media (min-width: $bp) {
+					@content;
+				}
+			}
+		}
+	} @else {
+		$bp: map-get($breakPoints, $break_name);
+		@if type-of($bp) == 'list' {
+			$min: nth($bp, 1);
+			$max: nth($bp, 2);
+			@media (min-width: $min) and (max-width: $max) {
+				@content;
+			}
+		} @else {
+			@media (min-width: $bp) {
+				@content;
+			}
+		}
+	}
+}

@@ -22,7 +22,9 @@ const route = useRoute();
 @import '@jialouluo/tools/src/components/styles/global';
 
 .content {
-	@include card(0.5) {
+	@include card {
+		background-color: col(grey-1);
+		transform: translateZ(0); // 单独给一个合成层
 		& > * {
 			overflow: auto;
 			padding: rem(0.5);

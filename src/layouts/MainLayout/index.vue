@@ -24,10 +24,12 @@ useGo();
 		<Layout class="body-layout">
 			<LayoutHeader>
 				<template #feat>
-					<a-button @click="() => (collapsed = !collapsed)">
+					<harver-button
+						:shape="'rect'"
+						@click="() => (collapsed = !collapsed)">
 						<AMenuFoldOutlined v-if="collapsed" />
 						<AMenuUnfoldOutlined v-else />
-					</a-button>
+					</harver-button>
 				</template>
 			</LayoutHeader>
 			<LayoutMain />
