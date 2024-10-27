@@ -1,4 +1,4 @@
-name: 博客CICD
+name: harver CICD
 on:
   pull_request:
     # branches: main
@@ -37,8 +37,8 @@ jobs:
           password: ${{ secrets.REMOTE_PASSWORD }}
           # 执行脚本
           script: |
-            sudo rm -f /etc/nginx/conf.d/harver_front_blog.conf
-            sudo rm -rf /home/harver/nginx/harver_blog_https_ssl/
+            sudo rm -f /etc/nginx/conf.d/main.conf
+            sudo rm -rf /home/harver/nginx/harver_main_https_ssl/
             echo -e "开始登录dockerHub..."
             docker login -u ${{secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
             echo -e "开始清理旧容器..."
@@ -48,10 +48,10 @@ jobs:
             echo -e "开始拉取新镜像..."
             docker pull ${{secrets.DOCKER_USERNAME }}/${{vars.DOCKER_REPOSITORY }}:latest
             echo -e "开始创建并运行新容器..."
-            docker run -d -p 1141:3000  --name ${{ vars.IMAGE_NAME }} ${{secrets.DOCKER_USERNAME }}/${{ vars.DOCKER_REPOSITORY }}:latest
+            docker run -d -p 3001:80  --name ${{ vars.IMAGE_NAME }} ${{secrets.DOCKER_USERNAME }}/${{ vars.DOCKER_REPOSITORY }}:latest
             echo -e "开始更新Nginx..."
-            sudo docker cp ${{ vars.IMAGE_NAME }}:/app/blog_front/harver_front_blog.conf /etc/nginx/conf.d/
+            sudo docker cp ${{ vars.IMAGE_NAME }}:/app/blog_admin/main.conf /etc/nginx/conf.d/
             echo -e "开始SSL..."
-            sudo docker cp ${{ vars.IMAGE_NAME }}:/app/blog_front/ssl/ /home/harver/nginx/harver_blog_https_ssl/
+            sudo docker cp ${{ vars.IMAGE_NAME }}:/app/blog_admin/ssl/ /home/harver/nginx/harver_main_https_ssl/
             sudo nginx -s reload
             docker logout

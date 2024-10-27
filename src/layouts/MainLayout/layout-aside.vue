@@ -6,7 +6,7 @@ import { useRouter } from 'vue-router';
 import { LayoutSider } from 'ant-design-vue';
 import { deepHandleObjectFn } from '@jialouluo/tools';
 
-import { PACKAGE_ENUM } from '#/shared/configs/dist/lib-esm';
+import { PACKAGE_ENUM } from '@jialouluo/configs';
 import { useStore } from '@/store';
 const props = defineProps<{ collapsed: boolean }>();
 // defineProps({

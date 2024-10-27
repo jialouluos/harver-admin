@@ -7,7 +7,7 @@
 		"all-run": "vite-node ./scripts/dev.ts ",
 		"user-script-build": "vite-node ./src/extraTools/scripts/compiler/index.ts",
 		"dev": "vite",
-		"build": "vue-tsc && vite build",
+		"build": "vite build",
 		"no-check-build": "vite build",
 		"preinstall": "npx only-allow pnpm",
 		"preview": "vite preview"

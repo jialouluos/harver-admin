@@ -5,7 +5,7 @@ import { AppRouteModule } from '@/types/Route';
 import { deepFilterTree, deepHandleObjectFn } from '@jialouluo/tools';
 import { importFileRouteSystem } from '../utils/index';
 import { useStore } from '@/store';
-import { PACKAGE_ENUM } from '#/shared/configs/dist/lib-esm';
+import { PACKAGE_ENUM } from '@jialouluo/configs';
 import { client } from '@/utils/client';
 import { message } from 'ant-design-vue';
 
@@ -31,7 +31,7 @@ export const router = createRouter({
 	strict: true,
 	scrollBehavior: () => ({ left: 0, top: 0 }),
 });
-console.log('main app route register：',moduleRouteList);
+console.log('main app route register：', moduleRouteList);
 //初始化路由白名单
 export const initWhiteList = (array: AppRouteModule[]) => {
 	array.forEach(item => {
