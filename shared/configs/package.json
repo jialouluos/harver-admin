@@ -1,7 +1,8 @@
 {
 	"name": "@jialouluo/configs",
-	"version": "1.0.0",
+	"version": "1.0.2",
 	"description": "",
+	"private": false,
 	"main": "./dist/lib/index.cjs",
 	"type": "module",
 	"types": "./dist/lib-esm/index.d.ts",
