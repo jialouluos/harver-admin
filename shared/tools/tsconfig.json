@@ -48,7 +48,7 @@
   "include": [
     "src/**/*.ts",
     "typing.d.ts"
-  ],
+, "src/components/vue2/hooks/useClassName.ts", "src/components/vue2/hooks/usePrefixCls.js", "src/components/vue2/hooks/useIntersectionObserver.js"  ],
   "references": [
     {
       "path": "./tsconfig.node.json"

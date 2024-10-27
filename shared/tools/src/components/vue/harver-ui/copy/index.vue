@@ -42,7 +42,7 @@ const copyText = async (ref: string | HTMLElement) => {
 </script>
 <template>
 	<span
-		:class="CN.R('copy', 0)"
+		:class="CN.C('copy', 0)"
 		@click="() => copyText(valueRef)">
 		{{ '复制' }}
 	</span>

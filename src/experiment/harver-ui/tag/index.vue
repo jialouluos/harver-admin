@@ -1,16 +1,8 @@
 <script lang="ts" setup>
 import Tag from '@jialouluo/tools/src/components/vue/harver-ui/tag/index.vue';
 import Divider from '@jialouluo/tools/src/components/vue/harver-ui/divider/index.vue';
-import { reactive, nextTick } from 'vue';
 
-const state = reactive({
-	performanceType: '',
-});
-const handleChangeTextPerformance = async (type: 'low' | 'high' | '') => {
-	state.performanceType = '';
-	await nextTick();
-	state.performanceType = type;
-};
+
 </script>
 <template>
 	<div class="example_display">
@@ -42,31 +34,6 @@ const handleChangeTextPerformance = async (type: 'low' | 'high' | '') => {
 				</Tag>
 			</div>
 		</div>
-		<!-- <div class="display_box">
-			<div>
-				<h2>lazy 【当前： {{ state.performanceType }}】</h2>
-				<Divider></Divider>
-				<div style="display: flex; justify-content: center; align-items: center; width: 100%">
-					<button
-						class="button"
-						@click="() => handleChangeTextPerformance('low')">
-						<span> performance(low)</span>
-					</button>
-
-					<button
-						class="button"
-						@click="() => handleChangeTextPerformance('')">
-						<span> 销毁</span>
-					</button>
-				</div>
-				<Divider></Divider>
-				<template
-					v-for="item in Array(100)"
-					v-if="state.performanceType">
-					<Divider></Divider>
-				</template>
-			</div>
-		</div> -->
 	</div>
 </template>
 <style lang="scss" scoped>
@@ -74,18 +41,18 @@ const handleChangeTextPerformance = async (type: 'low' | 'high' | '') => {
 
 .example_display {
 	display: flex;
+	flex-wrap: wrap;
+	align-content: flex-start;
 	align-items: flex-start;
 	width: 100%;
 	height: 100%;
 	gap: rem(1);
-	flex-wrap: wrap;
-	align-content: flex-start;
 
 	.display_box {
 		display: flex;
+		flex-wrap: wrap;
 		margin: rem(1) 0;
 		width: 100%;
-		flex-wrap: wrap;
 		@include card {
 			& > div {
 				width: 100%;

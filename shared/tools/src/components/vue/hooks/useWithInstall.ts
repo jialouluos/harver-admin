@@ -17,7 +17,7 @@ export type CustomComponent = Component & { displayName?: string };
 export const useWithInstall = <T extends CustomComponent>(component: T, alias?: string) => {
 	(component as Record<string, unknown>).install = (app: App) => {
 		//install在被APP.use时被调用
-		console.log(component.name);
+		console.log(component.name,'install success !');
 		const compName = component.name || component.displayName;
 		if (!compName) return;
 		app.component(compName, component); //被vue实例注册

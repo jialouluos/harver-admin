@@ -1,0 +1,8 @@
+html,
+body,
+#harver-blog-admin-root {
+	/* overflow: auto; */
+	position: relative;
+	width: 100%;
+	height: 100%;
+}

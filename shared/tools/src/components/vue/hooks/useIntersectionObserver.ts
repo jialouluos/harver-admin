@@ -1,3 +1,5 @@
+import { ref } from 'vue';
+
 export const useIntersectionObserver = (
 	observeTarget: HTMLElement,
 	onShowCallback: (entry: IntersectionObserverEntry) => void,
@@ -8,6 +10,7 @@ export const useIntersectionObserver = (
 	} = {}
 ) => {
 	const { once, onHiddenCallback, onDisposeCallback } = options;
+	const showState = ref(false);
 	const handleDispose = () => {
 		onDisposeCallback && onDisposeCallback();
 		io.disconnect();
@@ -15,10 +18,16 @@ export const useIntersectionObserver = (
 	const io = new IntersectionObserver((entries, _) => {
 		entries.forEach(entry => {
 			if (entry.isIntersecting) {
+
+				if (showState.value) return;
 				onShowCallback(entry);
+
 				once && handleDispose();
+				showState.value = true;
 			} else {
+				if (!showState.value) return;
 				onHiddenCallback && onHiddenCallback(entry);
+				showState.value = false;
 			}
 		});
 	});

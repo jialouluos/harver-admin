@@ -15,7 +15,7 @@ export default defineConfig({
 
 	// sourcemap
 	sourcemap: true,
-
+	external: ['vue','pinia','axios'],
 	// 每次打包先删除dist
 	clean: true,
 	tsconfig: './tsconfig.esm.json',

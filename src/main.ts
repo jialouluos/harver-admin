@@ -8,11 +8,16 @@ import { setupMicroApps } from './microApp';
 import imgLazy from './directives/imgLazy';
 import vTooltip from '@jialouluo/tools/src/components/vue/directives/vTooltip';
 import Button from '@jialouluo/tools/src/components/vue/harver-ui/button/index.ts';
+import { createPinia } from 'pinia'
+import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
+const pinia = createPinia();
+pinia.use(piniaPluginPersistedstate);
 const app = createApp(App);
 setupRoute(app); //注入路由
 app.use(Antd);
 app.use(Button);
 app.use(imgLazy);
 app.use(vTooltip);
+app.use(pinia);
 app.mount('#app');
 setupMicroApps(); //microApps

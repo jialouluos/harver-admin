@@ -1,12 +1,13 @@
 export enum PACKAGE_ENUM {
 	BASE = 'base',
 	DEMO = 'demo',
-	ADMIN = 'admin',
+
+	BLOG_ADMIN = 'blog_admin',
 }
 export enum PORT_ENUM {
 	BASE = 5173,
 	DEMO = 5174,
-	ADMIN = 5175,
+	BLOG_ADMIN = 5176,
 }
 export interface RouteMeta {
 	order: number;
@@ -14,6 +15,7 @@ export interface RouteMeta {
 	icon?: string;
 	isMenu: boolean;
 	inMicro: boolean;
+	microPath?: string;
 }
 export interface IMenuConfig {
 	meta: RouteMeta;
@@ -35,4 +37,14 @@ export interface IPackagesConfig {
 	path: string;
 	microConfig?: IMicroConfig;
 	menuConfig?: IMenuConfig;
+}
+
+import { RouteRecordRaw } from 'vue-router';
+// export type Component<T = any> =
+// 	| ReturnType<typeof defineComponent>
+// 	| (() => Promise<typeof import('*.vue')>)
+// 	| (() => Promise<T>);
+export interface AppRouteModule extends Omit<RouteRecordRaw, 'meta' | 'children'> {
+	meta: RouteMeta;
+	children?: AppRouteModule[];
 }

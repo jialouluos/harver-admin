@@ -15,7 +15,7 @@ export default defineConfig({
 
 	// sourcemap
 	sourcemap: true,
-
+	external: ['vue','pinia'],
 	// 每次打包先删除dist
 	clean: true,
 	tsconfig: './tsconfig.cjs.json',

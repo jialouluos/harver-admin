@@ -1,4 +1,5 @@
 import { FileHandleInfo, FileInfo, NAME_INFO_ENUM } from '../types';
+import { AppRouteModule } from '@jialouluo/configs';
 export enum EDIR {
 	LEFT = 'left',
 	RIGHT = 'right',
@@ -13,6 +14,14 @@ export interface ITooltip {
 	height: number;
 	targetWidth: number;
 	targetHeight: number;
+}
+export interface ArticleMeta {
+	updateTime: number;
+	parentDir: string;
+	name: string;
+	ext: string;
+	type: NAME_INFO_ENUM;
+	[ket: string]: string | number;
 }
 export function openWindow(
 	url: string,
@@ -131,14 +140,7 @@ const parseFileInfo = (
 	fileInfo: FileInfo
 ): {
 	context: string;
-	meta: {
-		updateTime: number;
-		parentDir: string;
-		name: string;
-		ext: string;
-		type: NAME_INFO_ENUM;
-		[ket: string]: string | number;
-	};
+	meta: ArticleMeta;
 } => {
 	const nameInfo = handleFileName(fileInfo.name);
 	if (!nameInfo) throw Error('存在未支持后缀文件！');
@@ -338,22 +340,21 @@ function resetDomStyles(target: HTMLElement, origin: HTMLElement) {
 	target.style.whiteSpace = 'normal';
 	target.style.webkitLineClamp = 'none';
 }
+const binarySearch = (text: string | ChildNode[], cb: (index: number) => number) => {
+	let min = 0,
+		max = text.length - 1;
 
+	while (min <= max) {
+		const mid = Math.round((max + min) / 2);
+		const result = cb(mid);
+		max = result > 0 ? mid - 1 : max;
+		min = result < 0 ? mid + 1 : min;
+
+		if (result === 0) return mid;
+	}
+};
 export const computedEllipsis = (dom: HTMLElement, contentDOM: HTMLElement, content: string, rows: number) => {
-	const binarySearch = (text: string, cb: (index: number) => number) => {
-		let min = 0,
-			max = text.length - 1;
-
-		while (min <= max) {
-			const mid = Math.round((max + min) / 2);
-			const result = cb(mid);
-			max = result > 0 ? mid - 1 : max;
-			min = result < 0 ? mid + 1 : min;
-
-			if (result === 0) return mid;
-		}
-	};
-
+	console.log(312312);
 	if (typeof rows === 'undefined' || !dom || !contentDOM)
 		return {
 			cutIndex: undefined,
@@ -417,34 +418,112 @@ export const computedEllipsis = (dom: HTMLElement, contentDOM: HTMLElement, cont
 
 	const lineHeight = contentHeight / rows;
 
-	if (cloneContentDOM instanceof HTMLElement && cloneContentDOM.children.length) {
-		//如果存在子节点，那么就不是纯文本
-		//TODO
-	} else {
-		const measureText = content ?? cloneContentDOM.innerText; //确保只是纯文字
+	const isHasChildrenNodes = cloneContentDOM instanceof HTMLElement && cloneContentDOM.children.length;
 
-		const idx = binarySearch(measureText, cur => {
-			cloneContentDOM.innerText = measureText.slice(0, cur);
-			let textHeight = getContentHeight(measureDOM);
+	const measureTarget = isHasChildrenNodes
+		? Array.prototype.slice.call(cloneContentDOM.childNodes, 0).filter(item => item.nodeType !== 3)
+		: content || cloneContentDOM.innerText;
+	const idx = binarySearch(measureTarget, cur => {
+		if (isHasChildrenNodes) {
+			cloneContentDOM.innerHTML = '';
+			cloneContentDOM.append(...measureTarget.slice(0, cur));
+		} else {
+			cloneContentDOM.innerText = measureTarget.slice(0, cur) as string;
+		}
 
-			let curRows = Math.round(textHeight / lineHeight);
+		let textHeight = getContentHeight(measureDOM);
 
-			if (curRows !== rows) return curRows - rows;
+		let curRows = Math.round(textHeight / lineHeight);
 
-			cloneContentDOM.innerText = measureText.slice(0, cur + 1);
-			textHeight = getContentHeight(measureDOM);
+		if (curRows !== rows) return curRows - rows;
 
-			curRows = Math.round(textHeight / lineHeight);
+		if (isHasChildrenNodes) {
+			cloneContentDOM.innerHTML = '';
+			cloneContentDOM.append(...measureTarget.slice(0, cur + 1));
+		} else {
+			cloneContentDOM.innerText = measureTarget.slice(0, cur + 1) as string;
+		}
+		textHeight = getContentHeight(measureDOM);
 
-			return curRows - rows - 1;
-		});
+		curRows = Math.round(textHeight / lineHeight);
 
-		document.body.removeChild(measureDOM);
+		return curRows - rows - 1;
+	});
 
-		return {
-			cutIndex: idx,
-			needEllipsis: typeof idx === 'undefined' ? false : true,
-			needUpdateCutIndex: true,
-		};
-	}
+	document.body.removeChild(measureDOM);
+
+	return {
+		cutIndex: idx,
+		needEllipsis: typeof idx === 'undefined' ? false : true,
+		needUpdateCutIndex: true,
+	};
 };
+export function importFileRouteSystem<T extends { children?: T[] } = AppRouteModule>(
+	modules: Record<string, unknown>,
+	options: {
+		ignorePath?: string;
+		exc?: string;
+		rootNode?: undefined;
+	}
+): T[];
+export function importFileRouteSystem<T extends { children?: T[] } = AppRouteModule>(
+	modules: Record<string, unknown>,
+	options: {
+		ignorePath?: string;
+		exc?: string;
+		rootNode?: T;
+	}
+): T;
+export function importFileRouteSystem<T extends { children?: T[] } = AppRouteModule>(
+	modules: Record<string, unknown>,
+	options: {
+		ignorePath?: string;
+		exc?: string;
+		rootNode?: T;
+	} = {}
+): T[] | T {
+	const { ignorePath = '', exc = 'route.config.ts', rootNode } = options;
+	if (rootNode) {
+		rootNode.children ??= [];
+	}
+
+	const map = new Map();
+	const appModules: T[] = rootNode?.children ?? [];
+	const buildModuleTree = (path: string) => {
+		const findIndex = path.indexOf(ignorePath);
+		const startIndex = findIndex + ignorePath.length;
+		let tempPath = '';
+
+		const paths = path
+			.slice(findIndex === -1 ? 0 : startIndex)
+			.split('/')
+			.slice(0, -1)
+			.map(item => {
+				const parentPath = tempPath;
+				tempPath += item + '/';
+				return {
+					parentPath,
+					currentPath: tempPath,
+				};
+			});
+
+		for (const { parentPath, currentPath } of paths) {
+			const module = (modules as Record<string, { default: T }>)[ignorePath + currentPath + exc]?.default;
+			if (map.get(parentPath) && !map.has(currentPath)) {
+				const parentNode = map.get(parentPath);
+				parentNode && (parentNode.children ??= []);
+				module && parentNode.children.push(module);
+				map.set(currentPath, module);
+			} else if (!map.has(currentPath)) {
+				module && appModules.push(module);
+				map.set(currentPath, module);
+			}
+		}
+	};
+
+	for (const moduleKey of Object.keys(modules)) {
+		buildModuleTree(moduleKey);
+	}
+
+	return rootNode ? rootNode : appModules;
+}

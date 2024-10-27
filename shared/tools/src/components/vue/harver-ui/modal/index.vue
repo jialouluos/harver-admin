@@ -21,7 +21,7 @@ const props = withDefaults(
 const eventId = Symbol('modal-event');
 const eventEngine = useSharedGlobalEvent();
 const eventPool = eventEngine.value!.useScopedEventPool(eventId)!;
-const canClose = ref(false);
+
 const CNGenerator = useClassName({
 	split: '-',
 	prefixClassName: usePrefixCls,
@@ -65,28 +65,28 @@ const handleOk = () => {
 </script>
 <template>
 	<Teleport to="body">
-		<Transition :name="CN.R('modal', 0)">
+		<Transition :name="CN.C('modal', 0)">
 			<div
 				v-if="open"
-				:class="[CN.R('modal', 0)]"
+				:class="[CN.C('modal', 0)]"
 				ref="modalRef">
-				<div :class="CN.R('header', 1)">
-					<div :class="CN.R('content', 2)">
+				<div :class="CN.C('header', 1)">
+					<div :class="CN.C('content', 2)">
 						<slot name="header">
 							{{ title }}
 						</slot>
 					</div>
 					<span
 						v-if="showCloseIcon"
-						:class="CN.R('close-icon', 2)"
+						:class="CN.C('close-icon', 2)"
 						@click="handleCancel()"
 						>✕</span
 					>
 				</div>
-				<div :class="CN.R('content', 1)">
+				<div :class="CN.C('content', 1)">
 					<slot name="content">content</slot>
 				</div>
-				<div :class="CN.R('footer', 1)">
+				<div :class="CN.C('footer', 1)">
 					<slot name="footer">
 						<harver-button @click="handleOk"> 确定 </harver-button>
 						<harver-button @click="handleCancel"> 取消 </harver-button>

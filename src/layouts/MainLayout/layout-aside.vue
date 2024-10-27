@@ -1,10 +1,13 @@
 <script lang="ts" setup>
-import { computed, reactive, h, watch } from 'vue';
+import { computed, reactive, h, watch, ref, toRaw, unref } from 'vue';
 import { rawMenus } from '@/router';
 
 import { useRouter } from 'vue-router';
 import { LayoutSider } from 'ant-design-vue';
 import { deepHandleObjectFn } from '@jialouluo/tools';
+
+import { PACKAGE_ENUM } from '#/shared/configs/dist/lib-esm';
+import { useStore } from '@/store';
 const props = defineProps<{ collapsed: boolean }>();
 // defineProps({
 // 	collapsed: {
@@ -18,11 +21,23 @@ const state = reactive({
 	preOpenKeys: [],
 });
 const router = useRouter();
+const store = useStore();
 
 const menus = computed(() => {
 	return rawMenus.map(item => {
 		return deepHandleObjectFn(item, 'children', {
 			handleFn: obj => {
+				if (obj.path.includes(PACKAGE_ENUM.BLOG_ADMIN)) {
+					//注入子应用路由菜单
+					return {
+						key: obj.path,
+						icon: () => (obj.meta.icon ? h(obj.meta.icon) : null),
+						label: obj.meta.title,
+						title: obj.meta.title,
+						children: store.blogAdminStore.microRouteMenu,
+					};
+				}
+
 				return {
 					key: obj.path,
 					icon: () => (obj.meta.icon ? h(obj.meta.icon) : null),
@@ -33,7 +48,7 @@ const menus = computed(() => {
 		});
 	});
 });
-console.log(menus);
+
 watch(
 	() => state.openKeys,
 	(_val, oldVal) => {

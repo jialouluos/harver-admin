@@ -24,7 +24,7 @@ const CN = CNGenerator(Symbol('button'));
 </script>
 
 <template>
-	<button :class="[CN.R('button', 0), CN.R(shape, 1), CN.R(size, 1)]">
+	<button :class="[CN.C('button', 0), CN.C(shape, 1), CN.C(size, 1)]">
 		<span>
 			<slot name="default"></slot>
 		</span>
@@ -35,25 +35,25 @@ const CN = CNGenerator(Symbol('button'));
 .#{$prefixCls} {
 	&-button {
 		&-rect {
-			@include button(0, 0.25, 'rect');
+			@include button(0, 0.25, 'rect', 'sub');
 		}
 
 		&-round {
-			@include button(0, 0.2, 'round', 'vivi', 1);
+			@include button(0, 0.2, 'round', 'sub', 1);
 		}
 
 		&-small {
-			padding: rem(0.25) rem(0.5);
+			padding: rem(0.4) rem(0.5);
 			font-size: rem(0.6);
 		}
 
 		&-middle {
-			padding: rem(0.4) rem(0.75);
+			padding: rem(0.6) rem(0.75);
 			font-size: rem(0.8);
 		}
 
 		&-large {
-			padding: rem(0.5) rem(1);
+			padding: rem(0.7) rem(1);
 			font-size: rem(1);
 		}
 	}

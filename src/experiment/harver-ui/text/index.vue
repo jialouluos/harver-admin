@@ -5,11 +5,17 @@ import { reactive, nextTick } from 'vue';
 
 const state = reactive({
 	performanceType: '',
+	supperLazyPerformanceType: '',
 });
 const handleChangeTextPerformance = async (type: 'low' | 'high' | '') => {
 	state.performanceType = '';
 	await nextTick();
 	state.performanceType = type;
+};
+const handleChangeTextSupperLazyPerformance = async (type: 'low' | 'high' | '') => {
+	state.supperLazyPerformanceType = '';
+	await nextTick();
+	state.supperLazyPerformanceType = type;
 };
 </script>
 <template>
@@ -20,9 +26,9 @@ const handleChangeTextPerformance = async (type: 'low' | 'high' | '') => {
 				<Divider></Divider>
 				<Text
 					:content="'测试文本-|'.repeat(100)"
-					:ellipsis="{
-						tooltip: '测试',
-						enableTooltip: true,
+					:tooltip="{
+						content: '测试',
+						enable: true,
 					}">
 				</Text>
 			</div>
@@ -33,11 +39,13 @@ const handleChangeTextPerformance = async (type: 'low' | 'high' | '') => {
 				<Divider></Divider>
 				<Text
 					:ellipsis="{ rows: 3 }"
+					:tooltip="{ enable: false }"
 					:content="'测试文本-|'.repeat(100)">
 				</Text>
 				<Divider></Divider>
 				<Text
 					:ellipsis="{ rows: 1 }"
+					:tooltip="{ enable: false }"
 					:content="'测试文本-|'.repeat(18)">
 				</Text>
 			</div>
@@ -63,12 +71,18 @@ const handleChangeTextPerformance = async (type: 'low' | 'high' | '') => {
 				<h2>(单行省略 | 多行省略) + tooltip(强制) + 展开收起</h2>
 				<Divider></Divider>
 				<Text
-					:ellipsis="{ rows: 3, enableTooltip: true, expandable: true }"
+					:ellipsis="{ rows: 3, expandable: true }"
+					:tooltip="{
+						enable: true,
+					}"
 					:content="'测试文本-|'.repeat(50)">
 				</Text>
 				<Divider></Divider>
 				<Text
-					:ellipsis="{ rows: 1, enableTooltip: true, expandable: true }"
+					:ellipsis="{ rows: 1, expandable: true }"
+					:tooltip="{
+						enable: true,
+					}"
 					:content="'测试文本-|'.repeat(18)">
 				</Text>
 			</div>
@@ -78,14 +92,13 @@ const handleChangeTextPerformance = async (type: 'low' | 'high' | '') => {
 				<h2>(单行省略 | 多行省略) + tooltip + 展开收起 + copy</h2>
 				<Divider></Divider>
 				<Text
-					copy
-					:ellipsis="{ rows: 3, expandable: true }"
+					:ellipsis="{ rows: 3, expandable: true, copy: true }"
 					:content="'测试文本-|'.repeat(50)">
 				</Text>
 				<Divider></Divider>
 				<Text
 					copy
-					:ellipsis="{ rows: 1, expandable: true }"
+					:ellipsis="{ rows: 1, expandable: true, copy: true }"
 					:content="'测试文本-|'.repeat(18)">
 				</Text>
 			</div>
@@ -96,12 +109,18 @@ const handleChangeTextPerformance = async (type: 'low' | 'high' | '') => {
 				<Divider></Divider>
 				<Text
 					copy
-					:ellipsis="{ rows: 3, expandable: true, showMaxLength: 20 }"
+					:ellipsis="{ rows: 3, expandable: true }"
+					:measure="{
+						maxLength: 20,
+					}"
 					:content="'测试文本-|'.repeat(50)">
 				</Text>
 				<Divider></Divider>
 				<Text
-					:ellipsis="{ rows: 1, showMaxLength: 20 }"
+					:ellipsis="{ rows: 1 }"
+					:measure="{
+						maxLength: 20,
+					}"
 					:content="'测试文本-|'.repeat(18)">
 				</Text>
 			</div>
@@ -112,12 +131,18 @@ const handleChangeTextPerformance = async (type: 'low' | 'high' | '') => {
 				<Divider></Divider>
 				<Text
 					copy
-					:ellipsis="{ rows: 3, expandable: true, showMaxLength: 20, suffix: '----' }"
+					:ellipsis="{ rows: 3, expandable: true, suffix: '----' }"
+					:measure="{
+						maxLength: 20,
+					}"
 					:content="'测试文本-|'.repeat(50)">
 				</Text>
 				<Divider></Divider>
 				<Text
-					:ellipsis="{ rows: 1, showMaxLength: 20, suffix: '----' }"
+					:ellipsis="{ rows: 1, suffix: '----' }"
+					:measure="{
+						maxLength: 20,
+					}"
 					:content="'测试文本-|'.repeat(18)">
 				</Text>
 			</div>
@@ -151,9 +176,67 @@ const handleChangeTextPerformance = async (type: 'low' | 'high' | '') => {
 						lazy
 						:ellipsis="{
 							rows: 3,
-							enableTooltip: true,
-							...(state.performanceType === 'high' ? { expandable: true, showMaxLength: 20, suffix: '----' } : {}),
+
+							...(state.performanceType === 'high' ? { expandable: true,  suffix: '----' } : {}),
 						}"
+					
+						:measure="
+							state.performanceType === 'high'
+								? {
+										lazy: true,
+										maxLength: 20,
+								  }
+								: { lazy: true }
+						"
+						:content="'测试文本-|'.repeat(50)">
+					</Text>
+					<Divider></Divider>
+				</template>
+			</div>
+		</div>
+		<div class="display_box">
+			<div>
+				<h2>多行省略 supperLazy 【当前： {{ state.supperLazyPerformanceType }}】</h2>
+				<Divider></Divider>
+				<div style="display: flex; justify-content: center; align-items: center; width: 100%">
+					<harver-button
+						class="button"
+						@click="() => handleChangeTextSupperLazyPerformance('low')">
+						performance(low)
+					</harver-button>
+					<harver-button
+						class="button"
+						@click="() => handleChangeTextSupperLazyPerformance('high')">
+						performance(high)
+					</harver-button>
+					<harver-button
+						class="button"
+						@click="() => handleChangeTextSupperLazyPerformance('')">
+						销毁
+					</harver-button>
+				</div>
+				<Divider></Divider>
+				<template
+					v-for="item in Array(100)"
+					v-if="state.supperLazyPerformanceType">
+					<Text
+						lazy
+						:ellipsis="{
+							rows: 3,
+
+							...(state.supperLazyPerformanceType === 'high' ? { expandable: true,  suffix: '----' } : {}),
+						}"
+						:tooltip="{
+							enable: true,
+						}"
+						:measure="
+							state.supperLazyPerformanceType === 'high'
+								? {
+										supperLazy: true,
+										maxLength: 20,
+								  }
+								: { supperLazy: true }
+						"
 						:content="'测试文本-|'.repeat(50)">
 					</Text>
 					<Divider></Divider>
@@ -167,18 +250,18 @@ const handleChangeTextPerformance = async (type: 'low' | 'high' | '') => {
 
 .example_display {
 	display: flex;
+	flex-wrap: wrap;
+	align-content: flex-start;
 	align-items: flex-start;
 	width: 100%;
 	height: 100%;
 	gap: rem(1);
-	flex-wrap: wrap;
-	align-content: flex-start;
 
 	.display_box {
 		display: flex;
+		flex-wrap: wrap;
 		margin: rem(1) 0;
 		width: 100%;
-		flex-wrap: wrap;
 		@include card {
 			& > div {
 				width: 100%;

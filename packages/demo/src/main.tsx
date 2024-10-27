@@ -5,7 +5,9 @@ import MyRouter from './router/index.tsx';
 import { renderWithQiankun, qiankunWindow } from 'vite-plugin-qiankun/dist/helper';
 
 const render = (container?: HTMLElement) => {
-	const app = ReactDOM.createRoot(container ? container : document.getElementById('root')!);
+	const app = ReactDOM.createRoot(
+		container ? container.querySelector('#harver-demo-root')! : document.querySelector('#harver-demo-root')!
+	);
 	app.render(
 		<React.StrictMode>
 			<MyRouter />

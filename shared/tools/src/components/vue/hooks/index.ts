@@ -3,3 +3,4 @@ export * from './useEventListener';
 export * from './useSharedScoped';
 export * from './usePrefixCls';
 export * from './useIntersectionObserver';
+export * from './useResizeObserver';

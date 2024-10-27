@@ -1,9 +1,13 @@
-import { RouteRecordRaw, createRouter, createWebHistory } from 'vue-router';
+import { NavigationGuardNext, RouteRecordRaw, createRouter, createWebHistory } from 'vue-router';
 import { basicRoutes } from './routes/basic';
 import { App } from 'vue';
 import { AppRouteModule } from '@/types/Route';
-import { deepHandleObjectFn } from '@jialouluo/tools';
+import { deepFilterTree, deepHandleObjectFn } from '@jialouluo/tools';
 import { importFileRouteSystem } from '../utils/index';
+import { useStore } from '@/store';
+import { PACKAGE_ENUM } from '#/shared/configs/dist/lib-esm';
+import { client } from '@/utils/client';
+import { message } from 'ant-design-vue';
 
 const modulesGlob = import.meta.glob('./modules/**/*.ts', { eager: true }); // import.meta.glob() 直接引入所有的模块 Vite 独有的功能
 
@@ -18,7 +22,6 @@ moduleRouteList.push(
 		exc: 'index.ts',
 	})
 );
-console.log(moduleRouteList);
 export const router = createRouter({
 	// 创建一个 hash 历史记录。
 	history: createWebHistory(import.meta.env.VITE_PUBLIC_PATH),
@@ -28,7 +31,7 @@ export const router = createRouter({
 	strict: true,
 	scrollBehavior: () => ({ left: 0, top: 0 }),
 });
-
+console.log('main app route register：',moduleRouteList);
 //初始化路由白名单
 export const initWhiteList = (array: AppRouteModule[]) => {
 	array.forEach(item => {
@@ -47,24 +50,74 @@ export function resetRouter() {
 		}
 	});
 }
-export const rawMenus = moduleRouteList
-	.filter(item => item.meta.isMenu)
+export const rawMenus = (
+	deepFilterTree(moduleRouteList, 'children', {
+		filterFn: object => object.meta.isMenu,
+	}) as AppRouteModule[]
+)
 	.sort((a, b) => b.meta.order - a.meta.order)
 	.map(item => {
 		return deepHandleObjectFn(item, 'children', {
-			filterFn: obj => {
-				return obj.meta.isMenu;
-			},
-			handleFn: obj => {
-				return obj;
-			},
+			handleFn: obj => obj,
 			handleNextNodes: obj => {
 				return obj.sort((a, b) => b.meta.order - a.meta.order);
 			},
 		});
 	});
-
 export const setupRoute = (app: App<Element>) => {
 	initWhiteList(basicRoutes);
 	app.use(router);
 };
+const blogAdminPathTemplate = (strings: TemplateStringsArray) => {
+	return `/${PACKAGE_ENUM.BLOG_ADMIN}${strings}`;
+};
+const routePermissionValidate = async (options: {
+	next: NavigationGuardNext;
+	handleNoPermission: () => void;
+	handleHasPermission?: () => void;
+	extraCheck?: () => boolean;
+}) => {
+	const { next, handleNoPermission, handleHasPermission, extraCheck } = options;
+
+	if (extraCheck && !extraCheck()) {
+		return handleNoPermission();
+	}
+
+	return await client
+		.check()
+		.then(_ => {
+			handleHasPermission && handleHasPermission();
+			next();
+		})
+		.catch(_ => {
+			message.error('token非法或已过期!');
+			handleNoPermission();
+		});
+};
+router.beforeEach(async (to, from, next) => {
+	const store = useStore();
+
+	if (to.path.startsWith(`/${PACKAGE_ENUM.BLOG_ADMIN}`)) {
+		// blog admin
+		const microPath = '/' + to.path.split('/').slice(2).join('/');
+		if (microPath.includes('/login')) {
+			store.blogAdminStore?.clear();
+			next();
+		} else {
+			await routePermissionValidate({
+				next,
+				handleNoPermission: () => {
+					store.blogAdminStore?.clear();
+					next(blogAdminPathTemplate`/login`);
+				},
+				handleHasPermission: () => {
+					store.blogAdminStore.showMicroRouteMenu = true;
+				},
+				extraCheck: () => store.blogAdminStore.hasToken,
+			});
+		}
+	} else {
+		store.blogAdminStore?.clear();
+		next();
+	}
+});

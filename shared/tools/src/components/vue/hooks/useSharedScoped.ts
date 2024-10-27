@@ -18,6 +18,7 @@ export const useSharedScoped = <T extends (...args: any[]) => any>(composable: T
 			scope.value = effectScope(true);
 			state.value = scope.value.run(() => composable(...args));
 		}
+
 		onScopeDispose(dispose);
 		return state;
 	};

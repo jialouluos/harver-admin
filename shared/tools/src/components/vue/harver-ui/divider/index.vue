@@ -1,9 +1,15 @@
 <script lang="ts" setup>
+import { CSSProperties } from 'vue';
 import { useClassName, usePrefixCls } from '../../hooks';
-defineProps<{
+withDefaults(defineProps<{
 	content?: string;
 	hasPadding?: boolean;
-}>();
+	containerStyle?: CSSProperties
+	contentStyle?:CSSProperties
+}>(), {
+	containerStyle: () => ({}),
+	contentStyle: () => ({}),
+});
 const CNGenerator = useClassName({
 	split: '-',
 	prefixClassName: usePrefixCls,
@@ -12,15 +18,16 @@ const CN = CNGenerator(Symbol('divider'));
 </script>
 <template>
 	<div
-		:class="CN.R('divider', 0)"
-		:style="hasPadding ? {} : { padding: '0' }">
-		<div :class="CN.R('left', 1)"></div>
+		:class="CN.C('divider', 0)"
+		:style="hasPadding ? {...containerStyle} : { padding: '0',...containerStyle }">
+		<div :class="CN.C('left', 1)"></div>
 		<span
 			v-if="content"
-			:class="CN.R('content', 1)"
+			:class="CN.C('content', 1)"
+			:style="contentStyle"
 			>{{ content }}</span
 		>
-		<div :class="CN.R('right', 1)"></div>
+		<div :class="CN.C('right', 1)"></div>
 	</div>
 </template>
 <style lang="scss" scoped>

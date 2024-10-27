@@ -1,6 +1,8 @@
 import { registerMicroApps, addGlobalUncaughtErrorHandler, FrameworkLifeCycles, RegistrableApp } from 'qiankun';
 import packagesConfig, { PACKAGE_ENUM } from '@jialouluo/configs';
-
+import { useStore } from '@/store';
+import { useRouter } from 'vue-router';
+const router = useRouter();
 const microApps = Object.values(packagesConfig)
 	.filter(item => item.name !== PACKAGE_ENUM.BASE)
 	.map(item => item.microConfig);
@@ -13,6 +15,10 @@ const apps = microApps.map(item => {
 	return {
 		...item,
 		loader,
+		props: {
+			useStore,
+			useRouter: () => router,
+		},
 	};
 }) as RegistrableApp<{}>[];
 
@@ -26,6 +32,10 @@ const lifeCycle: FrameworkLifeCycles<{}> = {
 	afterMount: app => {
 		// 加载微应用前，进度条加载完成
 		console.log('after mount', app.name);
+		return Promise.resolve();
+	},
+	beforeUnmount: app => {
+		console.log(app.name, 'unmounted');
 		return Promise.resolve();
 	},
 };

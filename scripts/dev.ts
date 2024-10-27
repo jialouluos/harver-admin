@@ -52,7 +52,7 @@ function runInquirerCommand() {
 			});
 		})
 		.catch(err => {
-			console.log(`选择被取消(${err.message})`);
+			console.log(`选择被取消(${err.message ?? ''})`);
 		});
 }
 

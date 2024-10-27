@@ -7,20 +7,12 @@ import {
 	useSharedGlobalEvent,
 	on,
 } from '@jialouluo/tools/src/components/vue/hooks/index.ts';
-
-interface IProps {
-	trigger?: 'hover' | 'click';
-	placement?: 'top' | 'left' | 'right' | 'bottom';
-	width?: number;
-	space?: number;
-	disabled?: boolean;
-	content?: string;
-}
+import { ITooltipProps } from '@jialouluo/tools/src/types/harver-ui.ts';
 interface IState {
 	show: boolean;
 	placementInfo: null | ITooltip;
 }
-const props = withDefaults(defineProps<IProps>(), {
+const props = withDefaults(defineProps<ITooltipProps>(), {
 	trigger: 'hover',
 	placement: 'top',
 	width: 300,
@@ -53,12 +45,33 @@ const handleHover = () => {
 		eventPool.clear('clearMouseEnter');
 		eventPool.clear('clearMouseLeave');
 		if (!triggerRef.value) return;
+		let timer: NodeJS.Timeout | null = null;
 		const clearMouseEnter = on(triggerRef, 'mouseenter', () => {
+			timer && clearTimeout(timer);
 			state.show = true;
+			nextTick(() => {
+				eventPool.clear('clearContentMouseEnter');
+				eventPool.clear('clearContentMouseLeave');
+				const clearContentMouseEnter = on(contentRef, 'mouseenter', () => {
+					timer && clearTimeout(timer);
+					state.show = true;
+				});
+				const clearContentMouseLeave = on(contentRef, 'mouseleave', () => {
+					timer = setTimeout(() => {
+						state.show = false;
+						timer = null;
+					}, 300);
+				});
+				eventPool.mark('clearContentMouseEnter', clearContentMouseEnter);
+				eventPool.mark('clearContentMouseLeave', clearContentMouseLeave);
+			});
 		});
 
 		const clearMouseLeave = on(triggerRef, 'mouseleave', () => {
-			state.show = false;
+			timer = setTimeout(() => {
+				state.show = false;
+				timer = null;
+			}, 300);
 		});
 		eventPool.mark('clearMouseEnter', clearMouseEnter);
 		eventPool.mark('clearMouseLeave', clearMouseLeave);
@@ -185,19 +198,19 @@ defineExpose({
 <template>
 	<span
 		ref="triggerRef"
-		v-bind="{ ...$attrs }">
+		v-bind="$attrs">
 		<slot name="default"></slot>
 
 		<Teleport
 			to="body"
 			v-if="!disabled">
-			<Transition :name="CN.R('tooltip', 0)">
+			<Transition :name="CN.C('tooltip', 0)">
 				<div
 					v-if="state.show"
 					ref="contentRef"
-					:class="[CN.R('tooltip', 0), state.placementInfo ? CN.R(state.placementInfo!.key, 1):'']">
+					:class="[CN.C('tooltip', 0), state.placementInfo ? CN.C(state.placementInfo!.key, 1):'']">
 					<div
-						:class="CN.R('inner', 1)"
+						:class="CN.C('inner', 1)"
 						:style="{
 							maxWidth: width + 'px',
 						}">
@@ -216,8 +229,8 @@ defineExpose({
 		position: fixed;
 		z-index: 10;
 		padding: rem(0.25);
-		background-color: col(grey-0);
 		border: rem(0.1) solid col(primary, 0.9); // 最外层颜色
+		background-color: col(grey-0);
 		@include shadow('box');
 		@include border_radius(0.3);
 		@include grass;
@@ -225,10 +238,10 @@ defineExpose({
 		&-inner {
 			display: flex;
 			padding: rem(0.2) rem(0.25);
-			font-size: rem(0.8);
-			white-space: pre-wrap;
 			background-color: inherit;
-			word-wrap: break-word;
+			font-size: rem(0.6);
+			word-break: break-all;
+			white-space: pre-wrap;
 		}
 
 		&-top {

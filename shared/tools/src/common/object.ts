@@ -41,12 +41,12 @@ export const deepHandleObjectFn = <
 	}
 ): R => {
 	const { handleFn = obj => obj, filterFn = () => true, handleNextNodes = obj => obj } = options;
-	const newObject = handleFn(target) as R;
+	const newObject = handleFn(target) ;
 
-	if (prop in target) {
-		if (isFalsy(target[prop])) return newObject;
+	if (target[prop] || newObject[prop] ) {
+		if (isFalsy(target[prop]) && isFalsy(newObject[prop])) return newObject as R;
 
-		const _children = target[prop];
+		const _children = newObject[prop] ||  target[prop] ;
 
 		if (isArray<T>(_children)) {
 			const newValue = _children
@@ -59,5 +59,42 @@ export const deepHandleObjectFn = <
 		}
 	}
 
-	return newObject;
+	return newObject as R;
+};
+
+export const deepFilterTree = <
+	T extends object,
+	_T extends DeepArrayTreeRequired<T> = DeepArrayTreeRequired<T>,
+	K extends Extract<keyof TreeNodeType<_T>, string> = Extract<keyof TreeNodeType<_T>, string>
+>(
+	target: T | T[] = [],
+	prop: K,
+	options: {
+		filterFn?: (obj: T) => boolean;
+	}
+): T | T[]|undefined => {
+	const { filterFn = () => true } = options;
+
+	const resultArray: T[] = [];
+
+	const handleArray = (Array.isArray(target) ? target : target[prop]) ?? [];
+
+	for (const object of handleArray as T[]) {
+		if (filterFn(object)) {
+			resultArray.push(...([deepFilterTree(object, prop, options)].flat(2) as T[]));
+		} else {
+			resultArray.push(...(deepFilterTree(object[prop] as T[], prop, options) as T[]));
+		}
+	}
+
+	if (Array.isArray(target)) {
+		return resultArray
+	} else {
+		return filterFn(target)
+			? {
+					...target,
+					[prop]:  isFalsy(resultArray) ? undefined : resultArray
+			  }
+			: resultArray;
+	}
 };

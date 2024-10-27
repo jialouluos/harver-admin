@@ -44,15 +44,15 @@ export default <Record<PACKAGE_ENUM, IPackagesConfig>>{
 			],
 		},
 	},
-	[PACKAGE_ENUM.ADMIN]: {
-		name: PACKAGE_ENUM.ADMIN,
-		port: PORT_ENUM.ADMIN,
+	[PACKAGE_ENUM.BLOG_ADMIN]: {
+		name: PACKAGE_ENUM.BLOG_ADMIN,
+		port: PORT_ENUM.BLOG_ADMIN,
 		alias: '博客后台',
-		path: `/${PACKAGE_ENUM.ADMIN}/`,
+		path: `/${PACKAGE_ENUM.BLOG_ADMIN}/`,
 		microConfig: {
-			name: `@jialouluo/${PACKAGE_ENUM.ADMIN}`,
-			entry: `//localhost:${PORT_ENUM.ADMIN}`,
-			activeRule: `/${PACKAGE_ENUM.ADMIN}`,
+			name: `@jialouluo/${PACKAGE_ENUM.BLOG_ADMIN}`,
+			entry: `//localhost:${PORT_ENUM.BLOG_ADMIN}`,
+			activeRule: `/${PACKAGE_ENUM.BLOG_ADMIN}`,
 			container: '#micro-container',
 			props: {},
 		},
@@ -64,11 +64,11 @@ export default <Record<PACKAGE_ENUM, IPackagesConfig>>{
 				isMenu: true,
 				inMicro: true,
 			},
-			name: PACKAGE_ENUM.ADMIN,
-			path: `/${PACKAGE_ENUM.ADMIN}`,
+			name: PACKAGE_ENUM.BLOG_ADMIN,
+			path: `/${PACKAGE_ENUM.BLOG_ADMIN}`,
 			children: [
 				{
-					name: PACKAGE_ENUM.ADMIN,
+					name: PACKAGE_ENUM.BLOG_ADMIN,
 					path: `:path(.*)*`,
 					meta: {
 						order: 0,

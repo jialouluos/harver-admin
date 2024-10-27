@@ -1,4 +1,4 @@
-<script lang="ts" setup>
+<script lang="ts">
 import { computed, reactive, ref, watch, nextTick, onScopeDispose, Ref, StyleValue, CSSProperties } from 'vue';
 import {
 	useClassName,
@@ -8,71 +8,70 @@ import {
 } from '@jialouluo/tools/src/components/vue/hooks/index.ts';
 import tooltip from '@jialouluo/tools/src/components/vue/harver-ui/tooltip/index.vue';
 import Copy from '@jialouluo/tools/src/components/vue/harver-ui/copy/index.vue';
-// import Measure from '@jialouluo/tools/src/components/vue/harver-ui/measure/index.vue';
-import Measure from '../measure/index.vue';
+import Measure from '@jialouluo/tools/src/components/vue/harver-ui/measure/index.vue';
 import { isPositiveInit } from '@jialouluo/tools';
+import { ITextProps } from '@jialouluo/tools/src/types/harver-ui.ts';
 
-interface IProps {
-	copy?: boolean;
-	content?: string;
-	performance?: 'high' | 'low'; // 测量性能要求  low不支持expandable、copy、suffix、expandText、foldText
-	textStyle?: CSSProperties;
-	containerStyle?: CSSProperties;
-	lazy?: boolean; //是否开启懒处理
-	width?: string | number; //文本宽度
-	ellipsis?: {
-		rows?: number; //最大展示行数
-		expandable?: boolean; //ellipsis时是否展示展开按钮
-		tooltip?: string; //tooltip展示的内容
-		enableTooltip?: boolean; //启用tooltip
-		trigger?: 'click' | 'hover';
-		showMaxLength?: number; //最大展示的字数
-		placement?: 'top' | 'right' | 'left' | 'bottom';
-		expandText?: string; //展开文案
-		foldText?: string; //闭合文案
-		suffix?: string; //省略文案
-	};
-}
+export default {
+	name: 'harver-text',
+};
+</script>
+
+<script lang="ts" setup>
 const DEFAULT_ROWS = 1;
-const props = withDefaults(defineProps<IProps>(), {
+const props = withDefaults(defineProps<ITextProps>(), {
 	content: '',
 	ellipsis: () => ({}),
-	textStyle: () => ({}),
-	containerStyle: () => ({}),
+	tooltip: () => ({}),
+	measure: () => ({}),
+	contentStyle: () => ({}),
 });
 const state = reactive({
 	expand: false, // 展开/收起状态
 });
+
 const content = computed(() => props.content);
 const ellipsis = computed(() => {
-	const { rows, expandable, trigger, placement, tooltip, showMaxLength, foldText, expandText, enableTooltip, suffix } =
-		props.ellipsis;
-	const width = !!props.width ? parseFloat(props.width + "") + 'px':undefined;
+	const { rows, expandable, foldText, expandText, suffix, copy } = props.ellipsis;
+	const { enable, content: tooltipContent, ...tooltipConfig } = props.tooltip;
+	const { lazy, supperLazy, maxLength, performance } = props.measure;
+	const width = !!props.width
+		? typeof props.width === 'string'
+			? props.width
+			: parseFloat(props.width + '') + 'px'
+		: undefined;
+	const maxWidth = !!props.maxWidth
+		? typeof props.maxWidth === 'string'
+			? props.maxWidth
+			: parseFloat(props.maxWidth + '') + 'px'
+		: undefined;
 	const isDefaultSuffix = !suffix || suffix === '...';
-	const noExpandable = !expandable && !props.copy;
-	const disabledShowMaxLength = !isPositiveInit(showMaxLength)
+	const noExpandable = !expandable && !copy;
+	const disabledShowMaxLength = !isPositiveInit(maxLength);
+	const realPerformance = isDefaultSuffix && noExpandable && disabledShowMaxLength ? performance ?? 'low' : 'high';
 	return {
 		rows: isPositiveInit(rows) ? Math.max(rows, DEFAULT_ROWS) : undefined,
 		expandable: expandable ?? false,
-		trigger: trigger ?? 'hover',
-		tooltip: tooltip ?? '',
-		placement: placement ?? 'top',
-		width: width,
-		showMaxLength: showMaxLength ?? undefined,
+		width,
+		maxWidth,
+		maxLength: maxLength ?? undefined,
 		foldText: foldText || '收起',
 		expandText: expandText || '展开',
-		lazy: props.lazy,
-		enableTooltip: enableTooltip,
+		lazy,
+		supperLazy,
+		enableTooltip: enable,
 		suffix: suffix ?? '...',
-		performance: props.performance ?? (isDefaultSuffix && noExpandable  && disabledShowMaxLength ? 'low' : 'high'),
+		performance: realPerformance,
+		tooltipConfig,
+		tooltipContent: tooltipContent ?? props.content,
+		copy,
 	};
 });
 
 const disabledMeasure = computed(() => {
-	if (ellipsis.value.width) return false;
+	// if (ellipsis.value.width) return false;
 	return !ellipsis.value.rows || state.expand;
 });
-
 
 const CNGenerator = useClassName({
 	split: '-',
@@ -88,47 +87,36 @@ const handleExpandable = () => {
 <template>
 	<Measure
 		:content
-		:rows="ellipsis.rows"
 		:disabled="disabledMeasure"
-		:contentStyle="{...$attrs.style as CSSProperties,...textStyle}"
-		:showMaxLength="ellipsis.showMaxLength"
-		:containerStyle="{
+		:contentStyle
+		:style="{
 			width: ellipsis.width,
-			...containerStyle,
+			maxWidth: ellipsis.maxWidth,
+			...$attrs.style as CSSProperties
 		}"
-		:suffix="ellipsis.suffix"
-		:lazy="ellipsis.lazy"
-		:performance="ellipsis.performance"
-		>
+		v-bind="ellipsis">
 		<template #content="{ cutContent, bindContentRef, needEllipsis }">
 			<tooltip
-				:class="[CN.R('text', 0)]"
+				:class="[CN.C('text', 0)]"
 				:ref="tooltipRef => bindContentRef((tooltipRef as any)?.triggerRef)"
-				:trigger="ellipsis.trigger"
-				:disabled="!( ellipsis.enableTooltip ? true : needEllipsis)"
-				:placement="ellipsis.placement"
-				:content
-				:style="{...$attrs.style as CSSProperties,...textStyle}"
-				>
+				:disabled="!(ellipsis.enableTooltip ?? needEllipsis)"
+				:content="ellipsis.tooltipContent"
+				v-bind="ellipsis.tooltipConfig"
+				:style="contentStyle">
 				<template #default>
 					{{ cutContent }}
 				</template>
-				<template
-					#content
-					v-if="ellipsis.tooltip">
-					{{ ellipsis.tooltip }}
-				</template>
 			</tooltip>
 		</template>
-		<template #extend="{ cutContent, needEllipsis }">
+		<template #extend="{}">
 			<span
-				:class="CN.R('expand', 1)"
+				:class="CN.C('expand', 1)"
 				v-if="ellipsis.expandable"
 				@click="handleExpandable">
 				{{ state.expand ? ellipsis.foldText : ellipsis.expandText }}
 			</span>
 			<Copy
-				v-if="copy"
+				v-if="ellipsis.copy"
 				:valueRef="content" />
 		</template>
 	</Measure>
@@ -139,8 +127,8 @@ const handleExpandable = () => {
 .#{$prefixCls} {
 	&-text {
 		&-expand {
-			padding: 0 rem(0.2);
 			margin: 0 rem(0.4);
+			padding: 0 rem(0.2);
 			font-size: rem(0.8);
 			color: col(strong-primary);
 			@include pointer;
