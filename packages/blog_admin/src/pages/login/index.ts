@@ -1,4 +1,4 @@
-import { AppRouteModule } from '@jialouluo/configs';
+import type { AppRouteModule } from '@jialouluo/configs';
 
 export default <AppRouteModule>{
 	path: '/login',

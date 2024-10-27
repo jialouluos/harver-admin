@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia';
-import { PACKAGE_ENUM } from '@jialouluo/configs';
+import  { PACKAGE_ENUM } from '@jialouluo/configs';
 
 export const useBlogAdminStore = defineStore(PACKAGE_ENUM.BLOG_ADMIN, {
 	persist: {

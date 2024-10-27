@@ -5,7 +5,7 @@ import { AppRouteModule } from '@/types/Route';
 import { deepFilterTree, deepHandleObjectFn } from '@jialouluo/tools';
 import { importFileRouteSystem } from '../utils/index';
 import { useStore } from '@/store';
-import { PACKAGE_ENUM } from '@jialouluo/configs';
+import  { PACKAGE_ENUM } from '@jialouluo/configs';
 import { client } from '@/utils/client';
 import { message } from 'ant-design-vue';
 

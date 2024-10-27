@@ -1,5 +1,5 @@
 import { RouteRecordRaw, createRouter, createWebHistory } from 'vue-router';
-import packagesConfig, { AppRouteModule, PACKAGE_ENUM } from '@jialouluo/configs';
+import packagesConfig, { type AppRouteModule, PACKAGE_ENUM } from '@jialouluo/configs';
 import { qiankunWindow } from 'vite-plugin-qiankun/dist/helper';
 import appRouteModules from './modules';
 import { deepFilterTree, deepHandleObjectFn } from '@jialouluo/tools';

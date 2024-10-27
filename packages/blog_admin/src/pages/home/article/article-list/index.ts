@@ -1,4 +1,4 @@
-import { AppRouteModule } from '@jialouluo/configs';
+import type { AppRouteModule } from '@jialouluo/configs';
 
 export default <AppRouteModule>{
 	path: 'article-list', //用于子应用路由path

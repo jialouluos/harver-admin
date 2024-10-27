@@ -4,7 +4,7 @@ import enquirer from 'enquirer';
 import { execa } from 'execa';
 
 import detect from 'detect-port';
-import packagesConfig, { PACKAGE_ENUM, PORT_ENUM } from '@jialouluo/configs';
+import packagesConfig, { PACKAGE_ENUM, type PORT_ENUM } from '@jialouluo/configs';
 
 // 已占用端口列表
 type PortInfo = {

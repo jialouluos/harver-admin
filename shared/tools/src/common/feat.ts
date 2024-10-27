@@ -1,5 +1,5 @@
 import { FileHandleInfo, FileInfo, NAME_INFO_ENUM } from '../types';
-import { AppRouteModule } from '@jialouluo/configs';
+import type { AppRouteModule } from '@jialouluo/configs';
 export enum EDIR {
 	LEFT = 'left',
 	RIGHT = 'right',
