@@ -8,6 +8,7 @@
 	"types": "./dist/lib-esm/index.d.ts",
 	"module": "./dist/lib-esm/index.js",
 	"unpkg": "./dist/umd/index.js",
+	"registry": "./dist/umd/index.js",
 	"jsdelivr": "./dist/umd/index.js",
 	"exports": {
 		".": {
