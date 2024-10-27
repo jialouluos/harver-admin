@@ -580,8 +580,9 @@ const render = (video: HTMLVideoElement) => {
 	}
 	canvasEngine.requestAnimationFrameId = requestAnimationFrame(() => render(video));
 };
+
 export const init = () => {
-	window.hw.hooks = { ...window.hw.hooks, usePictureInPicture };
-	window.hw.globalCache.symbols.push(PIP_SYMBOL);
-	return window.hw;
+	hw.hooks = { ...hw.hooks, usePictureInPicture };
+	hw.globalCache.symbols.push(PIP_SYMBOL);
+	return hw;
 };

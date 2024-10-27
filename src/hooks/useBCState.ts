@@ -1,4 +1,4 @@
-import { onMounted, ref, Ref, toRaw, toRef, UnwrapRef, watch } from 'vue';
+import { onMounted, ref, Ref, toRaw, UnwrapRef, watch } from 'vue';
 
 type StateInit<T> = T extends any ? T | (() => void | T) : never;
 interface IProps<T> {

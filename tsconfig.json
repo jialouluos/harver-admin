@@ -37,7 +37,7 @@
     "src/**/*.tsx",
     "src/**/*.vue",
     "shared/tools/src/common/object.ts",
-    "src/hooks/tamperMonkey/usePictureInPicture.js",
+    "src/extraTools/**/*.ts",
     "src/types/*.ts",
 
   ],

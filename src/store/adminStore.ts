@@ -1,6 +1,5 @@
 import { defineStore } from 'pinia';
 import { PACKAGE_ENUM } from '@jialouluo/configs';
-import { unref } from 'vue';
 
 export const useBlogAdminStore = defineStore(PACKAGE_ENUM.BLOG_ADMIN, {
 	persist: {
@@ -45,7 +44,7 @@ export const useBlogAdminStore = defineStore(PACKAGE_ENUM.BLOG_ADMIN, {
 		clear() {
 			const cacheBlogAdminRoutes = this.microRouteMenu;
 			this.$reset();
-			this.routeMenu = cacheBlogAdminRoutes
+			this.routeMenu = cacheBlogAdminRoutes;
 			window.sessionStorage.clear();
 		},
 	},

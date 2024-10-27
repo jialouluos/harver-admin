@@ -94,7 +94,7 @@ const routePermissionValidate = async (options: {
 			handleNoPermission();
 		});
 };
-router.beforeEach(async (to, from, next) => {
+router.beforeEach(async (to, _, next) => {
 	const store = useStore();
 
 	if (to.path.startsWith(`/${PACKAGE_ENUM.BLOG_ADMIN}`)) {

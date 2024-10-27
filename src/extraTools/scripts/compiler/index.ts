@@ -118,7 +118,7 @@ export class CompilerCore {
 
 		const styles = this.descriptor.styles;
 
-		const hasScoped = styles.some(item => item.scoped);
+		// const hasScoped = styles.some(item => item.scoped);
 
 		const styleCodes = styles.map(style => {
 			return compileStyle({
