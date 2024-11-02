@@ -1,6 +1,6 @@
 {
 	"name": "@jialouluo/tools",
-	"version": "1.0.1",
+	"version": "1.0.3",
 	"description": "",
 	"main": "./dist/lib/common/index.cjs",
 	"type": "module",

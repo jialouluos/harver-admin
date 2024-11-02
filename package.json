@@ -22,7 +22,7 @@
 	"devDependencies": {
 		"@ant-design/icons-vue": "^7.0.1",
 		"@jialouluo/configs": "workspace:^",
-		"@jialouluo/tools": "^1.0.2",
+		"@jialouluo/tools": "workspace:^",
 		"@types/node": "^20.14.2",
 		"@vitejs/plugin-vue": "^5.0.4",
 		"ant-design-vue": "^4.2.3",
