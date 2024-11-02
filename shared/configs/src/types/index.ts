@@ -25,7 +25,8 @@ export interface IMenuConfig {
 }
 export interface IMicroConfig {
 	name: `@jialouluo/${PACKAGE_ENUM}`;
-	entry: `//localhost:${PORT_ENUM}`;
+	// entry: `//localhost:${PORT_ENUM}`;
+	entry:string
 	activeRule: `/${PACKAGE_ENUM}`;
 	container: string;
 	props: Record<string, any>;
