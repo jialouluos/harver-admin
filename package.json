@@ -21,7 +21,7 @@
 	},
 	"devDependencies": {
 		"@ant-design/icons-vue": "^7.0.1",
-		"@jialouluo/configs": "^1.0.2",
+		"@jialouluo/configs": "workspace:^",
 		"@jialouluo/tools": "^1.0.2",
 		"@types/node": "^20.14.2",
 		"@vitejs/plugin-vue": "^5.0.4",
@@ -70,14 +70,5 @@
 			"config": ".cz-config.cjs"
 		}
 	},
-	"pnpm": {
-		"packageExtensions": {
-			"vue-template-compiler": {
-				"peerDependencies": {
-					"vue": "2.6.11",
-					"webpack": "^4.0.0"
-				}
-			}
-		}
-	}
+	"pnpm": {}
 }
