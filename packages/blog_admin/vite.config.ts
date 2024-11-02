@@ -12,6 +12,9 @@ function _resolve(dir: string) {
 const config = packagesConfig[PACKAGE_ENUM.BLOG_ADMIN];
 // https://vitejs.dev/config/
 export default defineConfig({
+	build: {
+		outDir: `dist/`,
+	},
 	base: process.env.NODE_ENV === 'production' ? '/__dynamic_base__/' : '/',
 	plugins: [
 		vue(),

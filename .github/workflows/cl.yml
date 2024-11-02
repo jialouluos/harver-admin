@@ -42,7 +42,7 @@ jobs:
         if: steps.cache-dependencies.outputs.cache-hit != 'true'
         run: pnpm i
       - name: build project
-        run: pnpm build
+        run:  pnpm all-build
       - name: 正在登录远程dockerHub...
         run: |
           docker login -u ${{secrets.DOCKER_USERNAME }} -p ${{ secrets. DOCKER_PASSWORD }}

@@ -13,6 +13,7 @@ import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
 const pinia = createPinia();
 pinia.use(piniaPluginPersistedstate);
 const app = createApp(App);
+console.log(import.meta.env);
 setupRoute(app); //注入路由
 app.use(Antd);
 app.use(Button);

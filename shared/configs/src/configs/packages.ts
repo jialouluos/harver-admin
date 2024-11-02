@@ -14,7 +14,7 @@ export default <Record<PACKAGE_ENUM, IPackagesConfig>>{
 		path: `/${PACKAGE_ENUM.DEMO}/`,
 		microConfig: {
 			name: `@jialouluo/${PACKAGE_ENUM.DEMO}`,
-			entry: `//localhost:${PORT_ENUM.DEMO}`,
+			entry: (import.meta as any).env.PROD ? `/mainAppDist/${PACKAGE_ENUM.DEMO}/dist` : `//localhost:${PORT_ENUM.DEMO}`,
 			activeRule: `/${PACKAGE_ENUM.DEMO}`,
 			container: '#micro-container',
 			props: {},
@@ -51,7 +51,9 @@ export default <Record<PACKAGE_ENUM, IPackagesConfig>>{
 		path: `/${PACKAGE_ENUM.BLOG_ADMIN}/`,
 		microConfig: {
 			name: `@jialouluo/${PACKAGE_ENUM.BLOG_ADMIN}`,
-			entry: `//localhost:${PORT_ENUM.BLOG_ADMIN}`,
+			entry: (import.meta as any).env.PROD
+				? `/mainAppDist/${PACKAGE_ENUM.BLOG_ADMIN}/dist`
+				: `//localhost:${PORT_ENUM.BLOG_ADMIN}`,
 			activeRule: `/${PACKAGE_ENUM.BLOG_ADMIN}`,
 			container: '#micro-container',
 			props: {},

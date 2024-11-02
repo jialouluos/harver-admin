@@ -12,6 +12,9 @@ const config = packagesConfig[PACKAGE_ENUM.DEMO];
 
 // https://vitejs.dev/config/
 export default defineConfig({
+	build: {
+		outDir: `dist/`,
+	},
 	base: process.env.NODE_ENV === 'production' ? '/__dynamic_base__/' : '/',
 	plugins: [
 		qiankun(config.microConfig!.name, {

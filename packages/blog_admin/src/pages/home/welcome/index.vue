@@ -8,13 +8,13 @@
 export default {};
 </script>
 
-<style scoped lang="less">
+<style scoped lang="scss">
 .welcome_title {
-	text-align: center;
-	color: rgb(138, 184, 202);
 	position: absolute;
-	font-size: 20px;
 	left: 130px;
 	right: 0;
+	text-align: center;
+	font-size: 20px;
+	color: rgb(138 184 202);
 }
 </style>

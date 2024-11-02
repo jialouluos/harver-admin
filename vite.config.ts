@@ -9,6 +9,9 @@ function _resolve(dir: string) {
 export default defineConfig({
 	base: '/',
 	plugins: [vue()],
+	build: {
+		outDir: `mainAppDist/`,
+	},
 	resolve: {
 		alias: {
 			'@': _resolve('src'),

@@ -1,32 +1,31 @@
 @import '@jialouluo/tools/src/components/styles/global';
 
-$msg_height: 60px;
+// $msgHeight: 60px;
 
-.modal_mask {
-	@include center;
+// .modal_mask {
+// 	@include center;
 
-	position: fixed;
-	@include fill;
+// 	position: fixed;
+// 	inset: 0;
+// 	z-index: 9999;
+// 	outline: 0;
+// 	@include fill;
 
-	z-index: 9999;
-	outline: 0;
-	inset: 0;
+// 	.modal_container {
+// 		position: relative;
+// 		padding: 20px;
+// 		border-radius: 5px;
+// 		min-width: 80vw;
+// 		height: auto;
+// 		background: var(--box-bg);
+// 		@include shadow;
+// 	}
+// }
 
-	.modal_container {
-		position: relative;
-		padding: 20px;
-		min-width: 80vw;
-		height: auto;
-		background: var(--box-bg);
-		border-radius: 5px;
-		@include shadow;
-	}
-}
+// .show {
+// 	@include show(0, $msgHeight, 0.5s, show_msg);
+// }
 
-.show {
-	@include show(0, $msg_height, 0.5s, show_msg);
-}
-
-.hidden {
-	@include hidden($msg_height, 0, 0.5s, hidden_msg);
-}
+// .hidden {
+// 	@include hidden($msgHeight, 0, 0.5s, hidden_msg);
+// }
