@@ -12,8 +12,8 @@ importers:
         specifier: ^7.0.1
         version: 7.0.1(vue@3.5.10)
       '@jialouluo/configs':
-        specifier: 1.0.8
-        version: 1.0.8(esbuild@0.23.0)(postcss@8.4.47)
+        specifier: ^1.1.0
+        version: 1.1.0(esbuild@0.23.0)(postcss@8.4.47)
       '@jialouluo/tools':
         specifier: 1.0.3
         version: 1.0.3(esbuild@0.23.0)(postcss@8.4.47)
@@ -1074,8 +1074,8 @@ packages:
       wrap-ansi: 8.1.0
       wrap-ansi-cjs: /wrap-ansi@7.0.0
 
-  /@jialouluo/configs@1.0.8(esbuild@0.23.0)(postcss@8.4.47):
-    resolution: {integrity: sha512-slkR9MzexmW0GzbLa8p8FIpxPn783aj7iOVH1/dAtCw3tN4entI+hJu+B20TnqfmTB86PIxKXJQcsqxwyyyMKQ==}
+  /@jialouluo/configs@1.1.0(esbuild@0.23.0)(postcss@8.4.47):
+    resolution: {integrity: sha512-SJRu8opqaYkzlmzdsNMElmvDHXxxZNPjhE7c4sLNnMrl4cW+B17GEfS1n/MC9DoQ5vCE+bD+RJoI1SAQKj1mTA==}
     dependencies:
       awesome-typescript-loader: 5.2.1(typescript@5.5.4)
       axios: 0.26.0
