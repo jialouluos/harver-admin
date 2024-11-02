@@ -79,8 +79,8 @@ jobs:
             echo -e "开始创建并运行新容器..."
             docker run -d -p 3001:80  --name ${{ vars.IMAGE_NAME }} ${{secrets.DOCKER_USERNAME }}/${{ vars.DOCKER_REPOSITORY }}:latest
             echo -e "开始更新Nginx..."
-            sudo docker cp ${{ vars.IMAGE_NAME }}:/app/blog_admin/main.conf /etc/nginx/conf.d/
+            sudo docker cp ${{ vars.IMAGE_NAME }}:/app/harver-admin/main.conf /etc/nginx/conf.d/
             echo -e "开始SSL..."
-            sudo docker cp ${{ vars.IMAGE_NAME }}:/app/blog_admin/ssl/ /home/harver/nginx/harver_main_https_ssl/
+            sudo docker cp ${{ vars.IMAGE_NAME }}:/app/harver-admin/ssl/ /home/harver/nginx/harver_main_https_ssl/
             sudo nginx -s reload
             docker logout
