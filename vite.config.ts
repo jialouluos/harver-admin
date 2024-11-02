@@ -13,7 +13,6 @@ export default defineConfig({
 		alias: {
 			'@': _resolve('src'),
 			'#': _resolve('./'),
-			'@jialouluo/configs': '@jialouluo/configs/dist/lib-esm/index.js', // Before modification
 		},
 	},
 });
