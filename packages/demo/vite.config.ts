@@ -1,5 +1,4 @@
 import { defineConfig } from 'vite';
-import react from '@vitejs/plugin-react-swc';
 import path from 'path';
 import qiankun from 'vite-plugin-qiankun';
 import packagesConfig, { PACKAGE_ENUM } from '@jialouluo/configs';
@@ -15,14 +14,14 @@ export default defineConfig({
 	build: {
 		outDir: `dist/`,
 	},
-	base: process.env.NODE_ENV === 'production' ? '/__dynamic_base__/' : '/',
+	base: process.env.NODE_ENV === 'production' ? '/demo/' : '/',
 	plugins: [
 		qiankun(config.microConfig!.name, {
 			useDevMode: true,
 		}),
-		dynamicBase({
-			/* options */
-		}),
+		// dynamicBase({
+		// 	/* options */
+		// }),
 	],
 	resolve: {
 		extensions: ['.ts', '.tsx', '.js', '.d.ts'],

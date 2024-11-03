@@ -10,7 +10,7 @@ export default defineConfig({
 	base: '/',
 	plugins: [vue()],
 	build: {
-		outDir: `mainAppDist/main/`,
+		outDir: `mainAppDist/`,
 	},
 	resolve: {
 		alias: {

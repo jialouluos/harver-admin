@@ -15,15 +15,15 @@ export default defineConfig({
 	build: {
 		outDir: `dist/`,
 	},
-	base: process.env.NODE_ENV === 'production' ? '/__dynamic_base__/' : '/',
+	base: process.env.NODE_ENV === 'production' ? '/blog_admin/' : '/',
 	plugins: [
 		vue(),
 		qiankun(config.microConfig!.name, {
 			useDevMode: true,
 		}) as any,
-		dynamicBase({
-			/* options */
-		}),
+		// dynamicBase({
+		// 	/* options */
+		// }),
 	],
 	server: {
 		port: config.port,
