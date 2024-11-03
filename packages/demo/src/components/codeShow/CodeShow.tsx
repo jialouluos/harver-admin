@@ -26,7 +26,7 @@ export const CodeShow = ({ sources, children }: IProps) => {
 						position: 'fixed',
 						top: '60px',
 						right: '60px',
-						backgroundColor: 'var(--grey-3)',
+						backgroundColor: 'rgba(var(--grey-3))',
 						lineHeight: '30px',
 						borderRadius: '5px',
 						textAlign: 'center',

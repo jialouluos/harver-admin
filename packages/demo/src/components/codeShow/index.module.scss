@@ -1,31 +1,107 @@
 @import '@jialouluo/tools/src/components/styles/global';
 
-// $msgHeight: 60px;
+$msgHeight: 20px;
+@mixin show($startY, $entY, $time, $animationName) {
+	animation: $animationName $time cubic-bezier(0.25, 0.46, 0.45, 0.94) 1 forwards;
+	@include keyframes($animationName) {
+		from {
+			opacity: 0;
+			transform: translate3d(0, #{$startY}, 0);
+		}
 
-// .modal_mask {
-// 	@include center;
+		to {
+			opacity: 1;
+			transform: translate3d(0, #{$entY}, 0);
+		}
+	}
+}
+@mixin hidden($startY, $entY, $time, $animationName) {
+	animation: $animationName $time cubic-bezier(0.25, 0.46, 0.45, 0.94) 1 forwards;
+	@include keyframes($animationName) {
+		from {
+			opacity: 1;
+			transform: translate3d(0, #{$startY}, 0);
+		}
 
-// 	position: fixed;
-// 	inset: 0;
-// 	z-index: 9999;
-// 	outline: 0;
-// 	@include fill;
+		to {
+			opacity: 0;
+			transform: translate3d(0, #{$entY}, 0);
+		}
+	}
+}
+@mixin keyframes($animationName) {
+	@keyframes #{$animationName} {
+		@content;
+	}
+	@keyframes #{$animationName} {
+		@content;
+	}
+	@keyframes #{$animationName} {
+		@content;
+	}
+	@keyframes #{$animationName} {
+		@content;
+	}
+}
+@mixin scrollbar($width, $height, $color) {
+	::-webkit-scrollbar-button {
+		height: 0;
+		background: 0 0;
+	}
 
-// 	.modal_container {
-// 		position: relative;
-// 		padding: 20px;
-// 		border-radius: 5px;
-// 		min-width: 80vw;
-// 		height: auto;
-// 		background: var(--box-bg);
-// 		@include shadow;
-// 	}
-// }
+	::-webkit-scrollbar {
+		width: $width;
+		height: $height;
+		background: 0 0;
+	}
 
-// .show {
-// 	@include show(0, $msgHeight, 0.5s, show_msg);
-// }
+	::-webkit-scrollbar-track {
+		border-radius: 0.3125rem;
+		background: 0 0;
+	}
 
-// .hidden {
-// 	@include hidden($msgHeight, 0, 0.5s, hidden_msg);
-// }
+	::-webkit-scrollbar-thumb {
+		border-radius: 1.25rem;
+		background-color: $color;
+	}
+}
+@mixin collapsed() {
+	overflow: hidden;
+	height: 0;
+	transition: all 0.3s;
+}
+@mixin collapsible() {
+	overflow: hidden;
+	transition: all 1s;
+}
+
+.modal_mask {
+	@include flex_center;
+
+	position: fixed;
+	inset: 0;
+	z-index: 9999;
+	width: 100%;
+	height: 100%;
+	outline: 0;
+
+	.modal_container {
+		@include card;
+
+		position: relative;
+		padding: 20px;
+		border-radius: 5px;
+		min-width: 80vw;
+		height: auto;
+		background: col(bg);
+		@include shadow('box');
+	}
+}
+
+.show {
+	@include show(0, $msgHeight, 0.5s, show_msg);
+}
+
+.hidden {
+	@include hidden($msgHeight, 0, 0.5s, hidden_msg);
+}

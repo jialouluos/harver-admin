@@ -3,7 +3,6 @@ import path from 'path';
 import qiankun from 'vite-plugin-qiankun';
 import packagesConfig, { PACKAGE_ENUM } from '@jialouluo/configs';
 
-import { dynamicBase } from 'vite-plugin-dynamic-base';
 function _resolve(dir: string) {
 	return path.resolve(__dirname, dir);
 }

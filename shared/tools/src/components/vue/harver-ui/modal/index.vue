@@ -111,14 +111,14 @@ const handleOk = () => {
 			margin: auto;
 		}
 		@include flex-center {
+			flex-flow: column wrap;
 			justify-content: space-between;
 			align-items: flex-start;
-			flex-flow: column wrap;
 		}
 
 		&-header {
-			z-index: 10;
 			display: flex;
+			z-index: 10;
 			width: 100%;
 			height: rem(3);
 			@include divide;
@@ -148,13 +148,13 @@ const handleOk = () => {
 		}
 
 		&-footer {
-			z-index: 10;
 			display: flex;
+			z-index: 10;
+			flex-wrap: wrap;
 			align-items: center;
 			width: 100%;
 			height: rem(3);
 			place-content: center flex-end;
-			flex-wrap: wrap;
 			@include divide('top');
 		}
 
@@ -166,14 +166,14 @@ const handleOk = () => {
 
 		&-enter-from,
 		&-leave-to {
-			transform: translate(0, -20px);
 			opacity: 0;
+			transform: translate(0, -20px);
 		}
 
 		&-leave-from,
 		&-enter-to {
-			transform: scale(1, 1) translate(0, 0);
 			opacity: 1;
+			transform: scale(1, 1) translate(0, 0);
 		}
 	}
 }
