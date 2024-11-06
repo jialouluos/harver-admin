@@ -15,7 +15,7 @@ export default defineConfig({
 	build: {
 		outDir: `dist/`,
 	},
-	base: process.env.NODE_ENV === 'production' ? '/blog_admin/' : '/',
+	base: process.env.NODE_ENV === 'production' ? '/blog_admin' : '/',
 	plugins: [
 		vue(),
 		qiankun(config.microConfig!.name, {
