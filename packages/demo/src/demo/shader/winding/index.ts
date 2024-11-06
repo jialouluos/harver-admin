@@ -1,4 +1,4 @@
-import { Render } from '@/engine/Render';
+import { Render } from '@demo/engine/Render';
 import * as THREE from 'three';
 import vs from './vs.glsl?raw';
 import fs from './fs.glsl?raw';
@@ -14,18 +14,12 @@ export class Winding {
 		this.mapRender.dispose();
 	}
 	async render() {
-		const geometry = new THREE.PlaneGeometry(
-			1,
-			1,
-			1,
-			1
-		);
+		const geometry = new THREE.PlaneGeometry(1, 1, 1, 1);
 		const material = new THREE.ShaderMaterial({
 			vertexShader: vs,
 			fragmentShader: fs,
 			uniforms: {
 				u_Time: Render.GlobalTime,
-
 			},
 		});
 		const mesh = new THREE.Mesh(geometry, material);
@@ -35,7 +29,6 @@ export class Winding {
 			mesh.scale.set(this.mapRender.canvasSize.x, this.mapRender.canvasSize.y, 1);
 		};
 		this.startRender();
-
 	}
 	startRender = () => {
 		this.mapRender.render();
@@ -43,5 +36,4 @@ export class Winding {
 	pauseRender = () => {
 		this.mapRender.stopRender();
 	};
-
 }

@@ -1,4 +1,4 @@
-import { SimpleFbm } from '@/demo/shader/simpleFbm';
+import { SimpleFbm } from '@demo/demo/shader/simpleFbm';
 import { useEffect, useRef } from 'react';
 
 export default () => {

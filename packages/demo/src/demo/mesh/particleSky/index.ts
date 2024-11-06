@@ -1,10 +1,10 @@
-import { Render } from '@/engine/Render';
+import { Render } from '@demo/engine/Render';
 import * as THREE from 'three';
-import { RenderPass } from "three/examples/jsm/postprocessing/RenderPass.js";
-import { ShaderPass } from "three/examples/jsm/postprocessing/ShaderPass.js";
-import { AfterimagePass } from "three/examples/jsm/postprocessing/AfterimagePass.js";
-import { FilmPass } from "three/examples/jsm/postprocessing/FilmPass.js";
-import { FXAAShader } from "three/examples/jsm/shaders/FXAAShader.js";
+import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js';
+import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass.js';
+import { AfterimagePass } from 'three/examples/jsm/postprocessing/AfterimagePass.js';
+import { FilmPass } from 'three/examples/jsm/postprocessing/FilmPass.js';
+import { FXAAShader } from 'three/examples/jsm/shaders/FXAAShader.js';
 import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer.js';
 import vs from './vs.glsl?raw';
 import fs from './fs.glsl?raw';
@@ -54,7 +54,7 @@ export class ParticleSky {
 		this.mapRender.renderer!.autoClear = false;
 	}
 	createFog() {
-		this.mapRender.scene.fog = new THREE.Fog("#000000", 40, 100);
+		this.mapRender.scene.fog = new THREE.Fog('#000000', 40, 100);
 	}
 	createParticle() {
 		const material = new THREE.ShaderMaterial({
@@ -65,15 +65,23 @@ export class ParticleSky {
 				u_Texture: { value: Render.math.createTexture() },
 				u_Time: Render.GlobalTime,
 				u_AutoRun: {
-					value: true
+					value: true,
 				},
 			},
 			transparent: true,
-			blending: THREE.AdditiveBlending
+			blending: THREE.AdditiveBlending,
 		});
 		const geometry = Render.math.createParticleBuffer({
-			curRange: [[-400, 400], [-100, 400], [-400, -400]],
-			nextRange: [[-400, 400], [-100, 400], [200, 200]],
+			curRange: [
+				[-400, 400],
+				[-100, 400],
+				[-400, -400],
+			],
+			nextRange: [
+				[-400, 400],
+				[-100, 400],
+				[200, 200],
+			],
 			count: 3000,
 		});
 		const point = new THREE.Points(geometry, material);
@@ -88,11 +96,11 @@ export class ParticleSky {
 				...THREE.ShaderLib.lambert.uniforms,
 				u_Time: Render.GlobalTime,
 				opacity: {
-					value: 0.0
-				}
+					value: 0.0,
+				},
 			},
 			wireframe: true,
-			transparent: true
+			transparent: true,
 		});
 		material.lights = true;
 		material.fog = true;
@@ -106,7 +114,7 @@ export class ParticleSky {
 			value: 1,
 			onUpdate: () => {
 				material.uniformsNeedUpdate = true;
-			}
+			},
 		});
 	}
 	startRender = () => {
@@ -115,5 +123,4 @@ export class ParticleSky {
 	pauseRender = () => {
 		this.mapRender.stopRender();
 	};
-
 }

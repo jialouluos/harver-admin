@@ -1,12 +1,11 @@
-import { Render } from '@/engine/Render';
+import { Render } from '@demo/engine/Render';
 import * as THREE from 'three';
-import lenshen from '@/assets/img/leishen.png';
-import dongman from '@/assets/img/dongman.png';
-import bg_h from '@/assets/img/bg_h.jpg';
-import keqing from '@/assets/img/keqing.jpg';
-import { Geometry } from "https://cdn.skypack.dev/three@0.133.1/examples/jsm/deprecated/Geometry.js";
+import lenshen from '@demo/assets/img/leishen.png';
+import dongman from '@demo/assets/img/dongman.png';
+import bg_h from '@demo/assets/img/bg_h.jpg';
+import keqing from '@demo/assets/img/keqing.jpg';
+import { Geometry } from 'https://cdn.skypack.dev/three@0.133.1/examples/jsm/deprecated/Geometry.js';
 import * as BAS from 'three-bas';
-
 
 export class ShardImage {
 	mapRender: Render;
@@ -29,26 +28,27 @@ export class ShardImage {
 		const bg_w_2 = await Render.textureLoader.loadAsync(dongman);
 		const bg_h_1 = await Render.textureLoader.loadAsync(bg_h);
 		const bg_h_2 = await Render.textureLoader.loadAsync(keqing);
-		this.initModel("in", this.mapRender.aspect > 1.25 ? bg_w_1 : bg_h_1);
-		this.initModel("out", this.mapRender.aspect > 1.25 ? bg_w_2 : bg_h_2);
+		this.initModel('in', this.mapRender.aspect > 1.25 ? bg_w_1 : bg_h_1);
+		this.initModel('out', this.mapRender.aspect > 1.25 ? bg_w_2 : bg_h_2);
 		this.startRender();
 	}
-	initModel(PathImgMethod: "in" | "out", img: THREE.Texture) {
-
+	initModel(PathImgMethod: 'in' | 'out', img: THREE.Texture) {
 		const height = this.mapRender.canvasSize.y / 6;
 		const width = this.mapRender.canvasSize.x / 6;
-		const PlaneGeometry = new Geometry().fromBufferGeometry(new THREE.PlaneGeometry(width, height, width * 2, height * 2));
+		const PlaneGeometry = new Geometry().fromBufferGeometry(
+			new THREE.PlaneGeometry(width, height, width * 2, height * 2)
+		);
 		BAS.Utils.separateFaces(PlaneGeometry);
 		const BasGeometry = new BAS.ModelBufferGeometry(PlaneGeometry, {
 			//将此设置为true将存储顶点相对于其所在面的位置
 			//这样，可以更容易地围绕其自身中心旋转和缩放面
 			localizeFaces: true,
 			//将此设置为true将为阵列中的每个面存储一个质心
-			computeCentroids: true
-		});//预制几何面
+			computeCentroids: true,
+		}); //预制几何面
 		// 缓冲UV，以便正确映射纹理
 		BasGeometry.bufferUvs();
-		const LocalDelay = BasGeometry.createAttribute("aDelay", 2);//延迟
+		const LocalDelay = BasGeometry.createAttribute('aDelay', 2); //延迟
 		const minDuration = 0.8;
 		const maxDuration = 1.2;
 		const maxDelayX = 0.9;
@@ -60,33 +60,31 @@ export class ShardImage {
 			const currentFaceDuration = THREE.MathUtils.randFloat(minDuration, maxDuration);
 			const delayX = THREE.MathUtils.mapLinear(centroid.x, -width * 0.5, width * 0.5, 0.0, maxDelayX);
 			let delayY;
-			if (PathImgMethod === "in") {
+			if (PathImgMethod === 'in') {
 				delayY = THREE.MathUtils.mapLinear(Math.abs(centroid.y), 0, height * 0.5, 0.0, maxDelayY);
-			}
-			else {
+			} else {
 				delayY = THREE.MathUtils.mapLinear(Math.abs(centroid.y), 0, height * 0.5, maxDelayY, 0.0);
 			}
 			for (let j = 0; j < 3; j++) {
-				LocalDelay.array[offset] = delayX + delayY + (Math.random() * stretch * currentFaceDuration);
+				LocalDelay.array[offset] = delayX + delayY + Math.random() * stretch * currentFaceDuration;
 				LocalDelay.array[offset + 1] = currentFaceDuration;
 				offset += 2;
 			}
 		}
-		BasGeometry.createAttribute("aStartPosition", 3, function (data: any[], i: number) {
+		BasGeometry.createAttribute('aStartPosition', 3, function (data: any[], i: number) {
 			BasGeometry.centroids[i].toArray(data);
 		});
-		BasGeometry.createAttribute("aEndPosition", 3, function (data: any[], i: number) {
+		BasGeometry.createAttribute('aEndPosition', 3, function (data: any[], i: number) {
 			BasGeometry.centroids[i].toArray(data);
 		});
-		const LocalControls0 = BasGeometry.createAttribute("aControls0", 3);
-		const LocalControls1 = BasGeometry.createAttribute("aControls1", 3);
+		const LocalControls0 = BasGeometry.createAttribute('aControls0', 3);
+		const LocalControls1 = BasGeometry.createAttribute('aControls1', 3);
 		const Controls0 = new THREE.Vector3();
 		const Controls1 = new THREE.Vector3();
 		const data: any[] = [];
 		for (let i = 0; i < BasGeometry.faceCount; i++) {
-
 			const centroid = BasGeometry.centroids[i];
-			const signY = Math.sign(centroid.y);//返回参数的正负号
+			const signY = Math.sign(centroid.y); //返回参数的正负号
 			Controls0.x = THREE.MathUtils.randFloat(0.6, 0.9) * 50;
 			Controls0.y = signY * Math.sin(centroid.y) * THREE.MathUtils.randFloat(0.3, 0.6) * 0.7;
 			Controls0.z = THREE.MathUtils.randFloatSpread(50);
@@ -94,11 +92,10 @@ export class ShardImage {
 			Controls1.x = THREE.MathUtils.randFloat(0.6, 0.9) * 50;
 			Controls1.y = -signY * Math.cos(centroid.y) * THREE.MathUtils.randFloat(0.1, 0.9) * 0.7;
 			Controls1.z = THREE.MathUtils.randFloatSpread(50);
-			if (PathImgMethod === "in") {
+			if (PathImgMethod === 'in') {
 				Controls0.subVectors(centroid, Controls0);
 				Controls1.subVectors(centroid, Controls1);
-			}
-			else {
+			} else {
 				Controls0.addVectors(centroid, Controls0);
 				Controls1.addVectors(centroid, Controls1);
 			}
@@ -108,9 +105,9 @@ export class ShardImage {
 		}
 
 		const BasMaterial = new BAS.BasicAnimationMaterial({
-			flatShading: true,//阴影
+			flatShading: true, //阴影
 			uniforms: {
-				u_Time: Render.GlobalTime
+				u_Time: Render.GlobalTime,
 			},
 			//uniformValues:{}用来放平常我们创建材质时放置的那些属性，目前已被弃用，更新为和Three js 一样的用法，直接放在参数里
 			metalness: 1.0,
@@ -120,7 +117,7 @@ export class ShardImage {
 			//下面我们来了解一下vertexFunctions
 			vertexFunctions: [
 				BAS.ShaderChunk['cubic_bezier'],
-				BAS.ShaderChunk['ease_cubic_in'],//将一些缓冲值动画函数写入到着色器中
+				BAS.ShaderChunk['ease_cubic_in'], //将一些缓冲值动画函数写入到着色器中
 				BAS.ShaderChunk['ease_cubic_out'],
 				BAS.ShaderChunk['ease_cubic_in_out'],
 				BAS.ShaderChunk['ease_back_out'],
@@ -136,15 +133,15 @@ export class ShardImage {
 				'attribute vec2 aDelay;',
 			],
 			vertexPosition: [
-				'float tProgress = clamp(u_Time - aDelay.x, 0.0, aDelay.y) / aDelay.y;',//u_Time 影响一个动画的时间
-				(PathImgMethod === 'in' ? 'transformed *= tProgress;' : 'transformed *= 1.0 - tProgress;'),
-				'transformed += cubicBezier(aStartPosition, aControls0, aControls1, aEndPosition, tProgress);',//transformed Three内置变量
-			],//vertexPosition 这是与上面对应的main部分
+				'float tProgress = clamp(u_Time - aDelay.x, 0.0, aDelay.y) / aDelay.y;', //u_Time 影响一个动画的时间
+				PathImgMethod === 'in' ? 'transformed *= tProgress;' : 'transformed *= 1.0 - tProgress;',
+				'transformed += cubicBezier(aStartPosition, aControls0, aControls1, aEndPosition, tProgress);', //transformed Three内置变量
+			], //vertexPosition 这是与上面对应的main部分
 		});
 		BasMaterial.frustumCulled = false;
 		const BASMesh = new THREE.Mesh(BasGeometry, BasMaterial);
 		this.group.add(BASMesh);
-		this.mapRender.addListener("pointerMove", ({ relativeCoord }) => {
+		this.mapRender.addListener('pointerMove', ({ relativeCoord }) => {
 			BasMaterial.uniforms.u_Time.value = relativeCoord.x * 3.0;
 			BasMaterial.uniformsNeedUpdate = true;
 		});
@@ -157,5 +154,4 @@ export class ShardImage {
 	pauseRender = () => {
 		this.mapRender.stopRender();
 	};
-
 }

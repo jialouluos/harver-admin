@@ -1,4 +1,4 @@
-import { Render } from '@/engine/Render';
+import { Render } from '@demo/engine/Render';
 import * as THREE from 'three';
 import vs2 from './vs2.glsl?raw';
 import vs from './vs.glsl?raw';
@@ -9,7 +9,7 @@ export class FlyLine {
 	group: THREE.Group = new THREE.Group();
 	material!: THREE.ShaderMaterial;
 	options = {
-		type: "flyLine",
+		type: 'flyLine',
 		LineSpeed: 0.5,
 		LineCount: 2.0,
 		LineSize: 4,
@@ -32,28 +32,28 @@ export class FlyLine {
 			uniforms: {
 				u_Time: Render.GlobalTime,
 				u_Number: {
-					value: this.options.LineCount
+					value: this.options.LineCount,
 				},
 				u_Size: {
-					value: this.options.LineSize
+					value: this.options.LineSize,
 				},
 				u_Speed: {
-					value: this.options.LineSpeed
+					value: this.options.LineSpeed,
 				},
 				u_Length: {
-					value: this.options.LineLength
+					value: this.options.LineLength,
 				},
 				u_Color: {
-					value: this.options.color
-				}
-			}
+					value: this.options.color,
+				},
+			},
 		});
 		await this.loadModel();
 		this.initGUI();
 		this.startRender();
 	}
 	async loadModel() {
-		const { scene: model } = await Render.modelLoadByDraco.loadAsync("/model/地铁.glb");
+		const { scene: model } = await Render.modelLoadByDraco.loadAsync('/model/地铁.glb');
 
 		model.children[0].children.forEach((e: any) => {
 			this.group.add(this.createFlyLine(e.geometry.clone().attributes.position.array));
@@ -72,14 +72,13 @@ export class FlyLine {
 			percent.set([i / len], i);
 		}
 		geometry.setFromPoints(pointArray2);
-		geometry.setAttribute("a_Percent", new THREE.BufferAttribute(percent, 1));
+		geometry.setAttribute('a_Percent', new THREE.BufferAttribute(percent, 1));
 		geometry.computeVertexNormals();
 		geometry.rotateX(-Math.PI / 2);
 		const flyLine = new THREE.Points(geometry, this.material);
 		return flyLine;
 	}
 	initGUI() {
-
 		this.mapRender.$gui.add(this.options, 'type', ['flyLine', 'stream']).onChange(e => {
 			if (e === 'flyLine') {
 				this.material.vertexShader = Render.math.parseGLSLChunk(vs2);
@@ -88,18 +87,30 @@ export class FlyLine {
 			}
 			this.material.needsUpdate = true;
 		});
-		this.mapRender.$gui.add(this.options, 'LineSpeed', 0, 1, 0.01).onChange(e => {
-			this.material.uniforms.u_Speed.value = e;
-		}).name("飞线/流光速度");
-		this.mapRender.$gui.add(this.options, 'LineLength', 0, 1, 0.01).onChange(e => {
-			this.material.uniforms.u_Length.value = e;
-		}).name("飞线/流光长度");
-		this.mapRender.$gui.add(this.options, 'LineCount', 0, 4, 1).onChange(e => {
-			this.material.uniforms.u_Number.value = e;
-		}).name("每条线上的飞线/流光数量");
-		this.mapRender.$gui.add(this.options, 'LineSize', 1, 10, 1).onChange(e => {
-			this.material.uniforms.u_Size.value = e;
-		}).name("飞线/流光大小");
+		this.mapRender.$gui
+			.add(this.options, 'LineSpeed', 0, 1, 0.01)
+			.onChange(e => {
+				this.material.uniforms.u_Speed.value = e;
+			})
+			.name('飞线/流光速度');
+		this.mapRender.$gui
+			.add(this.options, 'LineLength', 0, 1, 0.01)
+			.onChange(e => {
+				this.material.uniforms.u_Length.value = e;
+			})
+			.name('飞线/流光长度');
+		this.mapRender.$gui
+			.add(this.options, 'LineCount', 0, 4, 1)
+			.onChange(e => {
+				this.material.uniforms.u_Number.value = e;
+			})
+			.name('每条线上的飞线/流光数量');
+		this.mapRender.$gui
+			.add(this.options, 'LineSize', 1, 10, 1)
+			.onChange(e => {
+				this.material.uniforms.u_Size.value = e;
+			})
+			.name('飞线/流光大小');
 	}
 	startRender = () => {
 		this.mapRender.render();
@@ -107,5 +118,4 @@ export class FlyLine {
 	pauseRender = () => {
 		this.mapRender.stopRender();
 	};
-
 }

@@ -1,4 +1,4 @@
-import { FlyLine } from '@/demo/mesh/flyLine';
+import { FlyLine } from '@demo/demo/mesh/flyLine';
 
 import { useEffect, useRef } from 'react';
 

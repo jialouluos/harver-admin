@@ -1,4 +1,4 @@
-import { VFXImage } from '@/demo/shader/vfx';
+import { VFXImage } from '@demo/demo/shader/vfx';
 
 import { useEffect, useRef } from 'react';
 

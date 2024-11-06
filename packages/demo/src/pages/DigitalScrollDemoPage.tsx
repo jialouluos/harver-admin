@@ -1,6 +1,6 @@
-import DigitalScrollDemo from '@/demo/css/DigitalScroll';
+import DigitalScrollDemo from '@demo/demo/css/DigitalScroll';
 import { CodeShow } from '../components/codeShow/CodeShow';
-import DigitalScrollDemoString from '@/demo/css/DigitalScroll?raw';
+import DigitalScrollDemoString from '@demo/demo/css/DigitalScroll?raw';
 
 export default () => {
 	return (

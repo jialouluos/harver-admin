@@ -1,6 +1,6 @@
 import style from './index.module.scss';
 import { useNavigate } from 'react-router-dom';
-import { DEMO } from '@/types';
+import { DEMO } from '@demo/types';
 import { qiankunWindow } from 'vite-plugin-qiankun/dist/helper';
 interface IProps {
 	info: DEMO;

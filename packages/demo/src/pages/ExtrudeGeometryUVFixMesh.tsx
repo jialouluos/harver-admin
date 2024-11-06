@@ -1,4 +1,4 @@
-import { ExtrudeGeometryUVFix } from '@/demo/mesh/ExtrudeGeometryUVFix';
+import { ExtrudeGeometryUVFix } from '@demo/demo/mesh/ExtrudeGeometryUVFix';
 
 import { useEffect, useRef } from 'react';
 

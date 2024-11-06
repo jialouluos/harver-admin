@@ -1,4 +1,4 @@
-import { Dewdrop } from '@/demo/shader/dewdrop';
+import { Dewdrop } from '@demo/demo/shader/dewdrop';
 
 import { useEffect, useRef } from 'react';
 

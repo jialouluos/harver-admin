@@ -1,4 +1,4 @@
-import { ParticleExplosion } from '@/demo/mesh/particleExplosion';
+import { ParticleExplosion } from '@demo/demo/mesh/particleExplosion';
 
 import { useEffect, useRef } from 'react';
 

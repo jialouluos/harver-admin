@@ -1,9 +1,8 @@
-import { Render } from '@/engine/Render';
+import { Render } from '@demo/engine/Render';
 import * as THREE from 'three';
 import vs from './vs.glsl?raw';
 import fs from './fs.glsl?raw';
-import { isMesh } from '@/utils/tools';
-
+import { isMesh } from '@demo/utils/tools';
 
 export class ParticleTrack {
 	mapRender: Render;
@@ -26,7 +25,6 @@ export class ParticleTrack {
 		await this.handleModel();
 		this.createPoint();
 		this.startRender();
-
 	}
 	createPoint() {
 		const material = new THREE.ShaderMaterial({
@@ -36,20 +34,17 @@ export class ParticleTrack {
 			defines: {
 				USE_COLOR_MAP: true,
 				PATH_LENGTH: this.spaceCount + 1,
-				PATH_MAX: this.spaceCount.toFixed(1)
-
+				PATH_MAX: this.spaceCount.toFixed(1),
 			},
 			uniforms: {
 				u_Time: Render.GlobalTime,
 				u_Path: {
 					value: [],
 				},
-
 			},
-			transparent: true
+			transparent: true,
 		});
 		for (const point of this.points) {
-
 			const paths = point.map(item => {
 				return new THREE.Vector4(item.x, item.y, item.z, THREE.MathUtils.randFloat(0, 1));
 			});
@@ -61,21 +56,24 @@ export class ParticleTrack {
 
 			const buffGeometry = Render.math.createParticleBuffer({
 				count: 2000,
-				nextRange: [[-250, 250], [-250, 250], [-250, 250]],
+				nextRange: [
+					[-250, 250],
+					[-250, 250],
+					[-250, 250],
+				],
 			});
 			const pointMesh = new THREE.Points(buffGeometry, pointMaterial);
 
 			pointMesh.frustumCulled = false;
 			this.group.add(pointMesh);
 		}
-
 	}
 	async handleModel() {
 		const { scene: model } = await Render.modelLoadByGLTF.loadAsync('/model/螺旋线.glb');
 		model.children.forEach((mesh, index) => {
 			this.points[index] = [];
 			if (isMesh(mesh)) {
-				const position = mesh.geometry.getAttribute("position");
+				const position = mesh.geometry.getAttribute('position');
 				const { itemSize, count, array } = position;
 				for (let i = 0, len = count * 3; i < len; i += itemSize) {
 					this.points[index].push(new THREE.Vector3(array[i], array[i + 1], array[i + 2]));
@@ -92,5 +90,4 @@ export class ParticleTrack {
 	pauseRender = () => {
 		this.mapRender.stopRender();
 	};
-
 }

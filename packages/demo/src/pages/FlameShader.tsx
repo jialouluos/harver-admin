@@ -1,4 +1,4 @@
-import { Flame } from '@/demo/shader/flame';
+import { Flame } from '@demo/demo/shader/flame';
 
 import { useEffect, useRef } from 'react';
 

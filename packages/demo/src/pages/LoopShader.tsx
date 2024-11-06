@@ -1,4 +1,4 @@
-import { Loop } from '@/demo/shader/loop';
+import { Loop } from '@demo/demo/shader/loop';
 
 import { useEffect, useRef } from 'react';
 

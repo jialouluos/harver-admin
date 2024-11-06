@@ -1,4 +1,4 @@
-import { Render } from '@/engine/Render';
+import { Render } from '@demo/engine/Render';
 import * as THREE from 'three';
 import vs from './vs.glsl?raw';
 import fs from './fs.glsl?raw';
@@ -14,12 +14,7 @@ export class SimpleSDF {
 		this.mapRender.dispose();
 	}
 	async render() {
-		const geometry = new THREE.PlaneGeometry(
-			1,
-			1,
-			1,
-			1
-		);
+		const geometry = new THREE.PlaneGeometry(1, 1, 1, 1);
 
 		const material = new THREE.ShaderMaterial({
 			vertexShader: vs,
@@ -27,11 +22,11 @@ export class SimpleSDF {
 			uniforms: {
 				u_Time: Render.GlobalTime,
 				u_Size: {
-					value: this.mapRender.canvasSize
+					value: this.mapRender.canvasSize,
 				},
 				u_Mouse: {
-					value: this.mapRender.mousePos.current
-				}
+					value: this.mapRender.mousePos.current,
+				},
 			},
 		});
 		const mesh = new THREE.Mesh(geometry, material);
@@ -47,7 +42,6 @@ export class SimpleSDF {
 			material.uniformsNeedUpdate = true;
 		};
 		this.startRender();
-
 	}
 	startRender = () => {
 		this.mapRender.render();
@@ -55,5 +49,4 @@ export class SimpleSDF {
 	pauseRender = () => {
 		this.mapRender.stopRender();
 	};
-
 }

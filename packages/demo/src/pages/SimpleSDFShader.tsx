@@ -1,4 +1,4 @@
-import { SimpleSDF } from '@/demo/shader/simpleSDF';
+import { SimpleSDF } from '@demo/demo/shader/simpleSDF';
 
 import { useEffect, useRef } from 'react';
 

@@ -1,4 +1,4 @@
-import { ParticleTrack } from '@/demo/mesh/particleTrack';
+import { ParticleTrack } from '@demo/demo/mesh/particleTrack';
 
 import { useEffect, useRef } from 'react';
 

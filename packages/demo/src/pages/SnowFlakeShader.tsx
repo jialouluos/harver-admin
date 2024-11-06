@@ -1,4 +1,4 @@
-import { SnowFlake } from '@/demo/shader/snowflake';
+import { SnowFlake } from '@demo/demo/shader/snowflake';
 
 import { useEffect, useRef } from 'react';
 

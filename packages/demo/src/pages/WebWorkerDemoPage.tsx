@@ -1,7 +1,7 @@
 import { CodeShow } from '../components/codeShow/CodeShow';
-import WebWorkerDemoString from '@/demo/hooks/WebWorkerDemo?raw';
-import useWebWorkerString from '@/hooks/useWebWorker?raw';
-import WebWorkerDemo from '@/demo/hooks/WebWorkerDemo';
+import WebWorkerDemoString from '@demo/demo/hooks/WebWorkerDemo?raw';
+import useWebWorkerString from '@demo/hooks/useWebWorker?raw';
+import WebWorkerDemo from '@demo/demo/hooks/WebWorkerDemo';
 
 export default () => {
 	return (

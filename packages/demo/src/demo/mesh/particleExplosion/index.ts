@@ -1,9 +1,9 @@
-import { Render } from '@/engine/Render';
+import { Render } from '@demo/engine/Render';
 import * as THREE from 'three';
 import vs from './vs.glsl?raw';
 import fs from './fs.glsl?raw';
-import dongman from '@/assets/img/dongman.png';
-import bg_h from '@/assets/img/bg_h.jpg';
+import dongman from '@demo/assets/img/dongman.png';
+import bg_h from '@demo/assets/img/bg_h.jpg';
 export class ParticleExplosion {
 	mapRender: Render;
 	group: THREE.Group = new THREE.Group();
@@ -15,10 +15,7 @@ export class ParticleExplosion {
 		this.mapRender.dispose();
 	}
 	async render() {
-		let geometry = new THREE.PlaneGeometry(
-			this.mapRender.canvasSize.x, this.mapRender.canvasSize.y,
-			700, 700
-		);
+		let geometry = new THREE.PlaneGeometry(this.mapRender.canvasSize.x, this.mapRender.canvasSize.y, 700, 700);
 
 		const bg_w_1 = await Render.textureLoader.loadAsync(dongman);
 		const bg_h_1 = await Render.textureLoader.loadAsync(bg_h);
@@ -28,13 +25,13 @@ export class ParticleExplosion {
 			uniforms: {
 				u_Time: Render.GlobalTime,
 				u_Texture: {
-					value: this.mapRender.aspect > 1.25 ? bg_w_1 : bg_h_1
+					value: this.mapRender.aspect > 1.25 ? bg_w_1 : bg_h_1,
 				},
 				u_Size: {
-					value: 2.0
+					value: 2.0,
 				},
 				u_Progress: {
-					value: 0.0
+					value: 0.0,
 				},
 			},
 		});
@@ -45,19 +42,15 @@ export class ParticleExplosion {
 			material.uniforms.u_Texture.value = this.mapRender.aspect > 1.25 ? bg_w_1 : bg_h_1;
 			material.uniformsNeedUpdate = true;
 			const _geometry = geometry;
-			geometry = new THREE.PlaneGeometry(
-				this.mapRender.canvasSize.x, this.mapRender.canvasSize.y,
-				700, 700
-			);
+			geometry = new THREE.PlaneGeometry(this.mapRender.canvasSize.x, this.mapRender.canvasSize.y, 700, 700);
 			point.geometry = geometry;
 			_geometry && _geometry.dispose();
 		};
-		this.mapRender.addListener("pointerMove", ({ relativeCoord }) => {
+		this.mapRender.addListener('pointerMove', ({ relativeCoord }) => {
 			material.uniforms.u_Progress.value = relativeCoord.x;
 			material.uniformsNeedUpdate = true;
 		});
 		this.startRender();
-
 	}
 	startRender = () => {
 		this.mapRender.render();
@@ -65,5 +58,4 @@ export class ParticleExplosion {
 	pauseRender = () => {
 		this.mapRender.stopRender();
 	};
-
 }

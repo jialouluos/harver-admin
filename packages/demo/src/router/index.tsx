@@ -1,37 +1,37 @@
 import App from '../App';
 import { lazy, Suspense } from 'react';
 import { Routes, Route, BrowserRouter as Router, Navigate } from 'react-router-dom';
-import { DEMO } from '@/types';
+import { DEMO } from '@demo/types';
 import { qiankunWindow } from 'vite-plugin-qiankun/dist/helper';
 import packagesConfig, { PACKAGE_ENUM } from '@jialouluo/configs';
 
-const VFXImageShader = lazy(() => import('@/pages/VFXImageShader'));
-const FuzzyTransitionShader = lazy(() => import('@/pages/FuzzyTransitionShader'));
-const WaveImageShader = lazy(() => import('@/pages/WaveImage'));
-const SimpleFbmShader = lazy(() => import('@/pages/SimpleFbmShader'));
+const VFXImageShader = lazy(() => import('@demo/pages/VFXImageShader'));
+const FuzzyTransitionShader = lazy(() => import('@demo/pages/FuzzyTransitionShader'));
+const WaveImageShader = lazy(() => import('@demo/pages/WaveImage'));
+const SimpleFbmShader = lazy(() => import('@demo/pages/SimpleFbmShader'));
 
-const SimpleSDFShader = lazy(() => import('@/pages/SimpleSDFShader'));
-const LoopShader = lazy(() => import('@/pages/LoopShader'));
+const SimpleSDFShader = lazy(() => import('@demo/pages/SimpleSDFShader'));
+const LoopShader = lazy(() => import('@demo/pages/LoopShader'));
 
-const SimpleSDFShadowShader = lazy(() => import('@/pages/SimpleSDFShadowShader'));
-const CodeWaterfallShader = lazy(() => import('@/pages/CodeWaterfallShader'));
-const ParticleExplosionMesh = lazy(() => import('@/pages/ParticleExplosionMesh'));
-const ParticleTrackMesh = lazy(() => import('@/pages/ParticleTrackMesh'));
+const SimpleSDFShadowShader = lazy(() => import('@demo/pages/SimpleSDFShadowShader'));
+const CodeWaterfallShader = lazy(() => import('@demo/pages/CodeWaterfallShader'));
+const ParticleExplosionMesh = lazy(() => import('@demo/pages/ParticleExplosionMesh'));
+const ParticleTrackMesh = lazy(() => import('@demo/pages/ParticleTrackMesh'));
 
-const DewdropShader = lazy(() => import('@/pages/DewdropShader'));
-const ParticleSkyMesh = lazy(() => import('@/pages/ParticleSkyMesh'));
-const FlyLineMesh = lazy(() => import('@/pages/FlyLineMesh'));
-const ShardImageMesh = lazy(() => import('@/pages/ShardImageMesh'));
-const SnowFlakeShader = lazy(() => import('@/pages/SnowFlakeShader'));
+const DewdropShader = lazy(() => import('@demo/pages/DewdropShader'));
+const ParticleSkyMesh = lazy(() => import('@demo/pages/ParticleSkyMesh'));
+const FlyLineMesh = lazy(() => import('@demo/pages/FlyLineMesh'));
+const ShardImageMesh = lazy(() => import('@demo/pages/ShardImageMesh'));
+const SnowFlakeShader = lazy(() => import('@demo/pages/SnowFlakeShader'));
 
-const FlameShader = lazy(() => import('@/pages/FlameShader'));
-const ExtrudeGeometryUVFixPage = lazy(() => import('@/pages/ExtrudeGeometryUVFixMesh'));
-const LineMergeDrawMesh = lazy(() => import('@/pages/LineMergeDrawMesh'));
-const DigitalScrollDemo = lazy(() => import('@/pages/DigitalScrollDemoPage'));
+const FlameShader = lazy(() => import('@demo/pages/FlameShader'));
+const ExtrudeGeometryUVFixPage = lazy(() => import('@demo/pages/ExtrudeGeometryUVFixMesh'));
+const LineMergeDrawMesh = lazy(() => import('@demo/pages/LineMergeDrawMesh'));
+const DigitalScrollDemo = lazy(() => import('@demo/pages/DigitalScrollDemoPage'));
 
-const WindowMessagePage = lazy(() => import('@/pages/WindowMessagePage'));
-const WebWorkerDemoPage = lazy(() => import('@/pages/WebWorkerDemoPage'));
-const WindingShader = lazy(() => import('@/pages/WindingShader'));
+const WindowMessagePage = lazy(() => import('@demo/pages/WindowMessagePage'));
+const WebWorkerDemoPage = lazy(() => import('@demo/pages/WebWorkerDemoPage'));
+const WindingShader = lazy(() => import('@demo/pages/WindingShader'));
 
 export const RouteConfigs: DEMO[] = [
 	{

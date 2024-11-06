@@ -25,7 +25,7 @@ export default defineConfig({
 	resolve: {
 		extensions: ['.ts', '.tsx', '.js', '.d.ts'],
 		alias: {
-			'@': _resolve('src'),
+			'@demo': _resolve('src'),
 		},
 	},
 	server: {

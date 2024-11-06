@@ -1,4 +1,4 @@
-import { ShardImage } from '@/demo/mesh/shardImage';
+import { ShardImage } from '@demo/demo/mesh/shardImage';
 
 import { useEffect, useRef } from 'react';
 

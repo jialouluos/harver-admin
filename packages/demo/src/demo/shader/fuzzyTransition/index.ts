@@ -1,11 +1,11 @@
-import { Render } from '@/engine/Render';
+import { Render } from '@demo/engine/Render';
 import * as THREE from 'three';
 import vs from './vs.glsl?raw';
 import fs from './fs.glsl?raw';
-import lenshen from '@/assets/img/leishen.png';
-import dongman from '@/assets/img/dongman.png';
-import bg_h from '@/assets/img/bg_h.jpg';
-import keqing from '@/assets/img/keqing.jpg';
+import lenshen from '@demo/assets/img/leishen.png';
+import dongman from '@demo/assets/img/dongman.png';
+import bg_h from '@demo/assets/img/bg_h.jpg';
+import keqing from '@demo/assets/img/keqing.jpg';
 export class FuzzyTransition {
 	mapRender: Render;
 	group: THREE.Group = new THREE.Group();

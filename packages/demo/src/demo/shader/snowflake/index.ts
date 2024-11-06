@@ -1,9 +1,9 @@
-import { Render } from '@/engine/Render';
+import { Render } from '@demo/engine/Render';
 import * as THREE from 'three';
 import vs from './vs.glsl?raw';
 import fs from './fs.glsl?raw';
-import bg_h from '@/assets/img/bg_h.jpg';
-import bg_w from '@/assets/img/bg_w.jpg';
+import bg_h from '@demo/assets/img/bg_h.jpg';
+import bg_w from '@demo/assets/img/bg_w.jpg';
 export class SnowFlake {
 	mapRender: Render;
 	group: THREE.Group = new THREE.Group();
@@ -15,12 +15,7 @@ export class SnowFlake {
 		this.mapRender.dispose();
 	}
 	async render() {
-		const geometry = new THREE.PlaneGeometry(
-			1,
-			1,
-			1,
-			1
-		);
+		const geometry = new THREE.PlaneGeometry(1, 1, 1, 1);
 		const texture_h = await Render.textureLoader.loadAsync(bg_h);
 		const texture_w = await Render.textureLoader.loadAsync(bg_w);
 		const material = new THREE.ShaderMaterial({
@@ -29,7 +24,7 @@ export class SnowFlake {
 			uniforms: {
 				u_Time: Render.GlobalTime,
 				u_bg: {
-					value: this.mapRender.aspect > 1.25 ? texture_w : texture_h
+					value: this.mapRender.aspect > 1.25 ? texture_w : texture_h,
 				},
 			},
 		});
@@ -51,5 +46,4 @@ export class SnowFlake {
 	pauseRender = () => {
 		this.mapRender.stopRender();
 	};
-
 }

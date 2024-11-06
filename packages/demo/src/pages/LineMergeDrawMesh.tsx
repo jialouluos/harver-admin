@@ -1,4 +1,4 @@
-import { LineMergeDrawMesh } from '@/demo/mesh/LineMergeDrawMesh';
+import { LineMergeDrawMesh } from '@demo/demo/mesh/LineMergeDrawMesh';
 
 import { useEffect, useRef } from 'react';
 

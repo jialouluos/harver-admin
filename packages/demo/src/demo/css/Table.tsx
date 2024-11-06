@@ -1,6 +1,6 @@
 import style from './index.module.scss';
 import React, { useState, useEffect, useMemo, useRef } from 'react';
-import { ExclamationCircleOutlined, SearchOutlined } from '@ant-design/icons';
+import { ExclamationCircleOutlined, SearchOutlined } from '@demoant-design/icons';
 import { cancelAppoint } from '../../utils/cancelAppoint';
 import { Button, Modal, Input, message, Tooltip, Typography } from 'antd';
 const { Paragraph, Text, Link, Title } = Typography;

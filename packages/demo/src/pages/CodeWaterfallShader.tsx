@@ -1,4 +1,4 @@
-import { CodeWaterfall } from '@/demo/shader/codeWaterfall';
+import { CodeWaterfall } from '@demo/demo/shader/codeWaterfall';
 import { useEffect, useRef } from 'react';
 
 export default () => {

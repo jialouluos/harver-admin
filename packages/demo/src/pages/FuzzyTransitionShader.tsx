@@ -1,4 +1,4 @@
-import { FuzzyTransition } from '@/demo/shader/fuzzyTransition';
+import { FuzzyTransition } from '@demo/demo/shader/fuzzyTransition';
 import { useEffect, useRef } from 'react';
 
 export default () => {

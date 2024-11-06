@@ -1,4 +1,4 @@
-import { WaveImage } from '@/demo/shader/waveImage';
+import { WaveImage } from '@demo/demo/shader/waveImage';
 
 import { useEffect, useRef } from 'react';
 

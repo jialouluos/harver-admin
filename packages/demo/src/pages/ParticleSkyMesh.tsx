@@ -1,4 +1,4 @@
-import { ParticleSky } from '@/demo/mesh/particleSky';
+import { ParticleSky } from '@demo/demo/mesh/particleSky';
 
 import { useEffect, useRef } from 'react';
 

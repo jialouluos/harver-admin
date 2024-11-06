@@ -1,9 +1,9 @@
-import { Render } from '@/engine/Render';
+import { Render } from '@demo/engine/Render';
 import * as THREE from 'three';
 import vs from './vs.glsl?raw';
 import fs from './fs.glsl?raw';
-import lenshen from '@/assets/img/leishen.png';
-import bg_h from '@/assets/img/bg_h.jpg';
+import lenshen from '@demo/assets/img/leishen.png';
+import bg_h from '@demo/assets/img/bg_h.jpg';
 
 export class VFXImage {
 	mapRender: Render;

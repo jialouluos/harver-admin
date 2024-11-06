@@ -1,9 +1,9 @@
-import { Render } from '@/engine/Render';
+import { Render } from '@demo/engine/Render';
 import * as THREE from 'three';
 import vs from './vs.glsl?raw';
 import fs from './fs.glsl?raw';
-import dongman from '@/assets/img/dongman.png';
-import keqing from '@/assets/img/keqing.jpg';
+import dongman from '@demo/assets/img/dongman.png';
+import keqing from '@demo/assets/img/keqing.jpg';
 
 export class SimpleFbm {
 	mapRender: Render;
@@ -16,12 +16,7 @@ export class SimpleFbm {
 		this.mapRender.dispose();
 	}
 	async render() {
-		const geometry = new THREE.PlaneGeometry(
-			1,
-			1,
-			1,
-			1
-		);
+		const geometry = new THREE.PlaneGeometry(1, 1, 1, 1);
 		const bg_w_1 = await Render.textureLoader.loadAsync(dongman);
 		const bg_h_1 = await Render.textureLoader.loadAsync(keqing);
 		const material = new THREE.ShaderMaterial({
@@ -30,9 +25,8 @@ export class SimpleFbm {
 			uniforms: {
 				u_Time: Render.GlobalTime,
 				u_bg: {
-					value: this.mapRender.aspect > 1.25 ? bg_w_1 : bg_h_1
+					value: this.mapRender.aspect > 1.25 ? bg_w_1 : bg_h_1,
 				},
-
 			},
 		});
 		const mesh = new THREE.Mesh(geometry, material);
@@ -44,7 +38,6 @@ export class SimpleFbm {
 			mesh.scale.set(this.mapRender.canvasSize.x, this.mapRender.canvasSize.y, 1);
 		};
 		this.startRender();
-
 	}
 	startRender = () => {
 		this.mapRender.render();
@@ -52,5 +45,4 @@ export class SimpleFbm {
 	pauseRender = () => {
 		this.mapRender.stopRender();
 	};
-
 }
