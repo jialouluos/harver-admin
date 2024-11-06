@@ -1,9 +1,6 @@
 import { Render } from '@demo/engine/Render';
 import * as THREE from 'three';
-import lenshen from '@demo/assets/img/leishen.png';
-import dongman from '@demo/assets/img/dongman.png';
-import bg_h from '@demo/assets/img/bg_h.jpg';
-import keqing from '@demo/assets/img/keqing.jpg';
+
 import { Geometry } from 'https://cdn.skypack.dev/three@0.133.1/examples/jsm/deprecated/Geometry.js';
 import * as BAS from 'three-bas';
 
@@ -24,10 +21,10 @@ export class ShardImage {
 	}
 	async render() {
 		this.mapRender.activeCamera.position.copy(new THREE.Vector3(0, 0, 50));
-		const bg_w_1 = await Render.textureLoader.loadAsync(lenshen);
-		const bg_w_2 = await Render.textureLoader.loadAsync(dongman);
-		const bg_h_1 = await Render.textureLoader.loadAsync(bg_h);
-		const bg_h_2 = await Render.textureLoader.loadAsync(keqing);
+		const bg_w_1 = await Render.textureLoader.loadAsync('img/leishen.png');
+		const bg_w_2 = await Render.textureLoader.loadAsync('img/dongman.png');
+		const bg_h_1 = await Render.textureLoader.loadAsync('img/bg_h.jpg');
+		const bg_h_2 = await Render.textureLoader.loadAsync('img/keqing.jpg');
 		this.initModel('in', this.mapRender.aspect > 1.25 ? bg_w_1 : bg_h_1);
 		this.initModel('out', this.mapRender.aspect > 1.25 ? bg_w_2 : bg_h_2);
 		this.startRender();

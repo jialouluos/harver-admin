@@ -2,8 +2,7 @@ import { Render } from '@demo/engine/Render';
 import * as THREE from 'three';
 import vs from './vs.glsl?raw';
 import fs from './fs.glsl?raw';
-import bg_h from '@demo/assets/img/bg_h.jpg';
-import bg_w from '@demo/assets/img/bg_w.jpg';
+
 export class SnowFlake {
 	mapRender: Render;
 	group: THREE.Group = new THREE.Group();
@@ -16,8 +15,8 @@ export class SnowFlake {
 	}
 	async render() {
 		const geometry = new THREE.PlaneGeometry(1, 1, 1, 1);
-		const texture_h = await Render.textureLoader.loadAsync(bg_h);
-		const texture_w = await Render.textureLoader.loadAsync(bg_w);
+		const texture_h = await Render.textureLoader.loadAsync('img/bg_h.jpg');
+		const texture_w = await Render.textureLoader.loadAsync('img/bg_w.jpg');
 		const material = new THREE.ShaderMaterial({
 			vertexShader: vs,
 			fragmentShader: fs,

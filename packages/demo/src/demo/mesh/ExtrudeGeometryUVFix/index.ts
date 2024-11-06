@@ -1,8 +1,5 @@
 import { Render } from '@demo/engine/Render';
 import * as THREE from 'three';
-import colorMap from '@demo/assets/img/color.png';
-import aoMap from '@demo/assets/img/aomap.png';
-import envMap from '@demo/assets/img/envmap.png';
 import { ExtrudeGeometry as _ExtrudeGeometry } from './_extrudeGeometry.js';
 import { ExtrudeGeometry as _ExtrudeGeometry2 } from './_extrudeGeometry2.js';
 import { ExtrudeGeometry as _ExtrudeGeometry3 } from './_extrudeGeometry3.js';
@@ -44,7 +41,7 @@ export class ExtrudeGeometryUVFix {
 			].map(item => new THREE.Vector2(item[0], item[1]))
 		);
 		const shapes = [shape1];
-		const map = await Render.textureLoader.loadAsync(colorMap);
+		const map = await Render.textureLoader.loadAsync('img/color.png');
 		map.colorSpace = THREE.SRGBColorSpace;
 		map.wrapT = map.wrapS = THREE.RepeatWrapping;
 		const sunLight = new THREE.DirectionalLight('#fff', 2.0);
@@ -52,8 +49,8 @@ export class ExtrudeGeometryUVFix {
 		this.mapRender.scene.add(sunLight);
 		const material = new THREE.MeshStandardMaterial({
 			map: map,
-			aoMap: await Render.textureLoader.loadAsync(aoMap),
-			envMap: await Render.textureLoader.loadAsync(envMap),
+			aoMap: await Render.textureLoader.loadAsync('img/aomap.png'),
+			envMap: await Render.textureLoader.loadAsync('img/envmap.png'),
 		});
 
 		const guiObject = {

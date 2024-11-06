@@ -2,7 +2,7 @@ import { Render } from '@demo/engine/Render';
 import * as THREE from 'three';
 import vs from './vs.glsl?raw';
 import fs from './fs.glsl?raw';
-import matcap from '@demo/assets/img/matcap_2.png';
+
 
 export class Dewdrop {
 	mapRender: Render;
@@ -16,7 +16,7 @@ export class Dewdrop {
 	}
 	async render() {
 		const geometry = new THREE.PlaneGeometry(1, 1, 1, 1);
-		const bg = await Render.textureLoader.loadAsync(matcap);
+		const bg = await Render.textureLoader.loadAsync('img/matcap_2.png');
 
 		const material = new THREE.ShaderMaterial({
 			vertexShader: Render.math.parseGLSLChunk(vs),

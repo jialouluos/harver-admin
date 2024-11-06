@@ -2,8 +2,6 @@ import { Render } from '@demo/engine/Render';
 import * as THREE from 'three';
 import vs from './vs.glsl?raw';
 import fs from './fs.glsl?raw';
-import dongman from '@demo/assets/img/dongman.png';
-import bg_h from '@demo/assets/img/bg_h.jpg';
 
 export class WaveImage {
 	mapRender: Render;
@@ -17,8 +15,8 @@ export class WaveImage {
 	}
 	async render() {
 		const geometry = new THREE.PlaneGeometry(1, 1, 1, 1);
-		const bg_w_1 = await Render.textureLoader.loadAsync(dongman);
-		const bg_h_1 = await Render.textureLoader.loadAsync(bg_h);
+		const bg_w_1 = await Render.textureLoader.loadAsync('img/dongman.png');
+		const bg_h_1 = await Render.textureLoader.loadAsync('img/bg_h.jpg');
 		const material = new THREE.ShaderMaterial({
 			vertexShader: vs,
 			fragmentShader: fs,

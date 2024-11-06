@@ -2,8 +2,7 @@ import { Render } from '@demo/engine/Render';
 import * as THREE from 'three';
 import vs from './vs.glsl?raw';
 import fs from './fs.glsl?raw';
-import dongman from '@demo/assets/img/dongman.png';
-import bg_h from '@demo/assets/img/bg_h.jpg';
+
 export class ParticleExplosion {
 	mapRender: Render;
 	group: THREE.Group = new THREE.Group();
@@ -17,8 +16,8 @@ export class ParticleExplosion {
 	async render() {
 		let geometry = new THREE.PlaneGeometry(this.mapRender.canvasSize.x, this.mapRender.canvasSize.y, 700, 700);
 
-		const bg_w_1 = await Render.textureLoader.loadAsync(dongman);
-		const bg_h_1 = await Render.textureLoader.loadAsync(bg_h);
+		const bg_w_1 = await Render.textureLoader.loadAsync('img/dongman.png');
+		const bg_h_1 = await Render.textureLoader.loadAsync('img/bg_h.jpg');
 		const material = new THREE.ShaderMaterial({
 			vertexShader: Render.math.parseGLSLChunk(vs),
 			fragmentShader: Render.math.parseGLSLChunk(fs),

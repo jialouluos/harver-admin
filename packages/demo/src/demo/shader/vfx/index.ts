@@ -2,8 +2,7 @@ import { Render } from '@demo/engine/Render';
 import * as THREE from 'three';
 import vs from './vs.glsl?raw';
 import fs from './fs.glsl?raw';
-import lenshen from '@demo/assets/img/leishen.png';
-import bg_h from '@demo/assets/img/bg_h.jpg';
+
 
 export class VFXImage {
 	mapRender: Render;
@@ -17,8 +16,8 @@ export class VFXImage {
 	}
 	async render() {
 		const geometry = new THREE.PlaneGeometry(1, 1, 1, 1);
-		const bg_w_1 = await Render.textureLoader.loadAsync(lenshen);
-		const bg_h_1 = await Render.textureLoader.loadAsync(bg_h);
+		const bg_w_1 = await Render.textureLoader.loadAsync('img/leishen.png');
+		const bg_h_1 = await Render.textureLoader.loadAsync('img/bg_h.jpg');
 		const material = new THREE.ShaderMaterial({
 			vertexShader: vs,
 			fragmentShader: fs,
