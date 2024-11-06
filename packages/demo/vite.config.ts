@@ -2,6 +2,7 @@ import { defineConfig } from 'vite';
 import path from 'path';
 import qiankun from 'vite-plugin-qiankun';
 import packagesConfig, { PACKAGE_ENUM } from '@jialouluo/configs';
+import { qiankunPublicPath } from '@jialouluo/tools';
 
 function _resolve(dir: string) {
 	return path.resolve(__dirname, dir);
@@ -13,7 +14,7 @@ export default defineConfig({
 	build: {
 		outDir: `dist/`,
 	},
-	base: process.env.NODE_ENV === 'production' ? '/demo' : '/',
+	base: process.env.NODE_ENV === 'production' ? qiankunPublicPath('') : '/',
 	plugins: [
 		qiankun(config.microConfig!.name, {
 			useDevMode: true,
@@ -25,7 +26,7 @@ export default defineConfig({
 	resolve: {
 		extensions: ['.ts', '.tsx', '.js', '.d.ts'],
 		alias: {
-			'@demo': _resolve('src'),
+			'@demo': _resolve('./src'),
 		},
 	},
 	server: {
