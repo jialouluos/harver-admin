@@ -4,25 +4,31 @@ import LayoutMain from './layout-main.vue';
 import LayoutAside from './layout-aside.vue';
 import { Layout } from 'ant-design-vue';
 import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons-vue';
-import { ref } from 'vue';
-import { useGo } from '@/hooks/usePage';
+import { onBeforeMount, ref } from 'vue';
 
+import { useStore } from '@/store';
+const { basicStore } = useStore();
+onBeforeMount(() => {
+	basicStore.init();
+});
+
+const isEmbed = basicStore.isEmbed;
 const collapsed = ref(false);
 
 const AMenuFoldOutlined = MenuFoldOutlined;
 
 const AMenuUnfoldOutlined = MenuUnfoldOutlined;
-
-useGo();
 </script>
 
 <template>
 	<Layout
 		class="layout"
-		:hasSider="true">
-		<LayoutAside :collapsed="collapsed" />
+		:hasSider="!isEmbed">
+		<LayoutAside
+			:collapsed="collapsed"
+			v-if="!isEmbed" />
 		<Layout class="body-layout">
-			<LayoutHeader>
+			<LayoutHeader v-if="!isEmbed">
 				<template #feat>
 					<harver-button
 						:shape="'rect'"
@@ -41,9 +47,9 @@ useGo();
 @import '@jialouluo/tools/src/components/styles/global';
 
 .layout {
+	flex-direction: row;
 	width: 100%;
 	height: 100%;
-	flex-direction: row;
 	gap: rem(1);
 
 	.body-layout {

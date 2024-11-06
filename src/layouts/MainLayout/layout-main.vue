@@ -1,15 +1,19 @@
 <script lang="ts" setup>
 import { start } from '@/microApp';
-import { onMounted } from 'vue';
+import { useStore } from '@/store';
+import { onMounted, ref, computed } from 'vue';
 import { useRoute } from 'vue-router';
+const route = useRoute();
+const { basicStore } = useStore();
+const microRef = ref();
+const isEmbed = computed(() => basicStore.isEmbed);
 onMounted(() => {
 	start();
 });
-const route = useRoute();
 </script>
 <template>
-	<a-layout-content class="content">
-		<div>
+	<a-layout-content :class="['content', isEmbed ? 'embed' : '']">
+		<div ref="microRef">
 			<div
 				id="micro-container"
 				v-if="route.meta.inMicro"></div>
@@ -42,5 +46,13 @@ const route = useRoute();
 			height: 100%;
 		}
 	}
+}
+
+.embed {
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
 }
 </style>
