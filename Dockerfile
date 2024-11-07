@@ -6,7 +6,7 @@ MAINTAINER = harver<180238813@.qq.com>
 ENV APP_PATH=/app/harver-admin
 WORKDIR $APP_PATH
 COPY mainAppDist/ $APP_PATH
-COPY main.conf $APP_PATH
+COPY harver_admin.conf $APP_PATH
 
 COPY ssl/ $APP_PATH/ssl
 COPY nginx.conf /etc/nginx/conf.d/admin_nginx.conf
