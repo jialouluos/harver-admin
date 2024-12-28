@@ -1,14 +1,12 @@
 import { AppRouteModule } from '@/types/Route';
 
 export default <AppRouteModule>{
-	path: 'css-border',
-	name: 'css-border',
-
+	path: 'min-content',
+	name: 'min-content',
 	component: () => import('./index.vue'),
 	meta: {
-		title: 'CSS实现一个炫酷边框',
-
-		order: 1,
+		title: 'Grid和Flex的最小内容尺寸',
+		order: 2,
 		isMenu: true,
 		inMicro: false,
 	},

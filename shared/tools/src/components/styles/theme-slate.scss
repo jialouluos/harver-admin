@@ -1,0 +1,115 @@
+/**
+*@主色系 slate
+* */
+
+[harver-theme='light']:root {
+	--slate-1: #fcfcfd;
+	--slate-2: #f9f9fb;
+	--slate-3: #f0f0f3;
+	--slate-4: #e8e8ec;
+	--slate-5: #e0e1e6;
+	--slate-6: #d9d9e0;
+	--slate-7: #cdced6;
+	--slate-8: #b9bbc6;
+	--slate-9: #8b8d98;
+	--slate-10: #80838d;
+	--slate-11: #60646c;
+	--slate-12: #1c2024;
+	--slate-a1: #00005503;
+	--slate-a2: #00005506;
+	--slate-a3: #0000330f;
+	--slate-a4: #00002d17;
+	--slate-a5: #0009321f;
+	--slate-a6: #00002f26;
+	--slate-a7: #00062e32;
+	--slate-a8: #00083046;
+	--slate-a9: #00051d74;
+	--slate-a10: #00071b7f;
+	--slate-a11: #0007149f;
+	--slate-a12: #000509e3;
+	--primary-1: 251, 253, 255;
+	--primary-2: 244, 250, 255;
+	--primary-3: 230, 244, 254;
+	--primary-4: 213, 239, 255;
+	--primary-5: 194, 229, 255;
+	--primary-6: 172, 216, 252;
+	--primary-7: 142, 200, 246;
+	--primary-8: 94, 177, 239;
+	--primary-9: 0, 144, 255;
+	--primary-10: 5, 136, 240;
+	--primary-11: 13, 116, 207;
+	--primary-12: 17, 50, 100;
+	--primary-a1: #0080ff04;
+	--primary-a2: #008cff0b;
+	--primary-a3: #008ff519;
+	--primary-a4: #009eff2a;
+	--primary-a5: #0093ff3d;
+	--primary-a6: #0088f653;
+	--primary-a7: #0083eb71;
+	--primary-a8: #0084e6a1;
+	--primary-a9: #0090ff;
+	--primary-a10: #0086f0fa;
+	--primary-a11: #006dcbf2;
+	--primary-a12: #002359ee;
+	--sub-1: 254, 252, 255;
+	--sub-2: 253, 247, 253;
+	--sub-3: 251, 235, 251;
+	--sub-4: 247, 222, 248;
+	--sub-5: 242, 209, 243;
+	--sub-6: 233, 194, 236;
+	--sub-7: 222, 173, 227;
+	--sub-8: 207, 145, 216;
+	--sub-9: 171, 74, 186;
+	--sub-10: 161, 68, 175;
+	--sub-11: 149, 62, 163;
+	--sub-12: 83, 25, 93;
+	--sub-a1: #aa00ff03;
+	--sub-a2: #c000c008;
+	--sub-a3: #cc00cc14;
+	--sub-a4: #c200c921;
+	--sub-a5: #b700bd2e;
+	--sub-a6: #a400b03d;
+	--sub-a7: #9900a852;
+	--sub-a8: #9000a56e;
+	--sub-a9: #89009eb5;
+	--sub-a10: #7f0092bb;
+	--sub-a11: #730086c1;
+	--sub-a12: #40004be6;
+
+	// --primary: 206, 239, 253;
+	// --strong-primary: 50, 107, 251;
+	// --bg-primary: 240, 247, 255;
+	// --primary-2: 236, 246, 255;
+	// --primary-3: 170, 200, 234;
+	// --sub: 207, 149, 217;
+	// --sub-2: 213, 201, 255;
+	--primary: var(--primary-6);
+	--sub: var(--sub-6);
+	--bg: var(--primary-1);
+	--box-bg: var(--primary-3);
+	--bg-highlight: var(--primary-2);
+	--text-color: var(--primary-7);
+	--text-sub-color: var(--primary-5);
+	--text-highlight: var(--primary-3);
+	--shadow: var(--primary-7);
+}
+
+[harver-theme='dark']:root {
+	--primary: 207, 149, 217;
+	--strong-primary: 94, 207, 255; // TODO 设置dark下的 strong-primary
+	--bg-primary: 240, 247, 255; // TODO 设置dark下的 bg-primary
+	--sub: 108, 86, 181;
+	--sub-2: 213, 201, 255;
+	--grey-0: 0, 0, 0;
+	--grey-1: 48, 49, 54;
+	--grey-2: 31, 32, 35;
+	--grey-3: 68, 68, 68;
+	--grey-5: 170, 170, 170;
+	--grey-7: 221, 221, 221;
+	--grey-9: 255, 255, 255;
+	--bg: var(--grey-2);
+	--box-bg: var(--grey-1);
+	--text-color: var(--grey-7);
+	--text-sub-color: var(--grey-5);
+	--shadow: var(--grey-7);
+}

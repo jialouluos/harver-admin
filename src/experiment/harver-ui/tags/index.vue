@@ -3,101 +3,99 @@ import tags from '@jialouluo/tools/src/components/vue/harver-ui/tags/index.vue';
 </script>
 <template>
 	<div class="example_display">
-		<div>
-			<tags
-				:ellipsis="{
-					rows: 2,
-					type: '+n',
-				}"
-				:measure="{}"
-				:content="[
-					{
-						width: 100,
-						content: '牛马杰杰爆',
-					},
-					{
-						width: 100,
-						content: '牛马杰杰爆',
-					},
-					{
-						width: 100,
-						content: '牛马杰杰爆',
-					},
-					{
-						width: 100,
-						content: '牛马杰杰爆',
-					},
-					{
-						width: 100,
-						content: '牛马杰杰爆',
-					},
-					{
-						width: 100,
-						content: '牛马杰杰爆',
-					},
-					{
-						width: 100,
-						content: '牛马杰杰爆',
-					},
-					{
-						width: 100,
-						content: '牛马杰杰爆',
-					},
-					{
-						width: 100,
-						content: '牛马杰杰爆',
-					},
-					{
-						width: 100,
-						content: '牛马杰杰爆',
-					},
-					{
-						width: 100,
-						content: '牛马杰杰爆',
-					},
-					{
-						width: 100,
-						content: '牛马杰杰爆',
-					},
-					{
-						width: 100,
-						content: '牛马杰杰爆',
-					},
-					{
-						width: 100,
-						content: '牛马杰杰爆',
-					},
-					{
-						width: 100,
-						content: '牛马杰杰爆',
-					},
-					{
-						width: 100,
-						content: '牛马杰杰爆',
-					},
-					{
-						width: 100,
-						content: '牛马杰杰爆',
-					},
-					{
-						width: 100,
-						content: '牛马杰杰爆',
-					},
-					{
-						width: 100,
-						content: '牛马杰杰爆',
-					},
-					{
-						width: 100,
-						content: '牛马杰杰爆',
-					},
-					{
-						width: 100,
-						content: '牛马杰杰爆',
-					},
-				]">
-			</tags>
-		</div>
+		<tags
+			:ellipsis="{
+				rows: 2,
+				type: '+n',
+			}"
+			:measure="{}"
+			:content="[
+				{
+					width: 100,
+					content: '牛马杰杰爆',
+				},
+				{
+					width: 100,
+					content: '牛马杰杰爆',
+				},
+				{
+					width: 100,
+					content: '牛马杰杰爆',
+				},
+				{
+					width: 100,
+					content: '牛马杰杰爆',
+				},
+				{
+					width: 100,
+					content: '牛马杰杰爆',
+				},
+				{
+					width: 100,
+					content: '牛马杰杰爆',
+				},
+				{
+					width: 100,
+					content: '牛马杰杰爆',
+				},
+				{
+					width: 100,
+					content: '牛马杰杰爆',
+				},
+				{
+					width: 100,
+					content: '牛马杰杰爆',
+				},
+				{
+					width: 100,
+					content: '牛马杰杰爆',
+				},
+				{
+					width: 100,
+					content: '牛马杰杰爆',
+				},
+				{
+					width: 100,
+					content: '牛马杰杰爆',
+				},
+				{
+					width: 100,
+					content: '牛马杰杰爆',
+				},
+				{
+					width: 100,
+					content: '牛马杰杰爆',
+				},
+				{
+					width: 100,
+					content: '牛马杰杰爆',
+				},
+				{
+					width: 100,
+					content: '牛马杰杰爆',
+				},
+				{
+					width: 100,
+					content: '牛马杰杰爆',
+				},
+				{
+					width: 100,
+					content: '牛马杰杰爆',
+				},
+				{
+					width: 100,
+					content: '牛马杰杰爆',
+				},
+				{
+					width: 100,
+					content: '牛马杰杰爆',
+				},
+				{
+					width: 100,
+					content: '牛马杰杰爆',
+				},
+			]">
+		</tags>
 	</div>
 </template>
 <style lang="scss" scoped>

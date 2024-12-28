@@ -104,7 +104,7 @@ const handleOk = () => {
 		width: 60vw;
 		height: 60vh;
 		background-color: col(grey-1);
-		@include card(0.5, 0.25, 'round') {
+		@include card(0.5, 0.25) {
 			position: fixed; // 单独形成一个合成层
 			inset: 0;
 			z-index: 999;

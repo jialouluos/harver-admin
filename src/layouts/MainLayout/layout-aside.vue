@@ -90,7 +90,7 @@ const handleMenuClick = (menu: { key: string; keyPath: string[] }) => {
 	transform: translateZ(0); // 单独给一个合成层
 
 	:deep(.ant-menu-item-selected) {
-		@include card(0.125, 0.125, 'round');
+		@include card(0.125, 0.125);
 	}
 
 	:deep(.ant-menu-item-active) {

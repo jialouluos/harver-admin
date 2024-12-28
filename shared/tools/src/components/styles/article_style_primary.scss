@@ -1,0 +1,187 @@
+@mixin export_style() {
+	@include h;
+	@include list;
+	@include code;
+	@include text;
+
+	a {
+		color: col(text-highlight);
+	}
+
+	p {
+		margin: rem(0.5) 0;
+		color: col(text-color);
+	}
+
+	blockquote {
+		margin: rem(1) 0;
+		padding: rem(0.3) rem(1);
+		border: 2px solid col(primary);
+		background-color: col(bg-highlight);
+		backdrop-filter: blur(4px);
+
+		::selection {
+			background-color: col(text-highlight);
+		}
+		@include border_radius(0.5);
+	}
+}
+@mixin h {
+	h1,
+	h2,
+	h3,
+	h4,
+	h5,
+	h6 {
+		@include title(2);
+
+		align-content: flex-start;
+		align-items: center;
+		margin: rem(1) 0;
+		width: 100%;
+		font-weight: 500;
+		color: col(text-color);
+	}
+
+	h1 {
+		justify-content: center;
+		font-size: rem(1.8);
+	}
+
+	h2 {
+		@include divide;
+
+		padding-bottom: rem(0.1);
+		font-size: rem(1.4);
+	}
+
+	h3 {
+		font-size: rem(1.2);
+	}
+
+	h4 {
+		font-size: rem(1);
+	}
+
+	h5 {
+		font-size: rem(0.8);
+	}
+
+	h6 {
+		font-size: rem(0.6);
+	}
+}
+@mixin list {
+	ol,
+	ul {
+		margin: rem(0.5) 0;
+		padding-left: rem(2);
+	}
+
+	ol > li {
+		list-style-type: decimal;
+	}
+
+	ul > li {
+		list-style-type: circle;
+	}
+
+	li {
+		margin: rem(0.5) 0;
+
+		&::marker {
+			color: col(text-sub-color);
+		}
+	}
+}
+@mixin code {
+	code:not(pre code) {
+		@include tag;
+
+		line-height: 1;
+		font-family: jetbrains-mono, consolas, Menlo, -apple-system, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+		color: col(text-sub-color);
+		margin-inline-end: 0;
+	}
+
+	pre {
+		padding: rem(0.5) 0;
+		outline: none;
+		background-color: #333;
+		line-height: 1.5;
+
+		// @include scrollbar(0.1, 0.2, col(text-sub-color));
+
+		code {
+			overflow: auto;
+			position: relative;
+			box-sizing: border-box;
+			padding: 0;
+			border: none;
+			border-radius: 0;
+			font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell,
+					'Open Sans', 'Helvetica Neue', sans-serif;
+		}
+
+		span[data-line] {
+			::selection {
+				background-color: #5a5a5a !important;
+			}
+
+			display: inline-flex;
+			position: relative;
+			box-sizing: border-box;
+			border: rem(0.1) solid transparent;
+			transition: all 0.3s;
+
+			&:hover {
+				border-color: col(primary, 0.6);
+				background-color: col(primary, 0.1);
+			}
+
+			&::before {
+				@include flex_center;
+
+				overflow: hidden;
+				position: sticky;
+				left: 0;
+				z-index: 2;
+				margin-right: rem(0.5);
+				width: rem(2);
+				height: 100%;
+				pointer-events: none;
+				color: col(text-sub-color);
+				content: attr(data-line-number);
+				transition: all 0.3s;
+			}
+		}
+	}
+}
+
+[data-theme='light']:root {
+	--primary: 206, 239, 253;
+	--strong-primary: 50, 107, 251;
+	--primary-2: 236, 246, 255;
+	--primary-3: 170, 200, 234;
+	--sub: 207, 149, 217;
+	--sub-2: 213, 201, 255;
+	--sub-3: 197, 188, 233;
+	--grey-0: 255, 255, 255;
+	--grey-1: 240, 240, 240;
+	--grey-2: 216, 216, 216;
+	--grey-3: 177, 177, 177;
+	--grey-4: 148, 148, 148;
+	--grey-5: 108, 108, 108;
+	--grey-6: 78, 78, 78;
+	--grey-7: 51, 51, 51;
+	--grey-8: 29, 29, 29;
+	--grey-9: 0, 0, 0;
+	--bg: var(--grey-1);
+	--box-bg: var(--grey-0);
+	--title: var(--grey-7);
+	--text-color: var(--grey-8);
+	--text-highlight: var(--primary-3);
+	--text-sub-color: var(--grey-5);
+	--bg-highlight: var(--primary-2);
+	--shadow: 206, 215, 219;
+}

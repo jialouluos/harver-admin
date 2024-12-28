@@ -132,7 +132,7 @@ const handleExpandable = () => {
 .#{$prefixCls} {
 	&-button-tag {
 		font-size: rem(0.8);
-		color: col(strong-primary);
+		color: col(primary);
 		@include pointer;
 		@include text_hover;
 	}

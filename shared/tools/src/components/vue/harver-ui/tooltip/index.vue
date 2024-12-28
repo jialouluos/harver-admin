@@ -231,7 +231,7 @@ defineExpose({
 		padding: rem(0.25);
 		border: rem(0.1) solid col(primary, 0.9); // 最外层颜色
 		background-color: col(grey-0);
-		@include shadow('box');
+		@include shadow;
 		@include border_radius(0.3);
 		@include grass;
 

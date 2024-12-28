@@ -1,6 +1,6 @@
 {
 	"name": "@jialouluo/tools",
-	"version": "1.0.3",
+	"version": "1.0.4",
 	"description": "",
 	"main": "./dist/lib/common/index.cjs",
 	"type": "module",
@@ -57,6 +57,7 @@
 	"author": "",
 	"license": "ISC",
 	"dependencies": {
+		"@jialouluo/tools": "^1.0.4",
 		"awesome-typescript-loader": "^5.2.1",
 		"tsup": "^8.2.4",
 		"typescript": "5.5.4",

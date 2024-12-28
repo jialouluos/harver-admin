@@ -11,12 +11,15 @@ importers:
       '@ant-design/icons-vue':
         specifier: ^7.0.1
         version: 7.0.1(vue@3.5.10)
+      '@highlightjs/vue-plugin':
+        specifier: ^2.1.0
+        version: 2.1.0(highlight.js@11.10.0)(vue@3.5.10)
       '@jialouluo/configs':
         specifier: ^1.1.2
         version: 1.1.2(esbuild@0.23.0)(postcss@8.4.47)
       '@jialouluo/tools':
-        specifier: 1.0.3
-        version: 1.0.3(esbuild@0.23.0)(postcss@8.4.47)
+        specifier: ^1.0.4
+        version: link:shared/tools
       '@types/node':
         specifier: ^20.14.2
         version: 20.14.2
@@ -62,6 +65,9 @@ importers:
       execa:
         specifier: ^9.3.0
         version: 9.3.0
+      highlight.js:
+        specifier: ^11.10.0
+        version: 11.10.0
       pinia:
         specifier: ^2.2.4
         version: 2.2.4(typescript@5.5.4)(vue@3.5.10)
@@ -280,6 +286,9 @@ importers:
 
   shared/tools:
     dependencies:
+      '@jialouluo/tools':
+        specifier: ^1.0.4
+        version: 1.0.4(esbuild@0.23.0)(postcss@8.4.47)
       awesome-typescript-loader:
         specifier: ^5.2.1
         version: 5.2.1(typescript@5.5.4)
@@ -1038,6 +1047,16 @@ packages:
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
     dev: true
 
+  /@highlightjs/vue-plugin@2.1.0(highlight.js@11.10.0)(vue@3.5.10):
+    resolution: {integrity: sha512-E+bmk4ncca+hBEYRV2a+1aIzIV0VSY/e5ArjpuSN9IO7wBJrzUE2u4ESCwrbQD7sAy+jWQjkV5qCCWgc+pu7CQ==}
+    peerDependencies:
+      highlight.js: ^11.0.1
+      vue: ^3
+    dependencies:
+      highlight.js: 11.10.0
+      vue: 3.5.10(typescript@5.5.4)
+    dev: true
+
   /@humanwhocodes/config-array@0.11.14:
     resolution: {integrity: sha512-3T8LkOmg45BV5FICb15QQMsyUSWrQ8AygVfC7ZG32zOalnqrilm018ZVCw0eapXux8FtA33q8PSRSstjee3jSg==}
     engines: {node: '>=10.10.0'}
@@ -1103,8 +1122,8 @@ packages:
       - yaml
     dev: true
 
-  /@jialouluo/tools@1.0.3(esbuild@0.23.0)(postcss@8.4.47):
-    resolution: {integrity: sha512-DUh2QZWGAmH18XHu+mS0viCqzNjNVAbXht611+oR0PXYDay4nUeB+lqpZEGixHpIyV4URbLQY7uIXiEBZlsQZw==}
+  /@jialouluo/tools@1.0.4(esbuild@0.23.0)(postcss@8.4.47):
+    resolution: {integrity: sha512-KgCABu6fFjuZ5Plp8mY/TExQ64xgSk8XX8NDrsS+UXsKqgO3mlROVrDI8nzJaR1uhh6BbJB6KQSc1c6fmYtDBA==}
     dependencies:
       awesome-typescript-loader: 5.2.1(typescript@5.5.4)
       tsup: 8.2.4(postcss@8.4.47)(typescript@5.5.4)
@@ -1125,7 +1144,7 @@ packages:
       - webpack-bundle-analyzer
       - webpack-dev-server
       - yaml
-    dev: true
+    dev: false
 
   /@jridgewell/gen-mapping@0.3.5:
     resolution: {integrity: sha512-IzL8ZoEDIBRWEzlCcRhOaCupYyN5gdIK+Q6fbFdPDg6HqX6jpkItn7DFIpW9LQzXG6Df9sA7+OKnq0qlz/GaQg==}
@@ -4418,6 +4437,11 @@ packages:
 
   /highlight.js@10.7.3:
     resolution: {integrity: sha512-tzcUFauisWKNHaRkN4Wjl/ZA07gENAjFl3J/c480dprkGTg5EQstgaNFqBfUqCq54kZRIEcreTsAgF/m2quD7A==}
+    dev: true
+
+  /highlight.js@11.10.0:
+    resolution: {integrity: sha512-SYVnVFswQER+zu1laSya563s+F8VDGt7o35d4utbamowvUNLLMovFqwCLSocpZTz3MgaSRA1IbqRWZv97dtErQ==}
+    engines: {node: '>=12.0.0'}
     dev: true
 
   /homedir-polyfill@1.0.3:

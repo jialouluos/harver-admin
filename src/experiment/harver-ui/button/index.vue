@@ -56,12 +56,12 @@
 
 .example_display {
 	display: flex;
+	flex-wrap: wrap;
+	align-content: flex-start;
 	align-items: flex-start;
 	width: 100%;
 	height: 100%;
 	gap: rem(1);
-	flex-wrap: wrap;
-	align-content: flex-start;
 
 	& > div {
 		display: flex;

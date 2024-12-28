@@ -130,7 +130,7 @@ const handleExpandable = () => {
 			margin: 0 rem(0.4);
 			padding: 0 rem(0.2);
 			font-size: rem(0.8);
-			color: col(strong-primary);
+			color: col(primary);
 			@include pointer;
 			@include text_hover;
 		}

@@ -35,15 +35,15 @@ const CN = CNGenerator(Symbol('button'));
 .#{$prefixCls} {
 	&-button {
 		&-rect {
-			@include button(0, 0.25, 'rect', 'sub');
+			@include button('default', 0, 0.25,0.25);
 		}
 
 		&-round {
-			@include button(0, 0.2, 'round', 'sub', 1);
+			@include button('default', 0, 0.2, 0.25);
 		}
 
 		&-small {
-			padding: rem(0.4) rem(0.5);
+			padding: rem(0.4) rem(0.7);
 			font-size: rem(0.6);
 		}
 

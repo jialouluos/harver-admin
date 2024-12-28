@@ -16,10 +16,10 @@
 	align-content: flex-start;
 	@content;
 }
-@mixin border_radius($rad: 1) {
-	border-radius: rem($rad);
+@mixin border_radius($radius: 1) {
+	border-radius: rem($radius);
 }
-@mixin grass($scale:16px) {
+@mixin grass($scale: 16px) {
 	backdrop-filter: blur($scale);
 }
 @mixin border() {
@@ -29,6 +29,7 @@
 	cursor: pointer;
 }
 @function col($name, $a: 1) {
+	// TODO 集成自带a通道的颜色值
 	@if type-of($name) == 'color' {
 		@return rgba($name, $a);
 	} @else {
@@ -41,20 +42,20 @@
 @function rootVw($rootSize) {
 	@return $rootSize * 1px;
 }
-@mixin scrollbar($color:sub) {
+@mixin scrollbar($color: primary) {
 	&::-webkit-scrollbar {
 		width: rem(0.2);
 		height: rem(0.2);
 	}
 
 	&::-webkit-scrollbar-thumb {
-		background-color: col($color, 0.4);
 		border-radius: rem(0.2);
+		background-color: col($color, 0.4);
 	}
 
 	&::-webkit-scrollbar-track {
-		background-color: col(grey-5, 0.4);
 		border-radius: rem(0.2);
+		background-color: col(grey-5, 0.4);
 	}
 }
 @mixin scrollbar_hover() {
@@ -84,15 +85,9 @@
 		}
 	}
 }
-@mixin shadow($type, $shadowFlag: false) {
-	@if $type == 'box' {
-		box-shadow: 0 rem(0.1) rem(0.4) rem(0) col(shadow, 0.2);
-	} @else if $type == 'tag' {
-		box-shadow: 0 rem(0.1) rem(0.2) rem(0) col(shadow, 0.1);
-	} @else if $type == 'text' {
-		text-shadow: 0 0 rem(1) col(primary, 0.6);
-	}
-	@if $shadowFlag {
+@mixin shadow($hover: false) {
+	box-shadow: 0 rem(0.1) rem(0.4) rem(0) col(shadow, 0.2);
+	@if $hover {
 		@include shadow_hover;
 	}
 }
@@ -107,24 +102,13 @@
 	transition: color 0.3s;
 
 	&:hover {
-		color: col(sub) !important;
+		color: col(text-highlight);
 	}
 }
-@mixin bg_hover($type: primary, $alpha: 0.5) {
+@mixin bg_hover($alpha: 1) {
 	transition: background-color 0.3s;
 
 	&:hover {
-		background-color: col($type, $alpha) !important;
-	}
-}
-@mixin after_bg_hover($type: primary, $alpha: 0.5) {
-	&::after {
-		transition: background-color 0.3s;
-	}
-
-	&:hover {
-		&::after {
-			background-color: col($type, $alpha) !important;
-		}
+		background-color: col(bg-highlight, $alpha);
 	}
 }

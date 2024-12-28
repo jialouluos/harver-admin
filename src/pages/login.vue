@@ -76,7 +76,7 @@ const onFinishFailed = () => {};
 		gap: rem(1);
 		@include border_radius;
 		@include grass;
-		@include shadow('box');
+		@include shadow;
 
 		& > div {
 			margin: 0;

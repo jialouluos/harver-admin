@@ -43,26 +43,12 @@ const CN = CNGenerator(Symbol('tag'));
 
 .harver {
 	&-tag {
-		display: inline-block;
-
-		// overflow: hidden; // 会造成合成层增加
-		padding: rem(0.1) rem(0.2);
-
-		/* width: 100%; */
-
-		/* width: auto; */
-		height: auto;
-
-		/* white-space: nowrap; // 不换行 合并多空格 换行符无效 */
-		line-height: calc(1.3);
-		font-size: rem(0.8);
-		margin-inline-end: rem(0.4);
-		@include border_radius(0.2);
+		@include tag;
 
 		&-primary {
 			border: 1px solid col(primary);
-			background-color: col(bg-primary);
-			color: col(strong-primary);
+			background-color: col(bg-highlight);
+			color: col(primary);
 		}
 
 		&-sub {

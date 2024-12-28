@@ -170,7 +170,7 @@ const updateFile = async (article: IArticleCard) => {
 
 .#{$prefixCls} {
 	&-card {
-		@include card(0.5, 0.25, 'round', 'simple');
+		@include card(0.5, 0.25, 'simple');
 		@include flex_wrap;
 
 		flex: 20%;
@@ -225,7 +225,7 @@ const updateFile = async (article: IArticleCard) => {
 					width: rem(1.5);
 					height: rem(1.5);
 					@include flex_center;
-					@include supper_border('round', 'sub', 0.25, 0.1, 0.75);
+					@include supper_border('default', 0.25, 0.1, 0.75);
 					@include pointer;
 
 					background-color: col(grey-1);
@@ -258,7 +258,7 @@ const updateFile = async (article: IArticleCard) => {
 
 				/* background-color: col(grey-2); */
 				@include border_radius(0.5);
-				@include bg_hover(primary, 0.2);
+				@include bg_hover(0.2);
 
 				& > div {
 					position: relative;
@@ -267,7 +267,7 @@ const updateFile = async (article: IArticleCard) => {
 					/* overflow: auto; */
 					padding: rem(0.5) rem(0.3) rem(0.5) rem(0.5);
 					height: rem(4);
-					@include scrollbar(strong-primary);
+					@include scrollbar(primary);
 					@include scrollbar_hover;
 
 					& span {
@@ -305,7 +305,7 @@ const updateFile = async (article: IArticleCard) => {
 			}
 
 			& > div {
-				@include scrollbar(strong-primary);
+				@include scrollbar(primary);
 				@include scrollbar_hover;
 				@include flex_wrap;
 
@@ -334,7 +334,7 @@ const updateFile = async (article: IArticleCard) => {
 
 			& > button {
 				width: 100%;
-				color: col(strong-primary);
+				color: col(primary);
 			}
 		}
 	}

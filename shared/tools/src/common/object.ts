@@ -15,6 +15,9 @@ export const isPositiveInit = (target: any): target is number => {
 export const isArray = <T>(target: unknown): target is T[] => {
 	return Array.isArray(target);
 };
+export const isClient = () => {
+	return typeof window !== 'undefined';
+};
 /**
  *
  * @param target
@@ -41,12 +44,12 @@ export const deepHandleObjectFn = <
 	}
 ): R => {
 	const { handleFn = obj => obj, filterFn = () => true, handleNextNodes = obj => obj } = options;
-	const newObject = handleFn(target) ;
+	const newObject = handleFn(target);
 
-	if (target[prop] || newObject[prop] ) {
+	if (target[prop] || newObject[prop]) {
 		if (isFalsy(target[prop]) && isFalsy(newObject[prop])) return newObject as R;
 
-		const _children = newObject[prop] ||  target[prop] ;
+		const _children = newObject[prop] || target[prop];
 
 		if (isArray<T>(_children)) {
 			const newValue = _children
@@ -72,7 +75,7 @@ export const deepFilterTree = <
 	options: {
 		filterFn?: (obj: T) => boolean;
 	}
-): T | T[]|undefined => {
+): T | T[] | undefined => {
 	const { filterFn = () => true } = options;
 
 	const resultArray: T[] = [];
@@ -88,12 +91,12 @@ export const deepFilterTree = <
 	}
 
 	if (Array.isArray(target)) {
-		return resultArray
+		return resultArray;
 	} else {
 		return filterFn(target)
 			? {
 					...target,
-					[prop]:  isFalsy(resultArray) ? undefined : resultArray
+					[prop]: isFalsy(resultArray) ? undefined : resultArray,
 			  }
 			: resultArray;
 	}

@@ -1,0 +1,65 @@
+/**
+*@主色系 blue
+*@副色系 plum
+*@底色系 slate
+* */
+
+[harver-theme='light']:root {
+	--primary-1: 251, 253, 255;
+	--primary-2: 244, 250, 255;
+	--primary-3: 230, 244, 254;
+	--primary-4: 213, 239, 255;
+	--primary-5: 194, 229, 255;
+	--primary-6: 172, 216, 252;
+	--primary-7: 142, 200, 246;
+	--primary-8: 94, 177, 239;
+	--primary-9: 0, 144, 255;
+	--primary-10: 5, 136, 240;
+	--primary-11: 13, 116, 207;
+	--primary-12: 17, 50, 100;
+	--sub-1: 254, 252, 255;
+	--sub-2: 253, 247, 253;
+	--sub-3: 251, 235, 251;
+	--sub-4: 247, 222, 248;
+	--sub-5: 242, 209, 243;
+	--sub-6: 233, 194, 236;
+	--sub-7: 222, 173, 227;
+	--sub-8: 207, 145, 216;
+	--sub-9: 171, 74, 186;
+	--sub-10: 161, 68, 175;
+	--sub-11: 149, 62, 163;
+	--sub-12: 83, 25, 93;
+	--slate-1: 252, 252, 253;
+	--slate-2: 249, 249, 251;
+	--slate-3: 240, 240, 243;
+	--slate-4: 232, 232, 236;
+	--slate-5: 224, 225, 230;
+	--slate-6: 217, 217, 224;
+	--slate-7: 205, 206, 214;
+	--slate-8: 185, 187, 198;
+	--slate-9: 139, 141, 152;
+	--slate-10: 128, 131, 141;
+	--slate-11: 96, 100, 108;
+	--slate-12: 28, 32, 36;
+	--primary: var(--primary-7);
+	--sub: var(--sub-7);
+	--bg: var(--slate-1);
+	--box-bg: var(--slate-2);
+	--bg-highlight: var(--primary-3);
+	--text-color: var(--slate-12);
+	--text-sub-color: var(--slate-10);
+	--text-highlight: var(--primary-8);
+	--shadow: var(--slate-12);
+}
+
+[harver-theme='dark']:root {
+	--primary: var(--primary-7);
+	--sub: var(--sub-7);
+	--bg: var(--slate-1);
+	--box-bg: var(--slate-2);
+	--bg-highlight: var(--primary-2);
+	--text-color: var(--slate-12);
+	--text-sub-color: var(--slate-10);
+	--text-highlight: var(--primary-8);
+	--shadow: var(--slate-12);
+}

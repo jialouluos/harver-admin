@@ -13,6 +13,7 @@ export const useBasicStore = defineStore(PACKAGE_ENUM.BASE, {
 	state: () => {
 		return {
 			isEmbed: false,
+			demoKey: '',
 		};
 	},
 	getters: {},
@@ -21,12 +22,8 @@ export const useBasicStore = defineStore(PACKAGE_ENUM.BASE, {
 			const route = useRoute();
 
 			const embedString = route.query.embed;
-			if (embedString === 'true') {
-				this.isEmbed = true;
-			} else {
-				this.isEmbed = false;
-			}
-			console.log(this.isEmbed);
+			this.isEmbed = embedString === 'true';
+			this.demoKey = typeof route.query.demoKey === 'string' ? route.query.demoKey : '';
 		},
 	},
 });

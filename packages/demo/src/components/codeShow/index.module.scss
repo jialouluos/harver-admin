@@ -94,7 +94,7 @@ $msgHeight: 20px;
 		min-width: 80vw;
 		height: auto;
 		background: col(bg);
-		@include shadow('box');
+		@include shadow;
 	}
 }
 
