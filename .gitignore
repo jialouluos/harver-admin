@@ -12,7 +12,6 @@ mainAppDist
 dist
 dist-ssr
 *.local
-.npmrc
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
