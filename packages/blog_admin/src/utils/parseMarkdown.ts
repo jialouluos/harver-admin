@@ -26,9 +26,9 @@ export interface IArticleMeta {
 	keywords: string;
 }
 export interface IArticleCard extends IArticleMeta {
-	pv: number;
+	pv?: number;
 	body: string;
-	create_time: number;
+	create_time?: number;
 	update_time?: number;
 	id?: number;
 }
@@ -104,6 +104,27 @@ export const parseMarkDown = (context: string, meta: ArticleMeta): Record<TArtic
 	return Object.keys(parseMap).reduce((pre, key) => {
 		const value = parseMap[key as keyof typeof parseMap];
 		pre[key as TArticleFiled] = value.generateFn(meta[key], context, meta) || value.defaultFn(meta[key], context, meta);
+
 		return pre;
 	}, {} as Record<TArticleFiled, any>);
+};
+
+export const isEmpty = (val: unknown) => {
+	if (Array.isArray(val)) return !val.length;
+	if (Number.isFinite(val)) return false;
+	if (val === false || val === true) return false;
+	return !val;
+};
+
+export const markdownMerge = (newVal: IArticleCard, oldVal: IArticleCard): IArticleCard => {
+	const newFilterValues = Object.keys(newVal)
+		.filter(key => !isEmpty(newVal[key as keyof IArticleCard]))
+		.reduce((pre, cur) => {
+			(pre as any)[cur] = newVal[cur as keyof IArticleCard];
+			return pre;
+		}, {} as IArticleCard);
+	return {
+		...oldVal,
+		...newFilterValues,
+	};
 };

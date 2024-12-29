@@ -1,10 +1,10 @@
 <script lang="ts" setup>
 import { computed, reactive, toRaw } from 'vue';
 import { Form } from 'ant-design-vue';
-import { IArticleCard } from '@blog_admin/utils/parseMarkdown';
+import { IArticleCard, parseMarkDown, markdownMerge } from '@blog_admin/utils/parseMarkdown';
 import { client } from '@blog_admin/utils/client';
 import { watch } from 'vue';
-
+import { useUploadFileByPick } from '@jialouluo/tools';
 interface IState {
 	subLoading: boolean;
 	catalogOptions: { label: string; value: string; disabled: boolean }[];
@@ -15,9 +15,11 @@ const useForm = Form.useForm;
 const props = withDefaults(
 	defineProps<{
 		data: IArticleCard;
+		operateType: 'update' | 'add';
 		onOk: (data: IArticleCard) => Promise<any>;
 	}>(),
 	{
+		operateType: 'add',
 		data: () => ({} as IArticleCard),
 	}
 );
@@ -73,6 +75,23 @@ const handleCancel = () => {
 	open.value = false;
 	resetFields();
 };
+
+const handleUpload = async () => {
+	const pickers = await useUploadFileByPick({ type: 'single', scope: window.blogAdminWindow });
+	const picker = pickers[0];
+	if (!picker) return;
+	console.log(picker,'picker');
+	const result = {
+		body: picker.context,
+		update_time: new Date().getTime(),
+		//下面的字段都支持md文章中配置
+		...parseMarkDown(picker.context, picker.meta),
+	};
+	console.log(result);
+	Object.assign(formState, markdownMerge(result, toRaw(formState)));
+	console.log(formState);
+};
+
 const getCatalogList = async () => {
 	state.subLoading = true;
 	const data = await client.getCatalogAllList();
@@ -205,6 +224,15 @@ defineExpose({
 					<a-form-item label="发布">
 						<a-switch v-model:checked="formState.publish" />
 					</a-form-item>
+				</a-col>
+				<a-col
+					:span="8"
+					v-if="operateType === 'update'">
+					<harver-button
+						@click="handleUpload()"
+						:size="'small'"
+						>文件更新</harver-button
+					>
 				</a-col>
 			</a-row>
 			<a-row :gutter="24">

@@ -168,6 +168,7 @@
 	<ArticleInfo
 		v-if="editDataSource"
 		ref="articleFormRef"
+		:operateType="'update'"
 		:onOk="updateArticle"
 		:data="editDataSource"
 		v-model:open="isOpenDialog" />

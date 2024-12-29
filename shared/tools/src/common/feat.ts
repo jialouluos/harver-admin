@@ -184,8 +184,10 @@ const handleContext = (
 	}
 ): { meta: Record<string, any>; context: string } => {
 	if (nameInfo.type === NAME_INFO_ENUM.TEXT) {
+		console.log(123123,/(?<content>.*)##.*Meta.*```json(?<meta>.*)```/s.test(context));
 		if (/(?<content>.*)##.*Meta.*```json(?<meta>.*)```/s.test(context)) {
 			try {
+				console.log({ meta: JSON.parse(RegExp.$2.trim()), context: RegExp.$1 },'32122222');
 				return { meta: JSON.parse(RegExp.$2.trim()), context: RegExp.$1 };
 			} catch {
 				console.log('meta信息格式异常');
