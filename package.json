@@ -36,6 +36,7 @@
 		"cz-customizable": "^7.2.1",
 		"dayjs": "^1.11.3",
 		"detect-port": "^1.6.1",
+		"disable-devtool": "^0.3.8",
 		"enquirer": "^2.4.1",
 		"esbuild": "^0.23.0",
 		"esbuild-plugin-external-global": "^1.0.1",

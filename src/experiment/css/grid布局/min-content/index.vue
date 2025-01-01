@@ -10,7 +10,7 @@ import demo3 from './codes/demo3.vue';
 <template>
 	<ArticleLayout
 		:articleTitle="'Grid和Flex的最小内容尺寸'"
-		:articleUrl="'https://harver.cn/article/1'">
+		:articleUrl="'https://www.harver.cn/article/107'">
 		<!-- <p>
 			元素盒子上下文格式（视觉格式化模型）在没有发生变化的条件之下，min-width 取值为 auto 时，浏览器计算出来的值是
 			0。如果使用 CSS Flexbox 或 CSS Grid 来构建布局，我们就需要改变元素的 display 属性的值：

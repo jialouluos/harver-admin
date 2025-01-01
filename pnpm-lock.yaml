@@ -53,6 +53,9 @@ importers:
       detect-port:
         specifier: ^1.6.1
         version: 1.6.1
+      disable-devtool:
+        specifier: ^0.3.8
+        version: 0.3.8
       enquirer:
         specifier: ^2.4.1
         version: 2.4.1
@@ -3340,6 +3343,10 @@ packages:
     engines: {node: '>=8'}
     dependencies:
       path-type: 4.0.0
+
+  /disable-devtool@0.3.8:
+    resolution: {integrity: sha512-spwifiBbcgDTVEdzoWyH3NjZ1he/OgJmUNXvMgEffJ8Fh2B6mEJjCCEV25wlJSyNXEdGyzKFFRXh4kVDRK/wCg==}
+    dev: true
 
   /dns-packet@5.6.1:
     resolution: {integrity: sha512-l4gcSouhcgIKRvyy99RNVOgxXiicE+2jZoNmaNmZ6JXiGajBOJAesk1OBlJuM5k2c+eudGdLxDqXuPCKIj6kpw==}
