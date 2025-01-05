@@ -22,7 +22,7 @@ onMounted(() => {
 	</a-layout-content>
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @import '@jialouluo/tools/src/components/styles/global';
 
 .content {
@@ -49,12 +49,12 @@ onMounted(() => {
 }
 
 .embed {
+	overflow: auto;
 	position: absolute;
 	left: 0;
 	top: 0;
 	width: 100%;
 	height: 100%;
-	overflow: auto;
 	@include scrollbar_hover;
 	@include scrollbar;
 }

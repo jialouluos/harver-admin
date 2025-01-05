@@ -1,19 +1,50 @@
 <template>
-	<div class="flex_root">
-		<div>测试</div>
-		<div>测试</div>
+	<div class="content_box">
+		<div>我是测试我是测试我是测试我是测试我是测试</div>
+		<div>我是测试我是测试我是测试我是测试我是测试</div>
+		<div>hello world</div>
+		<div>hello world</div>
 		<div>
-			<div style="min-width: 500px">321</div>
+			<img src="/public/imgs/small-image.jpg" style="width: 100px;" />
+			<p>
+				我是测试我是测试我是测试我是测我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试试我是测试
+			</p>
 		</div>
-		<div>测试</div>
 	</div>
 </template>
 <style lang="scss" scoped>
-.flex_root {
+.content_box {
 	display: flex;
+	gap: 20px;
 
-	& > div {
-		flex: 1 1 0%;
+	& > :nth-child(1) {
+		width: max-content;
+		background-color: bisque;
+		word-break: initial;
+	}
+
+	& > :nth-child(2) {
+		width: min-content;
+		background-color: aquamarine;
+		word-break: initial;
+	}
+
+	& > :nth-child(3) {
+		width: min-content;
+		background-color: aquamarine;
+		word-break: initial;
+	}
+
+	& > :nth-child(4) {
+		width: min-content;
+		background-color: aquamarine;
+		word-break: break-all;
+	}
+
+	& > :nth-child(5) {
+		width: min-content;
+		background-color: beige;
+		word-break: initial;
 	}
 }
 </style>

@@ -6,6 +6,8 @@ import demo2String from './codes/demo2.vue?raw';
 import demo2 from './codes/demo2.vue';
 import demo3String from './codes/demo3.vue?raw';
 import demo3 from './codes/demo3.vue';
+import demo4String from './codes/demo4.vue?raw';
+import demo4 from './codes/demo4.vue';
 </script>
 <template>
 	<ArticleLayout
@@ -55,7 +57,7 @@ import demo3 from './codes/demo3.vue';
 			<demo2 />
 			<template #desc>
 				<div style="display: flex; justify-content: center; width: 100%">
-					<harver-blockquote>demo2</harver-blockquote>
+					<harver-blockquote>固定尺寸</harver-blockquote>
 				</div>
 			</template>
 		</harver-b-code>
@@ -77,5 +79,25 @@ import demo3 from './codes/demo3.vue';
 			（或 flex: 1 1 0% 或 flex: 1 1 100% ）和在网格轨道设置 1fr 时，最好在对应的项目（Flex 项目或网格项目）上显式设置
 			min-width 的值为 0 ；而且使用 minmax(0, 1fr) 来替代 1fr 。这样你编写出的 CSS 更具防御性，代码也更健壮。
 		</p> -->
+		<harver-b-code
+			:code="demo3String"
+			:demoKey="'min-content-demo-3'">
+			<demo3 />
+			<template #desc>
+				<div style="display: flex; justify-content: center; width: 100%">
+					<harver-blockquote>高度展开渐变</harver-blockquote>
+				</div>
+			</template>
+		</harver-b-code>
+		<harver-b-code
+			:code="demo4String"
+			:demoKey="'min-content-demo-4'">
+			<demo4 />
+			<template #desc>
+				<div style="display: flex; justify-content: center; width: 100%">
+					<harver-blockquote>min-width:auto问题(等宽布局和撑破弹性布局)</harver-blockquote>
+				</div>
+			</template>
+		</harver-b-code>
 	</ArticleLayout>
 </template>
