@@ -53,6 +53,9 @@ importers:
       detect-port:
         specifier: ^1.6.1
         version: 1.6.1
+      devtools-detector:
+        specifier: ^2.0.22
+        version: 2.0.22
       disable-devtool:
         specifier: ^0.3.8
         version: 0.3.8
@@ -2960,6 +2963,10 @@ packages:
       - typescript
     dev: true
 
+  /compare-versions@3.6.0:
+    resolution: {integrity: sha512-W6Af2Iw1z4CB7q4uU4hv646dW9GQuBM+YpC0UvUCWSD8w90SJjp+ujJuXaEMtAXBtSqGfMPuFOVn4/+FlaqfBA==}
+    dev: true
+
   /compatx@0.1.8:
     resolution: {integrity: sha512-jcbsEAR81Bt5s1qOFymBufmCbXCXbk0Ql+K5ouj6gCyx2yHlu6AgmGIi9HxfKixpUDO5bCFJUHQ5uM6ecbTebw==}
     dev: true
@@ -3331,6 +3338,12 @@ packages:
       debug: 4.3.7
     transitivePeerDependencies:
       - supports-color
+    dev: true
+
+  /devtools-detector@2.0.22:
+    resolution: {integrity: sha512-m5Smh4pnrpoS1IROPruIogDQ+gCUu9CO2bAJtIo003OLJFBd3OCpSLVM5CgqPnEOF75jFFze61twLD5NgLguiA==}
+    dependencies:
+      compare-versions: 3.6.0
     dev: true
 
   /diff@4.0.2:

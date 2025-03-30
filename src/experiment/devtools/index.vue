@@ -8,12 +8,22 @@ const isSuccess = ref(false);
 const route = useRoute();
 const detectors = ((route.query.detectors ?? '') as string).split(',').filter(Boolean).map(Number) as any;
 console.log(detectors, 'detectors');
+console.log(
+	'%c+',
+	`
+  background-image: url(http://localhost:3000/api/blog/article/front/list);
+  background-size: contain;
+  background-repeat: no-repeat;
+  color: transparent;`
+);
+
 if (detectors && Array.isArray(detectors) && detectors.length) {
 	DisableDevtool({
 		// 7可以监听到安卓 vconsole
 		// 6可以监听到 PC
 		disableMenu: false,
 		detectors: detectors,
+		clearLog: false,
 		ondevtoolopen: type => {
 			const info = 'devtool opened!; type =' + type;
 			value.value = type;

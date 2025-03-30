@@ -20,7 +20,7 @@ import 'highlight.js/styles/atom-one-dark.css'; // 样式
 import 'highlight.js/lib/common'; // 依赖包
 import hljsVuePlugin from '@highlightjs/vue-plugin'; // 支持vue3的组件
 const pinia = createPinia();
-
+debugger
 pinia.use(piniaPluginPersistedstate);
 const app = createApp(App);
 // console.log(import.meta.env);
