@@ -39,7 +39,7 @@
 		"devtools-detector": "^2.0.22",
 		"disable-devtool": "^0.3.8",
 		"enquirer": "^2.4.1",
-		"esbuild": "^0.23.0",
+		"esbuild": "^0.25.3",
 		"esbuild-plugin-external-global": "^1.0.1",
 		"execa": "^9.3.0",
 		"highlight.js": "^11.10.0",

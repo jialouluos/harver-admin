@@ -1,11 +1,14 @@
 <script lang="ts">
-import { defineComponent, onMounted, reactive, watch } from 'vue';
-import { E_SupportType, init } from '@/extraTools/hooks/useInjectGlobalState';
-import { init as initPIP } from '@/extraTools/hooks/usePictureInPicture';
-
+import { defineComponent, onMounted, reactive, ref } from 'vue';
+import { init } from '@/extraTools/hooks/useInjectGlobalState';
 import { Form, FormItem, Input, Checkbox, Modal, Select } from 'ant-design-vue';
-
 import { useHeartBeat } from '../../hooks/useHeartBeat';
+import EntryCatchModal from './entry-catch-modal.vue';
+import PIPModal from './pip-modal.vue';
+enum FeatureType {
+	PIP = 'pip',
+	ENTRY_CATCH = 'entryCatch',
+}
 
 export default defineComponent({
 	name: 'Main',
@@ -16,6 +19,8 @@ export default defineComponent({
 		Checkbox,
 		Modal,
 		Select,
+		PIPModal,
+		EntryCatchModal,
 	},
 	setup() {
 		const aliyunel = document.createElement('link');
@@ -23,21 +28,14 @@ export default defineComponent({
 		aliyunel.href = '//at.alicdn.com/t/c/font_4628072_do7sjinevcu.css';
 		aliyunel.type = 'text/css';
 		document.head.append(aliyunel);
+
+		const pipModalRef = ref();
+		const entryCatchRef = ref();
+
 		const state = reactive({
 			open: false,
-			pipConfig: {
-				showDialog: false,
-				fromState: {
-					scrolling: false,
-					scrollingInfo: '',
-					target: '',
-					customScrollingTarget: false,
-					supportType: E_SupportType.NONE,
-					customTarget: false,
-					supportTarget: E_SupportType.NONE,
-				},
-			},
 		});
+
 		useHeartBeat('__harver_header_beat__test__', () => {}, {
 			space: 2000,
 		});
@@ -45,59 +43,34 @@ export default defineComponent({
 		onMounted(() => {
 			init();
 		});
+
 		const onClickIcon = () => {
 			state.open = !state.open;
 		};
-		const handlePIP = () => {
-			console.info(state.pipConfig.fromState);
-			const hw = initPIP();
-			closePIPDialog();
-			hw.hooks.usePictureInPicture?.(state.pipConfig.fromState);
-		};
-		const openPIPDialog = () => {
-			state.pipConfig.showDialog = true;
-		};
-		const closePIPDialog = () => {
-			state.pipConfig.showDialog = false;
-		};
 
-		watch(
-			() => state.pipConfig.fromState.scrolling,
-			newValue => {
-				if (!newValue) {
-					state.pipConfig.fromState.scrollingInfo = '';
-					state.pipConfig.fromState.supportType = E_SupportType.NONE;
+		const openDialog = (type: FeatureType) => {
+			switch (type) {
+				case FeatureType.PIP: {
+					pipModalRef.value.openDialog();
+					return;
+				}
+				case FeatureType.ENTRY_CATCH: {
+					entryCatchRef.value.openDialog();
+					return;
+				}
+				default: {
+					return;
 				}
 			}
-		);
-		watch(
-			() => state.pipConfig.fromState.customScrollingTarget,
-			() => {
-				state.pipConfig.fromState.scrollingInfo = '';
-				state.pipConfig.fromState.supportType = E_SupportType.NONE;
-			}
-		);
-		watch(
-			() => state.pipConfig.fromState.customTarget,
-			() => {
-				state.pipConfig.fromState.target = '';
-				state.pipConfig.fromState.supportTarget = E_SupportType.NONE;
-			}
-		);
-		const supportTypeOptions = reactive([
-			{
-				value: E_SupportType.BILIBILI,
-				label: 'b站',
-			},
-		]);
+		};
 
 		return {
+			FeatureType,
+			pipModalRef,
+			entryCatchRef,
 			onClickIcon,
-			handlePIP,
-			closePIPDialog,
-			openPIPDialog,
+			openDialog,
 			state,
-			supportTypeOptions,
 		};
 	},
 });
@@ -109,87 +82,27 @@ export default defineComponent({
 			@click="onClickIcon"></i>
 		<div class="tools_box">
 			<ul>
-				<li @click="openPIPDialog">画中画</li>
+				<li @click="() => openDialog(FeatureType.PIP)">画中画</li>
+				<li @click="() => openDialog(FeatureType.ENTRY_CATCH)">资源快速捕获</li>
 			</ul>
 		</div>
 	</div>
-	<Modal
-		okText="确认"
-		cancelText="取消"
-		class="modal"
-		v-model:open="state.pipConfig.showDialog"
-		title="画中画启用配置"
-		@ok="handlePIP">
-		<Form
-			:model="state.pipConfig.fromState"
-			name="pip_form"
-			:label-col="{ span: 8 }"
-			:wrapper-col="{ span: 16 }"
-			autocomplete="off">
-			<FormItem
-				name="customTarget"
-				label="开启自定义节点">
-				<Checkbox v-model:checked="state.pipConfig.fromState.customTarget"></Checkbox>
-			</FormItem>
-			<FormItem
-				v-if="!state.pipConfig.fromState.customTarget"
-				name="supportTarget"
-				label="已支持网站">
-				<Select
-					:options="supportTypeOptions"
-					v-model:value="state.pipConfig.fromState.supportTarget"
-					placeholder="已支持画中画预设网站" />
-			</FormItem>
-
-			<FormItem
-				v-if="state.pipConfig.fromState.customTarget"
-				name="target"
-				label="画中画根节点信息">
-				<Input
-					v-model:value="state.pipConfig.fromState.target"
-					placeholder="画中画根节点信息(节点id或者类名)" />
-			</FormItem>
-
-			<FormItem
-				name="scrolling"
-				label="开启画中画弹幕">
-				<Checkbox v-model:checked="state.pipConfig.fromState.scrolling"></Checkbox>
-			</FormItem>
-			<FormItem
-				v-if="state.pipConfig.fromState.scrolling"
-				name="customScrollingTarget"
-				label="自定义弹幕根节点">
-				<Checkbox v-model:checked="state.pipConfig.fromState.customScrollingTarget"></Checkbox>
-			</FormItem>
-			<FormItem
-				v-if="state.pipConfig.fromState.scrolling && state.pipConfig.fromState.customScrollingTarget"
-				name="scrollingInfo"
-				label="弹幕根节点信息">
-				<Input
-					placeholder="弹幕根节点信息(节点id或者类名)"
-					v-model:value="state.pipConfig.fromState.scrollingInfo" />
-			</FormItem>
-			<FormItem
-				v-if="state.pipConfig.fromState.scrolling && !state.pipConfig.fromState.customScrollingTarget"
-				name="supportType"
-				label="已支持网站">
-				<Select
-					:options="supportTypeOptions"
-					v-model:value="state.pipConfig.fromState.supportType"
-					placeholder="已支持弹幕网站" />
-			</FormItem>
-		</Form>
-	</Modal>
+	<PIPModal
+		ref="pipModalRef"
+		v-if="state.open" />
+	<EntryCatchModal
+		ref="entryCatchRef"
+		v-if="state.open" />
 </template>
 <style lang="css" scoped>
 .show {
-	transition: all 0.3s;
 	transform: translate3d(0%, 25%, 0);
+	transition: all 0.3s;
 }
 
 .hidden {
-	transition: all 0.3s;
 	transform: translate3d(100%, 25%, 0);
+	transition: all 0.3s;
 }
 
 :global(:root) {
@@ -210,11 +123,11 @@ export default defineComponent({
 }
 
 .tools_root {
-	position: fixed;
-	top: 2rem;
-	right: 2rem;
-	z-index: 99999;
 	display: flex;
+	position: fixed;
+	right: 2rem;
+	top: 2rem;
+	z-index: 99999;
 	justify-content: center;
 	align-items: center;
 	width: auto;
@@ -223,10 +136,10 @@ export default defineComponent({
 
 .tools_root .tools_icon {
 	position: relative;
+	cursor: pointer;
 	font-size: 2rem;
 	color: #808080;
 	transition: all 0.3s;
-	cursor: pointer;
 }
 
 .tools_root .tools_icon:hover {
@@ -234,68 +147,68 @@ export default defineComponent({
 }
 
 .tools_root .tools_box {
-	position: relative;
-	z-index: 9999;
 	display: flex;
+	position: relative;
+	inset: 0;
+	z-index: 9999;
+	flex-wrap: wrap;
 	justify-content: center;
 	align-items: center;
 	padding: 0.5rem;
+	border: 1px solid rgb(205 227 255 / 90%);
+	border-radius: 0.5rem;
 	width: 10rem;
 	height: auto;
 	background: radial-gradient(rgb(60 221 255 / 40%) 0%, rgb(213 201 255 / 40%) 90%);
-	border: 1px solid rgb(205 227 255 / 90%);
-	border-radius: 0.5rem;
 	box-shadow: 0 0.1rem 0.4rem 0 rgb(var(--shadow) / 20%);
 	backdrop-filter: blur(16px);
-	inset: 0;
-	flex-wrap: wrap;
 }
 
 .tools_root .tools_box::after {
 	position: absolute;
-	top: 0.125rem;
 	left: 0.125rem;
+	top: 0.125rem;
 	z-index: 0;
+	border-radius: 0.5rem;
 	width: calc(100% - 0.25rem);
 	height: calc(100% - 0.25rem);
 	background: radial-gradient(circle at 50% 50%, rgb(255 255 255 / 40%) 0%, rgb(60 221 255 / 10%) 90%);
-	content: '';
-	pointer-events: none;
-	border-radius: 0.5rem;
 	backdrop-filter: blur(16px);
+	pointer-events: none;
+	content: '';
 }
 
 .tools_root .tools_box::before {
 	position: absolute;
-	top: 0.25rem;
 	left: 0.25rem;
+	top: 0.25rem;
 	z-index: 1;
+	border-radius: 0.5rem;
 	width: calc(100% - 0.5rem);
 	height: calc(100% - 0.5rem);
 	background-color: initial;
-	content: '';
 	pointer-events: none;
-	border-radius: 0.5rem;
+	content: '';
 }
 
 .tools_root .tools_box > * {
 	position: relative;
 	z-index: 9;
 	padding: 0.4rem;
-	background-color: #fff;
 	border-radius: 0.5rem;
+	background-color: #fff;
 	box-shadow: 0 0.1rem 0.4rem 0 rgb(var(--shadow) / 20%);
 }
 
 .tools_root .tools_box ul {
 	display: flex;
+	list-style: none;
+	flex-wrap: wrap;
 	justify-content: center;
 	justify-content: flex-start;
 	align-items: center;
 	margin: 0;
 	width: 100%;
-	list-style: none;
-	flex-wrap: wrap;
 	gap: 0.4rem;
 }
 
@@ -305,73 +218,73 @@ export default defineComponent({
 	justify-content: flex-start;
 	align-items: center;
 	padding: 0 0.5rem;
+	border-radius: 0.5rem;
 	width: 100%;
 	min-height: 2rem;
-	color: rgb(var(--sub));
 	background-color: rgb(var(--grey-3));
-	border-radius: 0.5rem;
-	transition: all 0.3s;
 	cursor: pointer;
+	color: rgb(var(--sub));
+	transition: all 0.3s;
 }
 
 .tools_root .tools_box ul li:hover {
-	color: rgb(var(--sub));
 	background-color: rgb(var(--primary));
+	color: rgb(var(--sub));
 }
 
 .modal {
+	display: flex;
 	position: relative;
 	position: absolute;
+	inset: 0;
 	z-index: 9999;
-	display: flex;
+	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-	padding: 0.5rem;
 	margin: auto;
+	padding: 0.5rem;
+	border: 1px solid rgb(205 227 255 / 90%);
+	border-radius: 0.5rem;
 	width: 60vw !important;
 	height: 60vh !important;
 	background: radial-gradient(rgb(60 221 255 / 40%) 0%, rgb(213 201 255 / 40%) 90%);
-	border: 1px solid rgb(205 227 255 / 90%);
-	border-radius: 0.5rem;
 	box-shadow: 0 0.1rem 0.4rem 0 rgb(var(--shadow) / 20%);
 	backdrop-filter: blur(16px);
-	inset: 0;
-	flex-direction: column;
 }
 
 .modal::after {
 	position: absolute;
-	top: 0.125rem;
 	left: 0.125rem;
+	top: 0.125rem;
 	z-index: 0;
+	border-radius: 0.5rem;
 	width: calc(100% - 0.25rem);
 	height: calc(100% - 0.25rem);
 	background: radial-gradient(circle at 50% 50%, rgb(255 255 255 / 40%) 0%, rgb(60 221 255 / 10%) 90%);
-	content: '';
-	pointer-events: none;
-	border-radius: 0.5rem;
 	backdrop-filter: blur(16px);
+	pointer-events: none;
+	content: '';
 }
 
 .modal::before {
 	position: absolute;
-	top: 0.25rem;
 	left: 0.25rem;
+	top: 0.25rem;
 	z-index: 1;
+	border-radius: 0.5rem;
 	width: calc(100% - 0.5rem);
 	height: calc(100% - 0.5rem);
 	background-color: initial;
-	content: '';
 	pointer-events: none;
-	border-radius: 0.5rem;
+	content: '';
 }
 
 .modal > * {
 	position: relative;
 	z-index: 9;
 	padding: 1rem;
-	background-color: #fff;
 	border-radius: 0;
+	background-color: #fff;
 	box-shadow: 0 0.1rem 0.4rem 0 rgb(var(--shadow) / 20%);
 }
 </style>

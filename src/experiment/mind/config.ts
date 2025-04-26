@@ -1,11 +1,11 @@
 import { AppRouteModule } from '@/types/Route';
 
 export default <AppRouteModule>{
-	path: 'dev-tools',
-	name: 'dev-tools',
+	path: 'mind',
+	name: 'mind',
 	component: () => import('./index.vue'),
 	meta: {
-		title: '开发者工具唤起监听',
+		title: '思维导图开发',
 		order: 1,
 		isMenu: true,
 		inMicro: false,

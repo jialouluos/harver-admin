@@ -6,7 +6,7 @@ const prefixCode = (code: string = '', importCode: string = '', importMapCode: s
     // @version      0.8.2
     // @description  浩文自用
     // @author       harver
-    // @match        https://www.bilibili.com/video/*
+    // @match        *
     // @grant        none
     // @run-at document-idle
     // ==/UserScript==

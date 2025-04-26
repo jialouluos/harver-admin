@@ -1,0 +1,22 @@
+{
+	"name": "@jialouluo/mind",
+	"version": "1.0.0",
+	"description": "",
+	"main": "./dist/es/index.mjs",
+	"type": "module",
+	"scripts": {
+		"build": "vite build"
+	},
+	"exports": {
+		".": {
+			"import": "./dist/es/index.js"
+		}
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"dependencies": {
+		"@svgdotjs/svg.js": "^3.2.4",
+		"uuid": "^11.1.0"
+	}
+}
